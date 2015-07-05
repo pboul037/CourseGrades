@@ -22,21 +22,129 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="js/bootstrap-3.3.4/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>CourseGrades</title>
     </head>
     <body>
-        <div class="app">
-            <h1>CourseGrades</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">App in development...</p>
-                <h2 class="event received">Hello World!!!</h2>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Brand</a>
+                <p class="navbar-text">Current Page</p>
             </div>
-        </div>
-        <script type="text/javascript" src="phonegap.js"></script>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="container">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Automn 2015
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                 <ul class="list-group">
+                      <li class="list-group-item">Course A</li>
+                      <li class="list-group-item">Course B</li>
+                      <li class="list-group-item">Course C</li>
+                      <li class="list-group-item">Course D</li>
+                      <li class="list-group-item">Course E</li>
+                    </ul>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Summer 2015
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <ul class="list-group">
+                      <li class="list-group-item">Course A</li>
+                      <li class="list-group-item">Course B</li>
+                      <li class="list-group-item">Course C</li>
+                      <li class="list-group-item">Course D</li>
+                      <li class="list-group-item">Course E</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+<div class="tabbable-panel">
+				<div class="tabbable-line tabs-below">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_below_1">
+							<p>
+								I'm in Tab 1.
+							</p>
+							<p>
+								Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
+							</p>
+							<p>
+								Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat dolor in hendrerit in vulputate velit esse molestie consequat.
+							</p>
+						</div>
+						<div class="tab-pane" id="tab_below_2">
+							<p>
+								Howdy, I'm in Tab 2.
+							</p>
+							<p>
+								Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
+							</p>
+						</div>
+						<div class="tab-pane" id="tab_below_3">
+							<p>
+								Howdy, I'm in Tab 3.
+							</p>
+							<p>
+								Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate.
+							</p>
+						</div>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#tab_below_1" data-toggle="tab">
+							Tab 1 </a>
+						</li>
+						<li class="">
+							<a href="#tab_below_2" data-toggle="tab">
+							Tab 2 </a>
+						</li>
+						<li>
+							<a href="#tab_below_3" data-toggle="tab">
+							Tab 3 </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+        </div><!-- /.container -->
+        <!-- <div id="deviceready" class="blink">
+            <p class="event listening">App in development...</p>
+            <h2 class="event received">Hello World!!!</h2>
+        </div> -->
+        <!-- <script type="text/javascript" src="phonegap.js"></script> -->
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/knockout/knockout-3.3.0.js"></script>
     </body>
 </html>
