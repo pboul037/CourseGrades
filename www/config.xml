@@ -9,11 +9,11 @@
     <name>Course Grades</name>
 
     <description>
-        A grade manager for students.
+        A course grades manager for students.
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
-        Patrice Boulet & Pascal Lecompte-Tremblay
+        Patrice Boulet and Pascal Lecompte-Tremblay
     </author>
 
     <!--
