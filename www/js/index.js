@@ -85,7 +85,7 @@ function createViewModel() {
     var dfd = new jQuery.Deferred();
     vm.appState.activeSession().showCreateNewCourse(false);
     var c = vm.appState.activeSession().courses();
-    var courseToAdd = new Course(c[c.length -1].id + 1, "")
+    var courseToAdd = new Course(c[c.length -1].id + 1, "", null)
     courseToAdd.creationMode = ko.observable(true);
     vm.appState.activeSession().courses.push(courseToAdd); // next available course id for this session
     return dfd.resolve();

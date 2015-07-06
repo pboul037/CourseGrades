@@ -60,7 +60,7 @@
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <!-- ko foreach: { data: dataModel.sessions, as: 'session' } -->
                         <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
+                            <div class="panel-heading" role="tab">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion"
                                     data-bind="attr:{href: '#session' + session.id}, 
                                                click: $root.sessionOnClick.bind(session)">
@@ -118,7 +118,7 @@
                                                                    click: $root.cancelAddNewCourse.bind(course)">Cancel</button>
                                             </div>
                                             <span data-bind="text: course.title, visible: !course.creationMode()"></span>
-                                            <span class="pull-right" data-bind="text: course.grade() != undefined ? 
+                                            <span class="pull-right" data-bind="text: course.grade() != null ? 
                                                                                 course.grade() + '%' : '--',
                                                                                 visible: !course.creationMode()"></span>
                                         </li>
@@ -150,10 +150,43 @@
                               </h4>
                             </div>
                             <ul class="list-group">
-                              <li class="list-group-item">Item A</li>
-                                <li class="list-group-item">Item A</li> 
-                                <li class="list-group-item">Item A</li> 
-                                <li class="list-group-item">Item A</li>
+                                <!-- ko if: appState.activeCourse().syllabusItems().length < 1 -->
+                                    <li class="list-group-item">This course has no item yet.</li>
+                                <!-- /ko -->
+                                <!-- ko foreach: {data: appState.activeCourse().syllabusItems, as: 'syllabusItem'} -->
+                                    <li class="list-group-item" data-bind="style: {padding: syllabusItem.isParent ? 
+                                                                           '0px 0px' : '10px 15px 10px 15px'}">
+                                        <!-- ko if: !syllabusItem.isParent -->
+                                        <span data-bind="text: syllabusItem.title"></span>
+                                        <!-- /ko -->
+                                        <!-- ko if: syllabusItem.isParent -->
+                                            <div class="panel-group" id="syllabusItemAccordion" role="tablist" aria-multiselectable="true" 
+                                                 style="margin-bottom:0px">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab">
+                                                        <a role="button" data-toggle="collapse" data-parent="#syllabusItemAccordion"
+                                                            data-bind="attr: {href: '#syllabusItem' + syllabusItem.id}">
+                                                            <h4 class="panel-title">
+                                                                <span data-bind="text: syllabusItem.title() + ''"></span>
+                                                                <span class="badge" data-bind="text: syllabusItem.children().length"></span>
+                                                            </h4>
+                                                        </a>
+                                                    </div>
+                                                    <div class="panel-collapse collapse in" role="tabpanel" aria-expanded="true"
+                                                         data-bind="attr: {id: 'syllabusItem' + syllabusItem.id}">
+                                                         <ul class="list-group">
+                                                             <!-- ko foreach: { data: syllabusItem.children, as: 'child' } -->
+                                                                <li class="list-group-item">
+                                                                    <span data-bind="text: child.title"></span>
+                                                                </li>
+                                                             <!-- /ko -->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!-- /ko -->
+                                    </li>
+                                <!-- /ko -->
                             </ul>
                           </div>
 						</div>
