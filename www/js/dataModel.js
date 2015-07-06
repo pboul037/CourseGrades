@@ -27,21 +27,21 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
         this.gradePercent = ko.computed(function() {
             var computedGrade = null;
             var numberOfComputedGrades = 0;
-            if(children != null){
-                this.children.forEach(function(child){
-                    if(child.gradePercent != null){
+            if(this.children != null){
+                this.children().forEach(function(child){
+                    if(child.gradePercent() != null){
                         computedGrade += child.gradePercent();
                         numberOfComputedGrades++;
                     }
-                    if(numberOfComputedGrades > 0)
-                        return computedGrade/numberOfComputedGrades;
-                    else
-                        return null;
                 });
+                if(numberOfComputedGrades > 0)
+                    return computedGrade/numberOfComputedGrades;
+                else
+                    return null;
             }else{
                 return null;
             }
-        });
+        }, this);
     }
 }
 
