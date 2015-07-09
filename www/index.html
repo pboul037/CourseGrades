@@ -180,6 +180,23 @@
                           </div>
 						</div>
 						<div class="tab-pane" id="tab_below_2">
+              <!--TODO : make all strings variable -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" role="tab">
+                      <span data-bind="text: $root.appCulture.strings() .getString('DESCRIPTION', $root.appCulture.lang())">
+                        Description</span>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse in" role="tabpanel">
+                  <ul class="list-group">
+                    <li class="list-group-item" contenteditable="true">
+                      <h4>course website:</h4>
+                      <p>Add a course description</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
 							<p>
 								TODO: add the info stuff here.
 							</p>
