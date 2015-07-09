@@ -76,7 +76,8 @@ function createViewModel() {
   vm.navigateBack = function(){
     switch(vm.appState.activePage()){
         case constants.COURSE_PAGE_TITLE:
-            vm.appState.activePageTitle(constants.SESSIONS_PAGE_TITLE);
+            vm.appState.activePage(constants.SESSIONS_PAGE_TITLE);
+            vm.appState.activeCourse(null);
             break;
     }
   }

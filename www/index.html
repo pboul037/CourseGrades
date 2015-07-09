@@ -21,8 +21,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="" 
-                       data-bind="visible: appState.previousPageTitle() != appState.activePageTitle()" >
+                    <a class="navbar-brand" style="cursor:pointer"
+                       data-bind="visible: appState.previousPageTitle() != appState.activePageTitle(),
+                                  click: $root.navigateBack" >
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                         <span data-bind="text: appState.previousPageTitle"></span>
                     </a>
@@ -214,8 +215,8 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title" role="tab">
-                      <span data-bind="text: $root.appCulture.strings() .getString('DESCRIPTION', $root.appCulture.lang())">
-                        Description</span>
+                      <!--<span data-bind="text: $root.appCulture.strings() .getString('DESCRIPTION', $root.appCulture.lang())">
+                        Description</span> -->
                     </h4>
                 </div>
                 <div class="panel-collapse collapse in" role="tabpanel">
