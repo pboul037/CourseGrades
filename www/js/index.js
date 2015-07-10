@@ -91,9 +91,19 @@ function createViewModel() {
     
     var incompleteNewSessionToRemove = null;
     
-    if(vm.appState.activeSession()!= null && vm.appState.activeSession().creationMode()){
+    if(vm.appState.activeSession()!= null){   // check for an incomplete session creation and delete it
+        var incompleteNewCourseToRemove = null;
+       if( vm.appState.activeSession().creationMode() )
         incompleteNewSessionToRemove = vm.appState.activeSession();
+        
+        vm.appState.activeSession().courses().forEach(function(course){
+            if(course.creationMode())
+                incompleteNewCourseToRemove = course;
+        });
+        if(incompleteNewCourseToRemove != null)
+            vm.appState.activeSession().courses.remove(incompleteNewCourseToRemove);
     }
+      
     if(vm.appState.activeSession() != null && vm.appState.activeSession().id == session.id) // after this all sessions are inactive
       vm.appState.activeSession(null);
     else
