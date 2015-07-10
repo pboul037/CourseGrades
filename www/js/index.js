@@ -100,8 +100,10 @@ function createViewModel() {
             if(course.creationMode())
                 incompleteNewCourseToRemove = course;
         });
-        if(incompleteNewCourseToRemove != null)
+        if(incompleteNewCourseToRemove != null){
             vm.appState.activeSession().courses.remove(incompleteNewCourseToRemove);
+            vm.appState.activeSession().showCreateNewCourse(true);
+        }
     }
       
     if(vm.appState.activeSession() != null && vm.appState.activeSession().id == session.id) // after this all sessions are inactive
