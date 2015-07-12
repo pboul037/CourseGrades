@@ -45,7 +45,8 @@ function createViewModel() {
         activeCourse: ko.observable(null)
     },
     dataModel: {
-        sessions: ko.observableArray(sessionsData)
+        sessions: ko.observableArray(sessionsData),
+        info: ko.observableArray(infoData)
     },
     sessionPageState: {
         showCreateNewSession: ko.observable(true)
@@ -61,6 +62,18 @@ function createViewModel() {
   });
     
   vm.dataModel.sessions().forEach(function(session){
+      session.creationMode = ko.observable(false);
+  });
+
+  // add state attributes to data model's elements
+  vm.dataModel.info().forEach(function(session){
+    session.showCreateNewCourse = ko.observable(true);
+    session.courses().forEach(function(course){
+        course.creationMode = ko.observable(false);
+    });
+  });
+    
+  vm.dataModel.info().forEach(function(session){
       session.creationMode = ko.observable(false);
   });
      

@@ -215,8 +215,7 @@
                           <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title" role="tab">
-                                  <!--<span data-bind="text: $root.appCulture.strings() .getString('DESCRIPTION', $root.appCulture.lang())">
-                                    Description</span> -->
+                                  <span data-bind="text: $root.appCulture.strings() .getString('DESCRIPTION', $root.appCulture.lang())"></span>
                                 </h4>
                             </div>
                             <div class="panel-collapse collapse in" role="tabpanel">
@@ -228,6 +227,120 @@
                               </ul>
                             </div>
                           </div>
+
+                <div class="panel-group" id="accordion" role="tablist">
+                    <!-- ko foreach: { data: dataModel.info, as: 'session' } -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <a role="button"
+                                    data-bind="click: $root.sessionOnClick.bind(session),
+                                               disable: session.creationMode()">
+                                    <h4 class="panel-title">
+                                        <span class="margin">
+                                            <input type="text" class="form-input" placeholder="Enter the session's title..."
+                                                   data-bind="value: session.title,
+                                                              hasFocus: session.creationMode(),
+                                                              valueUpdate:'afterkeydown'">
+                                            <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
+                                                  data-bind="visible: ($root.appState.activeSession() == null ||
+                                                             $root.appState.activeSession().id != session.id) &&
+                                                                !session.creationMode()">
+                                            </span>
+                                            <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
+                                                  data-bind="visible: ($root.appState.activeSession() != null &&
+                                                             $root.appState.activeSession().id == session.id) &&
+                                                                !session.creationMode()">
+                                            </span>
+                                        </span>
+                                    </h4>
+                                </a>
+                                <button class="btn btn-xs btn-success" 
+                                        data-bind="visible: session.creationMode(),
+                                                   text: $root.appCulture.strings()
+                                                    .getString('CREATE', $root.appCulture.lang()),
+                                                   disable: session.title().length < 1,
+                                                   click: $root.createSession.bind(session),
+                                                   clickBubble: false"></button>
+                                <button class="btn btn-xs btn-danger" 
+                                        data-bind="visible: session.creationMode(),
+                                                   click: $root.cancelAddNewSession.bind(session),
+                                                   text: $root.appCulture.strings()
+                                                    .getString('CANCEL', 
+                                                   $root.appCulture.lang())"></button>
+                            </div>
+                            <div class="panel-collapse collapse" role="tabpanel"
+                                 data-bind="attr: {id: 'session' + session.id, 'aria-expanded': $root.appState.activeSession() != null &&
+                                                         $root.appState.activeSession().id == session.id ? 'true' : 'false'}" >
+                                 <ul class="list-group">
+                                     <!-- ko foreach: { data: $data.courses, as: 'course' } -->
+                                        <li class="list-group-item" 
+                                            data-bind="click: $root.changeAndNavigateToActiveCourse.bind(course)" 
+                                          style="cursor:pointer">
+                                            <div class="row">
+                                                <input style="margin-left:10px; margin-bottom:10px" type="text" class="form-input"
+                                                   data-bind="value: course.title, visible: course.creationMode(), 
+                                                              hasFocus: course.creationMode(),
+                                                              attr: {placeholder: $root.appCulture.strings()
+                                                                    .getString('ENTER_COURSE_TITLE_PLACEHOLDER',
+                                                                        $root.appCulture.lang())},
+                                                              valueUpdate:'afterkeydown'"/>
+                                            </div>
+                                            <div class="row" style="text-align:center">
+                                                <button class="btn btn-xs btn-success" 
+                                                        data-bind="visible: course.creationMode(),
+                                                                   text: $root.appCulture.strings()
+                                                           .getString('CREATE', $root.appCulture.lang()),
+                                                                   disable: course.title().length < 1,
+                                                                   click: $root.createCourse.bind(course),
+                                                                   clickBubble: false"></button>
+                                                <button class="btn btn-xs btn-success" 
+                                                        data-bind="visible: course.creationMode(),
+                                                                   text: $root.appCulture.strings()
+                                                                    .getString('CREATE_AND_ADD_ANOTHER', 
+                                                                   $root.appCulture.lang()),
+                                                                   disable: course.title().length < 1,
+                                                                   click: $root.addAnotherCourse.bind(course),
+                                                                   clickBubble: false"></button>
+                                                <button class="btn btn-xs btn-danger" 
+                                                        data-bind="visible: course.creationMode(), 
+                                                                   click: $root.cancelAddNewCourse.bind(course),
+                                                                   text: $root.appCulture.strings()
+                                                                    .getString('CANCEL', 
+                                                                   $root.appCulture.lang())"></button>
+                                            </div>
+                                            <span data-bind="text: course.title, visible: !course.creationMode()"></span>
+                                            <span class="pull-right" data-bind="text: course.grade() != null ? 
+                                                                                course.grade() + '%' : '-- %',
+                                                                                visible: !course.creationMode()"></span>
+                                        </li>
+                                     <!-- /ko -->
+                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" 
+                                        data-bind="visible: session.showCreateNewCourse()">
+                                        <button class="btn btn-success" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                                data-bind="click: $root.addNewCourse">
+                                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                                          <span data-bind="text: $root.appCulture.strings()
+                                                           .getString('ADD_NEW_COURSE', $root.appCulture.lang())"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <div class="panel panel-default" data-bind="visible: $root.sessionPageState.showCreateNewSession()">
+                        <div class="panel-heading" role="tab" style="padding: 0">
+                            <button class="btn btn-default" style="width: 100%; border-radius: 2px 2px 2px 2px"
+                                    data-bind="click: $root.addNewSession">
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                              <span data-bind="text: $root.appCulture.strings()
+                                               .getString('ADD_NEW_SESSION', $root.appCulture.lang())"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
 							<p>
 								TODO: add the info stuff here.
 							</p>

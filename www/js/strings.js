@@ -35,6 +35,10 @@ var strings = {
         'en': 'Create & Add Another',
         'fr': 'Créer et en ajouter un autre'
     },
+    'DESCRIPTION': {
+        'en': 'Description',
+        'fr': 'Description'
+    },
     getString: function(string, lang){
         return this[string][lang];
     }

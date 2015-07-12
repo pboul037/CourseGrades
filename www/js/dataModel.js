@@ -56,3 +56,14 @@ var sessionsData = [
                [new Course(0, 'CSI2101', 78), 
                 new Course(1, 'ADM1500', 97)])
 ];
+
+var infoData = [
+    new Session(0, 'Teacher', 
+               [new Course(0, 'Name : John Smith', null), 
+                new Course(1, 'email : jsmith@yahoo.ca', null),
+                new Course(1, 'phone : 555-666-7777', null)]),
+    new Session(1, 'TA', 
+               [new Course(0, 'Name : Mary Jones', null), 
+                new Course(1, 'email : mjones@hotmail.com', null),
+                new Course(1, 'phone : 321-444-1234', null)])
+];
