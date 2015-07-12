@@ -46,10 +46,14 @@ function createViewModel() {
     },
     dataModel: {
         sessions: ko.observableArray(sessionsData),
-        info: ko.observableArray(infoData)
     },
     sessionPageState: {
         showCreateNewSession: ko.observable(true)
+    },
+    coursePageState: {
+        activeInfo: ko.observable(null),
+        info: ko.observableArray(infoData),
+        showCreateNewInfo: ko.observable(true)
     }
   }
   
@@ -65,16 +69,13 @@ function createViewModel() {
       session.creationMode = ko.observable(false);
   });
 
-  // add state attributes to data model's elements
-  vm.dataModel.info().forEach(function(session){
-    session.showCreateNewCourse = ko.observable(true);
-    session.courses().forEach(function(course){
-        course.creationMode = ko.observable(false);
-    });
+  // add state attributes to coursePageState's elements
+  vm.coursePageState.info().forEach(function(info){
+    info.showCreateNewCourse = ko.observable(true);
   });
     
-  vm.dataModel.info().forEach(function(session){
-      session.creationMode = ko.observable(false);
+  vm.coursePageState.info().forEach(function(info){
+      info.creationMode = ko.observable(false);
   });
      
   // define view model's functions
@@ -129,6 +130,37 @@ function createViewModel() {
         vm.sessionPageState.showCreateNewSession(true);
     }
   }
+
+  //Note for time economym every variable kept as 'session' is in fact 'info'
+  vm.infoOnClick = function(info, elem){
+      
+    var collapsiblePanel = $(elem.target).parents('.panel-heading').next('.panel-collapse');
+    var currentId = $(collapsiblePanel).attr('id');
+    $('.panel-collapse').not('#' + currentId).slideUp('fast');
+    $(collapsiblePanel).slideToggle('fast');    
+    
+    var incompleteNewSessionToRemove = null;
+    
+    if(vm.coursePageState.activeInfo()!= null){   // check for an incomplete session creation and delete it
+        var incompleteNewCourseToRemove = null;
+       if( vm.coursePageState.activeInfo().creationMode() )
+        incompleteNewSessionToRemove = vm.coursePageState.activeInfo();
+        
+        if(incompleteNewCourseToRemove != null){
+            vm.coursePageState.activeInfo().showCreateNewCourse(true);
+        }
+    }
+      
+    if(vm.coursePageState.activeInfo() != null && vm.coursePageState.activeInfo().id == info.id) // after this all sessions are inactive
+      vm.coursePageState.activeInfo(null);
+    else
+      vm.coursePageState.activeInfo(info);
+      
+    if(incompleteNewSessionToRemove != null){
+        vm.coursePageState.info.remove(incompleteNewSessionToRemove);
+        vm.coursePageState.showCreateNewInfo(true);
+    }
+  }
   
   vm.addNewSession = function(){
     var dfd = new jQuery.Deferred();
@@ -142,6 +174,19 @@ function createViewModel() {
     vm.appState.activeSession(sessionToAdd);
     return dfd.resolve();
   }
+
+  vm.addNewInfo = function(){
+    var dfd = new jQuery.Deferred();
+    $('.panel-collapse').slideUp('fast'); // collapse open info if any
+    vm.coursePageState.showCreateNewInfo(false);
+    var s = vm.coursePageState.info()[vm.coursePageState.info().length -1];
+    var infoToAdd = new Info(s.id + 1, '', '', '', '', ''); // next available info id 
+    infoToAdd.showCreateNewInfo = ko.observable(true);
+    infoToAdd.creationMode = ko.observable(true);
+    vm.coursePageState.info.push(infoToAdd); 
+    vm.coursePageState.activeInfo(infoToAdd);
+    return dfd.resolve();
+  }
   
   vm.createSession = function(session){
       session.creationMode(false);
@@ -149,11 +194,24 @@ function createViewModel() {
       vm.appState.activeSession(session);
       $('#session' + session.id).addClass('in');
   }
+
+  vm.createInfo = function(info){
+      info.creationMode(false);
+      vm.coursePageState.showCreateNewInfo(true);
+      vm.coursePageState.activeInfo(info);
+      $('#info' + info.id).addClass('in');
+  }
   
   vm.cancelAddNewSession = function(session){
     vm.appState.activeSession(vm.dataModel.sessions()[0]); // first session on the list active after cancel
     vm.dataModel.sessions.remove(session);
     vm.sessionPageState.showCreateNewSession(true);
+  }
+
+  vm.cancelAddNewInfo = function(info){
+    vm.coursePageState.activeInfo(vm.coursePageState.info()[0]); // first session on the list active after cancel
+    vm.coursePageState.info.remove(info);
+    vm.coursePageState.showCreateNewInfo(true);
   }
   
   vm.addNewCourse = function(){

@@ -39,6 +39,30 @@ var strings = {
         'en': 'Description',
         'fr': 'Description'
     },
+    'NAME': {
+        'en': 'Name',
+        'fr': 'Nom'
+    },
+    'EMAIL': {
+        'en': 'Email',
+        'fr': 'E-mail'
+    },
+    'PHONE': {
+        'en': 'Phone',
+        'fr': 'Téléphone'
+    },
+    'OFFICE': {
+        'en': 'Office',
+        'fr': 'Bureau'
+    },
+    'COURSE_WEBSITE': {
+        'en': 'Course website',
+        'fr': 'Site web du cours'
+    },
+    'ADD_NEW_CONTACT': {
+        'en': 'Add new contact',
+        'fr': 'Ajouter un nouveau contact'
+    },
     getString: function(string, lang){
         return this[string][lang];
     }

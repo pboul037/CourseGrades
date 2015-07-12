@@ -45,6 +45,17 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
     }
 }
 
+function Info(id, title, name, email, phone, office)
+{
+    this.id = id;
+    this.title = ko.observable(title);
+    this.name = ko.observable(name);
+    this.email = ko.observable(email);
+    this.phone = ko.observable(phone);
+    this.office = ko.observable(office);
+
+}
+
 var sessionsData = [
     new Session(0, 'Fall 2015', 
                [new Course(0, 'SEG3525', 99,
@@ -58,12 +69,7 @@ var sessionsData = [
 ];
 
 var infoData = [
-    new Session(0, 'Teacher', 
-               [new Course(0, 'Name : John Smith', null), 
-                new Course(1, 'email : jsmith@yahoo.ca', null),
-                new Course(1, 'phone : 555-666-7777', null)]),
-    new Session(1, 'TA', 
-               [new Course(0, 'Name : Mary Jones', null), 
-                new Course(1, 'email : mjones@hotmail.com', null),
-                new Course(1, 'phone : 321-444-1234', null)])
+    new Info (-1, 'Description', '', '', '', '', ''),
+    new Info(0, 'Teacher', 'John Smith', 'jsmith@yahoo.ca', '555-666-7777', 'SITE2065'),
+    new Info(1, 'TA', 'Mary Jones', 'mjones@hotmail.com', '321-444-1234', '')
 ];
