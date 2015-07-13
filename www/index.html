@@ -39,7 +39,7 @@
             </div><!-- /.container-fluid -->
         </nav>
         
-        <div class="container">
+        <div class="content container">
             <div data-bind="fadeVisible: appState.activePage() == 'Sessions'">
                 <div class="panel-group" id="accordion" role="tablist">
                     <!-- ko foreach: { data: dataModel.sessions, as: 'session' } -->
@@ -328,28 +328,36 @@
                 </div>
 						</div>
 					</div>
-					<ul class="nav nav-tabs">
-						<li class="active">
-							<a href="#tab_below_1" data-toggle="tab">
-                                <span data-bind="text: $root.appCulture.strings()
-                                   .getString('GRADES_TAB_TITLE', $root.appCulture.lang())"></span>
-                            </a>
-						</li>
-						<li class="">
-							<a href="#tab_below_2" data-toggle="tab">
-                                <span data-bind="text: $root.appCulture.strings()
-                                   .getString('INFO_TAB_TITLE', $root.appCulture.lang())"></span>
-							</a>
-						</li>
-					</ul>
+
 				</div>
             </div>
         </div><!-- /.container -->
         
+        <footer>
+            <div class="navbar navbar-fixed-bottom" data-bind="fadeVisible: appState.activePage() == 'Course'">
+                <div class="container">
+                    <div class="navbar-header">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab_below_1" data-toggle="tab">
+                                    <span data-bind="text: $root.appCulture.strings()
+                                       .getString('GRADES_TAB_TITLE', $root.appCulture.lang())"></span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#tab_below_2" data-toggle="tab">
+                                    <span data-bind="text: $root.appCulture.strings()
+                                       .getString('INFO_TAB_TITLE', $root.appCulture.lang())"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
         
         <div id="addNewSyllabusItemModal" class="modal fade" role="dialog" data-bind="if: coursePageState.activeSyllabusItem() != null">
           <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
