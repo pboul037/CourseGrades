@@ -11,6 +11,10 @@ var strings = {
         'en': 'Weight',
         'fr': 'Poids'
     },
+    'ENTER__SYLLABUS_ITEM_TITLE_PLACEHOLDER': {
+        'en': "Enter item's title",
+        'fr': "Entrez le titre de l'élément"
+    },
     'NUM_OF_SYLLABUS_ITEMS': {
         'en': '# of items',
         'fr': "# d'éléments"

@@ -181,9 +181,9 @@ function createViewModel() {
   }
   
   vm.addNewSyllabusItem = function(){
-    $('#addNewSyllabusItemModal').modal('show');
     var lastSyllabusItemIndex = vm.appState.activeCourse().syllabusItems().length + 1;
-    vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, []));  
+    vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, [])); 
+    $('#addNewSyllabusItemModal').modal('show');
   }
 
   vm.addNewInfo = function(){
@@ -204,6 +204,18 @@ function createViewModel() {
       vm.sessionPageState.showCreateNewSession(true);
       vm.appState.activeSession(session);
       $('#session' + session.id).addClass('in');
+  }
+  
+  vm.createSyllabusItem = function(){
+      var si = vm.coursePageState.activeSyllabusItem();
+      var itemToAdd = new SyllabusItem(si.id, si.title(), "READ", si.numItems() > 1, si.weight(), "", si.numItems(), []);
+      vm.appState.activeCourse().syllabusItems.push(itemToAdd);
+      $('#addNewSyllabusItemModal').modal('hide');
+  }
+  
+  vm.cancelCreateSyllabusItem = function(){
+      vm.coursePageState.activeSyllabusItem(null);
+      $('#addNewSyllabusItemModal').modal('hide');
   }
 
   vm.createInfo = function(info){

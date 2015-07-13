@@ -15,6 +15,8 @@ function Course(id, title, grade, syllabusItems){
 function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, children){
     this.id = id;
     this.title = ko.observable(title);
+    this.weight = ko.observable(weight);
+    this.numItems = ko.observable(numItems);
     this.isParent = isParent;
     this.children = ko.observableArray(isParent ? [] : null);
     this.gradePercent = ko.observable(null);
