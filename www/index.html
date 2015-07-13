@@ -172,8 +172,21 @@
                                                                            '0px 0px' : '10px 15px 10px 15px'}">
                                         <!-- ko if: !syllabusItem.isParent -->
                                         <span data-bind="text: syllabusItem.title"></span>
-                                        <span class="pull-right" data-bind="text: syllabusItem.gradePercent() == null ?
-                                                                                '-- %' : syllabusItem.gradePercent()"></span>
+                                        <span class="pull-right" data-bind="visible: syllabusItem.state() != 'EDIT_GRADE',
+                                                                            text: syllabusItem.gradePercent() == null ?
+                                                                                '-- %' : syllabusItem.gradePercent() + '%',
+                                                                            click: $root.editGrade.bind(syllabusItem)"></span>
+                                        <span class="pull-right" data-bind="visible: syllabusItem.state() == 'EDIT_GRADE'">
+                                            <button class="btn btn-xs btn-success" 
+                                                    data-bind="text: 'Set',
+                                                               click: $root.setGrade,
+                                                               clickBubble: false"></button>
+                                            <input  style="width:35px" data-bind="
+                                                                                value: syllabusItem.gradeNumerator,
+                                                                                hasFocus: syllabusItem.state() == 'EDIT_GRADE'"></input>
+                                            <span>/</span>
+                                            <input style="width:35px" data-bind="value: syllabusItem.gradeDenominator"></input>
+                                        </span>
                                         <!-- /ko -->
                                         <!-- ko if: syllabusItem.isParent -->
                                             <div class="panel-group" id="syllabusItemAccordion" role="tablist" aria-multiselectable="true" 

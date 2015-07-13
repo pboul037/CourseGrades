@@ -15,6 +15,7 @@ function Course(id, title, grade, syllabusItems){
 function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, children){
     this.id = id;
     this.title = ko.observable(title);
+    this.state = ko.observable(state);
     this.weight = ko.observable(weight);
     this.numItems = ko.observable(numItems);
     this.isParent = isParent;
@@ -26,7 +27,10 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
         for(var i = 0; i < numItems; i++){
             this.children.push(new SyllabusItem(i, this.title() + ' ' + (i + 1), 'NotSubmitted', false, this.weight/numItems, null, 0, null));
         }
+    }
+    /*
         this.gradePercent = ko.computed(function() {
+            ko.toJS(this.children);
             var computedGrade = null;
             var numberOfComputedGrades = 0;
             if(this.children != null){
@@ -44,7 +48,14 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
                 return null;
             }
         }, this);
-    }
+    }else{
+        this.gradePercent = ko.computed(function() {
+            if(this.gradeNumerator() == null || this.gradeDenominator() == null || this.gradeDenominator() < 1)
+                return null;
+            else 
+                return (this.gradeNumerator()*100/this.gradeDenominator()).toFixed(1);
+        }, this);
+    } */
 }
 
 function Info(id, title, name, email, phone, office)

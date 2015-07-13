@@ -82,7 +82,7 @@ function createViewModel() {
   vm.coursePageState.info().forEach(function(info){
       info.creationMode = ko.observable(false);
   });
-     
+    
   // define view model's functions
   vm.changeAndNavigateToActiveCourse = function(course){
       if(!course.creationMode()){
@@ -185,6 +185,22 @@ function createViewModel() {
     var lastSyllabusItemIndex = vm.appState.activeCourse().syllabusItems().length + 1;
     vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, [])); 
     $('#addNewSyllabusItemModal').modal('show');
+  }
+  
+  vm.editGrade = function(syllabusItem){
+    syllabusItem.state('EDIT_GRADE');
+    vm.coursePageState.activeSyllabusItem(syllabusItem);
+  }
+  
+  vm.setGrade = function(){
+    var num = vm.coursePageState.activeSyllabusItem().gradeNumerator();
+    var denom = vm.coursePageState.activeSyllabusItem().gradeDenominator();
+    if(num != null && denom != null && denom > 0)
+        vm.coursePageState.activeSyllabusItem().gradePercent((num*100/denom).toFixed(0));
+    else
+        vm.coursePageState.activeSyllabusItem().gradePercent(null);
+    vm.coursePageState.activeSyllabusItem().state('READ');
+    vm.coursePageState.activeSyllabusItem(null);
   }
 
   vm.addNewInfo = function(){
