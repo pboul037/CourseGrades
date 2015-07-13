@@ -3,9 +3,29 @@ var strings = {
         'en': 'Add a new course',
         'fr': 'Ajouter un nouveau cours'
     },
+    'TITLE': {
+        'en': 'Title',
+        'fr': 'Titre'
+    },
+    'WEIGHT': {
+        'en': 'Weight',
+        'fr': 'Poids'
+    },
+    'NUM_OF_SYLLABUS_ITEMS': {
+        'en': '# of items',
+        'fr': "# d'éléments"
+    },
     'ADD_NEW_SESSION': {
         'en': 'Add a new session',
         'fr': 'Ajouter une nouvelle session'
+    },
+    'ADD_NEW_SYLLABUS_ITEM': {
+        'en': 'Add a syllabus item',
+        'fr': 'Ajouter un élément de cours'
+    },
+    'ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE': {
+        'en': 'Create a syllabus item',
+        'fr': 'Créer un élément de cours'
     },
     'SYLLABUS_ITEMS': {
         'en': 'Syllabus Items',

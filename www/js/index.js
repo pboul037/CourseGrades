@@ -51,6 +51,11 @@ function createViewModel() {
         showCreateNewSession: ko.observable(true)
     },
     coursePageState: {
+        // grades tab
+        activeSyllabusItem: ko.observable(null),
+        showCreateNewSyllabusItem: ko.observable(true),
+        
+        // info tab
         activeInfo: ko.observable(null),
         info: ko.observableArray(infoData),
         showCreateNewInfo: ko.observable(true)
@@ -173,6 +178,12 @@ function createViewModel() {
     vm.dataModel.sessions.push(sessionToAdd); 
     vm.appState.activeSession(sessionToAdd);
     return dfd.resolve();
+  }
+  
+  vm.addNewSyllabusItem = function(){
+    $('#addNewSyllabusItemModal').modal('show');
+    var lastSyllabusItemIndex = vm.appState.activeCourse().syllabusItems().length + 1;
+    vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, []));  
   }
 
   vm.addNewInfo = function(){
