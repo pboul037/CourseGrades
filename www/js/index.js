@@ -62,11 +62,41 @@ function createViewModel() {
     }
   }
   
+  vm.computeCourseAvg = function(){
+        var course = vm.appState.activeCourse();
+        if( course != null){
+            var computedGrade = null;
+            var sumOfComputedWeights = 0;
+            var numberOfComputedGrades = 0;
+            if(course.syllabusItems() != null){
+                course.syllabusItems().forEach(function(syllItem){
+                    if(syllItem.gradePercent() != null){
+                        if(computedGrade == null)
+                            computedGrade = 0;
+                        computedGrade += (parseInt(syllItem.gradePercent())*syllItem.weight());
+                        sumOfComputedWeights += syllItem.weight();
+                        numberOfComputedGrades++;
+                    }
+                });
+                if(numberOfComputedGrades > 0)
+                    course.grade((computedGrade/sumOfComputedWeights).toFixed(0));
+                else
+                    course.grade(null);
+            }else{
+                course.grade(null);
+            }
+        }
+  }
+  
   // add state attributes to data model's elements
   vm.dataModel.sessions().forEach(function(session){
     session.showCreateNewCourse = ko.observable(true);
     session.courses().forEach(function(course){
         course.creationMode = ko.observable(false);
+        
+        course.syllabusItems().forEach(function(syllItem){
+            syllItem.gradePercent.subscribe(vm.computeCourseAvg);
+        });
     });
   });
     
@@ -183,7 +213,7 @@ function createViewModel() {
   
   vm.addNewSyllabusItem = function(){
     var lastSyllabusItemIndex = vm.appState.activeCourse().syllabusItems().length + 1;
-    vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, [])); 
+    vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, [], null)); 
     $('#addNewSyllabusItemModal').modal('show');
   }
   
@@ -192,13 +222,38 @@ function createViewModel() {
     vm.coursePageState.activeSyllabusItem(syllabusItem);
   }
   
+  function computeGradePercentFromChildren(parent){
+        var computedGrade = null;
+        var numberOfComputedGrades = 0;
+        if(parent.children != null){
+            parent.children().forEach(function(child){
+                if(child.gradePercent() != null){
+                    if(computedGrade == null)
+                        computedGrade = 0;
+                    computedGrade += parseInt(child.gradePercent());
+                    numberOfComputedGrades++;
+                }
+            });
+            if(numberOfComputedGrades > 0)
+                parent.gradePercent((computedGrade/numberOfComputedGrades).toFixed(0));
+            else
+                parent.gradePercent(null);
+        }else{
+            parent.gradePercent(null);
+        }
+  }
+  
   vm.setGrade = function(){
     var num = vm.coursePageState.activeSyllabusItem().gradeNumerator();
     var denom = vm.coursePageState.activeSyllabusItem().gradeDenominator();
-    if(num != null && denom != null && denom > 0)
+    if(num != null && denom != null && denom > 0){
         vm.coursePageState.activeSyllabusItem().gradePercent((num*100/denom).toFixed(0));
-    else
+        if(vm.coursePageState.activeSyllabusItem().parent != null){
+            computeGradePercentFromChildren(vm.coursePageState.activeSyllabusItem().parent);
+        }
+    }else{
         vm.coursePageState.activeSyllabusItem().gradePercent(null);
+    }
     vm.coursePageState.activeSyllabusItem().state('READ');
     vm.coursePageState.activeSyllabusItem(null);
   }
@@ -225,7 +280,7 @@ function createViewModel() {
   
   vm.createSyllabusItem = function(){
       var si = vm.coursePageState.activeSyllabusItem();
-      var itemToAdd = new SyllabusItem(si.id, si.title(), "READ", si.numItems() > 1, si.weight(), "", si.numItems(), []);
+      var itemToAdd = new SyllabusItem(si.id, si.title(), "READ", si.numItems() > 1, si.weight(), "", si.numItems(), [], null);
       vm.appState.activeCourse().syllabusItems.push(itemToAdd);
       $('#addNewSyllabusItemModal').modal('hide');
   }

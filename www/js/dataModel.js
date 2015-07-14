@@ -12,25 +12,25 @@ function Course(id, title, grade, syllabusItems){
     this.syllabusItems = ko.observableArray(syllabusItems != null ? syllabusItems : []);
 }
 
-function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, children){
+function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, children, parent){
     this.id = id;
     this.title = ko.observable(title);
     this.state = ko.observable(state);
     this.weight = ko.observable(weight);
     this.numItems = ko.observable(numItems);
     this.isParent = isParent;
+    this.parent = parent;
     this.children = ko.observableArray(isParent ? [] : null);
     this.gradePercent = ko.observable(null);
     this.gradeNumerator = ko.observable(null);
     this.gradeDenominator = ko.observable(100);
     if(isParent){
         for(var i = 0; i < numItems; i++){
-            this.children.push(new SyllabusItem(i, this.title() + ' ' + (i + 1), 'NotSubmitted', false, this.weight/numItems, null, 0, null));
+            this.children.push(new SyllabusItem(i, this.title() + ' ' + (i + 1), 'NotSubmitted', false, this.weight/numItems, null, 0, null, this));
         }
     }
     /*
         this.gradePercent = ko.computed(function() {
-            ko.toJS(this.children);
             var computedGrade = null;
             var numberOfComputedGrades = 0;
             if(this.children != null){
@@ -72,9 +72,9 @@ function Info(id, title, name, email, phone, office)
 var sessionsData = [
     new Session(0, 'Fall 2015', 
                [new Course(0, 'SEG3525', 99,
-                          [new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0),
-                           new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3),
-                           new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0)]), 
+                          [new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0, null),
+                           new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3, null),
+                           new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0, null)]), 
                 new Course(1, 'SEG3505', null)]),
     new Session(1, 'Summer 2015', 
                [new Course(0, 'CSI2101', 78), 

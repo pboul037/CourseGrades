@@ -199,7 +199,7 @@
                                                                 <span data-bind="text: syllabusItem.title() + ''"></span>
                                                                 <span class="badge" data-bind="text: syllabusItem.children().length"></span>
                                                                 <span class="pull-right" data-bind="text: syllabusItem.gradePercent() == null ?
-                                                                                                        '-- %' : syllabusItem.gradePercent()"></span>
+                                                                                                        '-- %' : syllabusItem.gradePercent() + '%'"></span>
                                                             </h4>
                                                         </a>
                                                     </div>
@@ -209,8 +209,21 @@
                                                              <!-- ko foreach: { data: syllabusItem.children, as: 'child' } -->
                                                                 <li class="list-group-item">
                                                                     <span data-bind="text: child.title"></span>
-                                                                    <span class="pull-right" data-bind="text: child.gradePercent() == null ?
-                                                                                                        '-- %' : child.gradePercent()"></span>
+                                                                    <span class="pull-right" data-bind="visible: child.state() != 'EDIT_GRADE',
+                                                                            text: child.gradePercent() == null ?
+                                                                                '-- %' : child.gradePercent() + '%',
+                                                                            click: $root.editGrade.bind(child)"></span>
+                                                                    <span class="pull-right" data-bind="visible: child.state() == 'EDIT_GRADE'">
+                                                                        <button class="btn btn-xs btn-success" 
+                                                                                data-bind="text: 'Set',
+                                                                                           click: $root.setGrade,
+                                                                                           clickBubble: false"></button>
+                                                                        <input  style="width:35px" 
+                                                                               data-bind="value: child.gradeNumerator,
+                                                                                          hasFocus: child.state() == 'EDIT_GRADE'"></input>
+                                                                        <span>/</span>
+                                                                        <input style="width:35px" data-bind="value: child.gradeDenominator"></input>
+                                                                    </span>
                                                                 </li>
                                                              <!-- /ko -->
                                                         </ul>
