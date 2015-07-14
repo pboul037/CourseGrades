@@ -73,15 +73,21 @@ function createViewModel() {
                     if(syllItem.gradePercent() != null){
                         if(computedGrade == null)
                             computedGrade = 0;
-                        computedGrade += (parseInt(syllItem.gradePercent())*syllItem.weight());
-                        sumOfComputedWeights += syllItem.weight();
+                        if(syllItem.isParent){
+                            computedGrade += (parseInt(syllItem.gradePercent())*syllItem.computedGradesWeight());
+                            sumOfComputedWeights += syllItem.computedGradesWeight();
+                        }else {
+                            computedGrade += (parseInt(syllItem.gradePercent())*syllItem.weight());
+                            sumOfComputedWeights += syllItem.weight();
+                        }
                         numberOfComputedGrades++;
                     }
                 });
-                if(numberOfComputedGrades > 0)
-                    course.grade((computedGrade/sumOfComputedWeights).toFixed(0));
-                else
+                if(numberOfComputedGrades > 0){
+                    course.grade(((computedGrade)/sumOfComputedWeights).toFixed(0));
+                }else{
                     course.grade(null);
+                }
             }else{
                 course.grade(null);
             }
@@ -225,19 +231,23 @@ function createViewModel() {
   function computeGradePercentFromChildren(parent){
         var computedGrade = null;
         var numberOfComputedGrades = 0;
+        var sumOfComputedWeights = 0;
         if(parent.children != null){
             parent.children().forEach(function(child){
                 if(child.gradePercent() != null){
                     if(computedGrade == null)
                         computedGrade = 0;
                     computedGrade += parseInt(child.gradePercent());
+                    sumOfComputedWeights += child.weight();
                     numberOfComputedGrades++;
                 }
             });
-            if(numberOfComputedGrades > 0)
+            if(numberOfComputedGrades > 0){
+                parent.computedGradesWeight(sumOfComputedWeights);
                 parent.gradePercent((computedGrade/numberOfComputedGrades).toFixed(0));
-            else
+            }else{
                 parent.gradePercent(null);
+            }
         }else{
             parent.gradePercent(null);
         }

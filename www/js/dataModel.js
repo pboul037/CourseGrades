@@ -17,6 +17,7 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
     this.title = ko.observable(title);
     this.state = ko.observable(state);
     this.weight = ko.observable(weight);
+    this.computedGradesWeight = ko.observable(0);
     this.numItems = ko.observable(numItems);
     this.isParent = isParent;
     this.parent = parent;
@@ -26,36 +27,9 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
     this.gradeDenominator = ko.observable(100);
     if(isParent){
         for(var i = 0; i < numItems; i++){
-            this.children.push(new SyllabusItem(i, this.title() + ' ' + (i + 1), 'NotSubmitted', false, this.weight/numItems, null, 0, null, this));
+            this.children.push(new SyllabusItem(i, this.title() + ' ' + (i + 1), 'NotSubmitted', false, this.weight()/numItems, null, 0, null, this));
         }
     }
-    /*
-        this.gradePercent = ko.computed(function() {
-            var computedGrade = null;
-            var numberOfComputedGrades = 0;
-            if(this.children != null){
-                this.children().forEach(function(child){
-                    if(child.gradePercent() != null){
-                        computedGrade += child.gradePercent();
-                        numberOfComputedGrades++;
-                    }
-                });
-                if(numberOfComputedGrades > 0)
-                    return computedGrade/numberOfComputedGrades;
-                else
-                    return null;
-            }else{
-                return null;
-            }
-        }, this);
-    }else{
-        this.gradePercent = ko.computed(function() {
-            if(this.gradeNumerator() == null || this.gradeDenominator() == null || this.gradeDenominator() < 1)
-                return null;
-            else 
-                return (this.gradeNumerator()*100/this.gradeDenominator()).toFixed(1);
-        }, this);
-    } */
 }
 
 function Info(id, title, name, email, phone, office)
