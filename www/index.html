@@ -292,11 +292,13 @@
                                   <!-- ko if: info.id == -1 -->
                                   <ul class="list-group">
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                      <div class="row" style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('COURSE_WEBSITE', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the course website..."
                                                    data-bind="value: info.email,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown'">
+                                                            </div>
                                     </li>
                                     <li class="list-group-item">
                                       <input type="text" class="form-input" placeholder="Add a course description..." 
@@ -309,32 +311,40 @@
                                  <ul class="list-group">
 
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                      <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('NAME', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's name..."
                                                    data-bind="value: info.name,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown'">
+                                                              </div>
                                     </li>
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                      <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('EMAIL', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's email..."
                                                    data-bind="value: info.email,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown'">
+                                                              </div>
                                     </li>
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                      <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('PHONE', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's phone number..."
                                                    data-bind="value: info.phone,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown'">
+                                                              </div>
                                     </li>
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                      <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('OFFICE', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's office..."
                                                    data-bind="value: info.office,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown'">
+                                                            </div>
                                     </li>
                                 </ul> 
                                 <!-- /ko -->
