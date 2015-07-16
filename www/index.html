@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Course Grades</title>
     </head>
-    <body>
+    <body style="background-color:#F2F1ED">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -132,7 +132,7 @@
                                      <!-- /ko -->
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" 
                                         data-bind="visible: session.showCreateNewCourse()">
-                                        <button class="btn btn-success" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                        <button class="btn btn-primary" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                                 data-bind="click: $root.addNewCourse">
                                           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                                           <span data-bind="text: $root.appCulture.strings()
@@ -145,7 +145,7 @@
                     <!-- /ko -->
                     <div class="panel panel-default" data-bind="visible: $root.sessionPageState.showCreateNewSession()">
                         <div class="panel-heading" role="tab" style="padding: 0">
-                            <button class="btn btn-default" style="width: 100%; border-radius: 2px 2px 2px 2px"
+                            <button class="btn btn-primary" style="width: 100%; border-radius: 2px 2px 2px 2px"
                                     data-bind="click: $root.addNewSession">
                               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                               <span data-bind="text: $root.appCulture.strings()
@@ -156,8 +156,8 @@
                 </div>
             </div>
             <div data-bind="if: appState.activeCourse() != null, fadeVisible: appState.activePage() == 'Course'">
-				<div class="tabbable-line tabs-below"  style="min-height:100%">
-					<div class="tab-content">
+                <div class="tabbable tabs-below"  style="min-height:100%; background-color:transparent">
+					<div class="tab-content" style="background-color:transparent">
 						<div class="tab-pane active" id="tab_below_1">
                           <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="headingTwo">
@@ -200,7 +200,7 @@
                                         <!-- ko if: syllabusItem.isParent -->
                                             <div class="panel-group" id="syllabusItemAccordion" role="tablist" aria-multiselectable="true" 
                                                  style="margin-bottom:0px">
-                                                <div class="panel panel-default">
+                                                <div class="panel panel-default child-panel">
                                                     <div class="panel-heading" role="tab">
                                                         <a role="button" data-toggle="collapse" data-parent="#syllabusItemAccordion"
                                                             data-bind="attr: {href: '#syllabusItem' + syllabusItem.id}">
@@ -251,7 +251,7 @@
                                 <!-- /ko -->
                                 <li class="list-group-item" style="padding:0" style="cursor:pointer" 
                                     data-bind="visible: coursePageState.showCreateNewSyllabusItem">
-                                    <button class="btn btn-success" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                    <button class="btn btn-primary" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                             data-bind="click: $root.addNewSyllabusItem">
                                       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                                       <span data-bind="text: $root.appCulture.strings()
@@ -369,7 +369,7 @@
                     <!-- /ko -->
                     <div class="panel panel-default" data-bind="visible: $root.coursePageState.showCreateNewInfo()">
                         <div class="panel-heading" role="tab" style="padding: 0">
-                            <button class="btn btn-default" style="width: 100%; border-radius: 2px 2px 2px 2px"
+                            <button class="btn btn-primary" style="width: 100%; border-radius: 2px 2px 2px 2px"
                                     data-bind="click: $root.addNewInfo">
                               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                               <span data-bind="text: $root.appCulture.strings()
@@ -386,26 +386,30 @@
         </div><!-- /.container -->
         
         <footer>
-            <div class="navbar navbar-fixed-bottom" data-bind="fadeVisible: appState.activePage() == 'Course'">
-                <div class="container">
-                    <div class="navbar-header">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#tab_below_1" data-toggle="tab">
-                                    <span data-bind="text: $root.appCulture.strings()
-                                       .getString('GRADES_TAB_TITLE', $root.appCulture.lang())"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="#tab_below_2" data-toggle="tab">
-                                    <span data-bind="text: $root.appCulture.strings()
-                                       .getString('INFO_TAB_TITLE', $root.appCulture.lang())"></span>
-                                </a>
-                            </li>
-                        </ul>
+             <nav class="navbar navbar-default navbar-fixed-bottom">
+                <div data-bind="fadeVisible: appState.activePage() == 'Course'">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <div class="tabs-below">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#tab_below_1" data-toggle="tab">
+                                            <span data-bind="text: $root.appCulture.strings()
+                                               .getString('GRADES_TAB_TITLE', $root.appCulture.lang())"></span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#tab_below_2" data-toggle="tab">
+                                            <span data-bind="text: $root.appCulture.strings()
+                                               .getString('INFO_TAB_TITLE', $root.appCulture.lang())"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+             </nav>
         </footer>
         
         <div id="editSyllabusItemModal" class="modal fade" role="dialog" data-bind="if: coursePageState.activeSyllabusItem() != null">
