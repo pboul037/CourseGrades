@@ -250,7 +250,7 @@ function createViewModel() {
   vm.addNewSyllabusItem = function(){
     var lastSyllabusItemIndex = vm.appState.activeCourse().syllabusItems().length + 1;
     vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, [], null)); 
-    $('#addNewSyllabusItemModal').modal('show');
+    $('#editSyllabusItemModal').modal('show');
   }
   
   vm.editGrade = function(syllabusItem){
@@ -258,6 +258,12 @@ function createViewModel() {
         vm.coursePageState.activeSyllabusItem().state('READ');
     syllabusItem.state('EDIT_GRADE');
     vm.coursePageState.activeSyllabusItem(syllabusItem);
+  }
+  
+  vm.editSyllabusItem = function(syllabusItem){
+    syllabusItem.state('EDIT');
+    vm.coursePageState.activeSyllabusItem(syllabusItem);
+    $('#editSyllabusItemModal').modal('show');
   }
   
   function computeGradePercentFromChildren(parent){
@@ -324,12 +330,12 @@ function createViewModel() {
       var si = vm.coursePageState.activeSyllabusItem();
       var itemToAdd = new SyllabusItem(si.id, si.title(), "READ", si.numItems() > 1, si.weight(), "", si.numItems(), [], null);
       vm.appState.activeCourse().syllabusItems.push(itemToAdd);
-      $('#addNewSyllabusItemModal').modal('hide');
+      $('#editSyllabusItemModal').modal('hide');
   }
   
   vm.cancelCreateSyllabusItem = function(){
       vm.coursePageState.activeSyllabusItem(null);
-      $('#addNewSyllabusItemModal').modal('hide');
+      $('#editSyllabusItemModal').modal('hide');
   }
 
   vm.createInfo = function(info){

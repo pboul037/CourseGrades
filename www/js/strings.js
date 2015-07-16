@@ -1,4 +1,16 @@
 var strings = {
+    'EDIT_SYLLABUS_ITEM_MODAL_TITLE': {
+        'en': 'Edit a Syllabus Item',
+        'fr': 'Modifier un élément de cours'
+    },
+    'GRADE': {
+        'en': 'Grade',
+        'fr': 'Note'
+    },
+    'OK': {
+        'en': 'OK',
+        'fr': 'OK'
+    },
     'ADD_NEW_COURSE': {
         'en': 'Add a new course',
         'fr': 'Ajouter un nouveau cours'
@@ -28,7 +40,7 @@ var strings = {
         'fr': 'Ajouter un élément de cours'
     },
     'ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE': {
-        'en': 'Create a syllabus item',
+        'en': 'Create a Syllabus Item',
         'fr': 'Créer un élément de cours'
     },
     'SYLLABUS_ITEMS': {

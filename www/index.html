@@ -174,6 +174,8 @@
                                     <li class="list-group-item" data-bind="style: {padding: syllabusItem.isParent ? 
                                                                            '0px 0px' : '10px 15px 10px 15px'}">
                                         <!-- ko if: !syllabusItem.isParent -->
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"
+                                                data-bind="click: $root.editSyllabusItem.bind(syllabusItem)"></span>
                                         <span data-bind="text: syllabusItem.title"></span>
                                         <span class="pull-right" data-bind="visible: syllabusItem.state() != 'EDIT_GRADE',
                                                                             text: syllabusItem.gradePercent() == null ?
@@ -203,6 +205,8 @@
                                                         <a role="button" data-toggle="collapse" data-parent="#syllabusItemAccordion"
                                                             data-bind="attr: {href: '#syllabusItem' + syllabusItem.id}">
                                                             <h4 class="panel-title">
+                                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"
+                                                                    data-bind="click: $root.editSyllabusItem.bind(syllabusItem)"></span>
                                                                 <span data-bind="text: syllabusItem.title() + ''"></span>
                                                                 <span class="badge" data-bind="text: syllabusItem.children().length"></span>
                                                                 <span class="pull-right" data-bind="text: syllabusItem.gradePercent() == null ?
@@ -215,6 +219,8 @@
                                                          <ul class="list-group">
                                                              <!-- ko foreach: { data: syllabusItem.children, as: 'child' } -->
                                                                 <li class="list-group-item">
+                                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"
+                                                                        data-bind="click: $root.editSyllabusItem.bind(child)"></span>
                                                                     <span data-bind="text: child.title"></span>
                                                                     <span class="pull-right" data-bind="visible: child.state() != 'EDIT_GRADE',
                                                                             text: child.gradePercent() == null ?
@@ -402,14 +408,18 @@
             </div>
         </footer>
         
-        <div id="addNewSyllabusItemModal" class="modal fade" role="dialog" data-bind="if: coursePageState.activeSyllabusItem() != null">
+        <div id="editSyllabusItemModal" class="modal fade" role="dialog" data-bind="if: coursePageState.activeSyllabusItem() != null">
           <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
-                                               .getString('ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang())"></h4>
+                    <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
+                                                   .getString('ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
+                                                       visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></h4>
+                      <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
+                                   .getString('EDIT_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
+                                       visible: coursePageState.activeSyllabusItem().state() == 'EDIT'"></h4>
               </div>
               <div class="modal-body">
                 <div class="row">
@@ -428,7 +438,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                         <div class="row" data-bind="visible: coursePageState.activeSyllabusItem().state() == 'EDIT' &&
+                                                                                 !coursePageState.activeSyllabusItem().isParent">
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-3">
+                                    <label for="itemGradeInput" style="padding:0px" ><span class="pull-left" data-bind="
+                                        text: $root.appCulture.strings().getString('GRADE', $root.appCulture.lang())"></span></label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="itemGradeInput" style="display: inline-block; width:50px" class="form-control"
+                                           data-bind="value: coursePageState.activeSyllabusItem().gradeNumerator"></input>
+                                    <span>/</span>
+                                    <input style="display:inline-block; width:50px" class="form-control" 
+                                           data-bind="value: coursePageState.activeSyllabusItem().gradeDenominator"></input>
+                                </div>
+                            </div>
+                        </div>                                           
+                        <div class="row"  data-bind="visible: coursePageState.activeSyllabusItem().parent == null">
                             <div class="form-group col-xs-12">
                                 <div class="col-xs-3">
                                     <label for="itemWeightInput" style="padding:0px"><span class="pull-left" data-bind="text: $root.appCulture.strings()
@@ -444,7 +470,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" data-bind="visible: !coursePageState.activeSyllabusItem().parent == null">
                             <div class="form-group col-xs-12">
                                 <div class="col-xs-3">
                                     <label for="itemNumberInput" style="padding:0px" ><span class="pull-left" data-bind="text: $root.appCulture.strings()
@@ -469,14 +495,21 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-xs btn-success" class="btn btn-default"
+                <button type="button" class="btn btn-xs btn-success" 
+                        data-bind="text: $root.appCulture.strings()
+                                               .getString('OK', $root.appCulture.lang()),
+                                   click: function(){$root.setGrade(); $('#editSyllabusItemModal').modal('hide');},
+                                   visible: $root.coursePageState.activeSyllabusItem().state() == 'EDIT'"></button>
+                <button type="button" class="btn btn-xs btn-success" 
                         data-bind="text: $root.appCulture.strings()
                                                .getString('CREATE', $root.appCulture.lang()),
-                                   click: $root.createSyllabusItem"></button>
-                <button type="button" class="btn btn-xs btn-danger" class="btn btn-default"
+                                   click: $root.createSyllabusItem,
+                                   visible: $root.coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
+                <button type="button" class="btn btn-xs btn-danger" 
                         data-bind="text: $root.appCulture.strings()
                                                .getString('CANCEL', $root.appCulture.lang()),
-                                   click: $root.cancelCreateSyllabusItem"></button>
+                                   click: $root.cancelCreateSyllabusItem,
+                                   visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
             </div>
             </div>
 
