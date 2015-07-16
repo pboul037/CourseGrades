@@ -64,6 +64,9 @@
                                                              $root.appState.activeSession().id == session.id) &&
                                                                 !session.creationMode()">
                                             </span>
+                                            <span class="pull-right" style="padding-right:10px" data-bind="text: session.avg() == null ?
+                                                                                 '-- %' : session.avg() + '%'"></span>
+              
                                         </span>
                                     </h4>
                                 </a>
@@ -177,6 +180,10 @@
                                                                                 '-- %' : syllabusItem.gradePercent() + '%',
                                                                             click: $root.editGrade.bind(syllabusItem)"></span>
                                         <span class="pull-right" data-bind="visible: syllabusItem.state() == 'EDIT_GRADE'">
+                                            <button class="btn btn-xs btn-default" 
+                                                    data-bind="text: 'Cancel',
+                                                               click: function(){syllabusItem.state('READ');},
+                                                               clickBubble: false"></button>
                                             <button class="btn btn-xs btn-success" 
                                                     data-bind="text: 'Set',
                                                                click: $root.setGrade,
@@ -213,7 +220,10 @@
                                                                             text: child.gradePercent() == null ?
                                                                                 '-- %' : child.gradePercent() + '%',
                                                                             click: $root.editGrade.bind(child)"></span>
-                                                                    <span class="pull-right" data-bind="visible: child.state() == 'EDIT_GRADE'">
+                                                                    <span class="pull-right" data-bind="visible: child.state() == 'EDIT_GRADE'">                                                                                   <button class="btn btn-xs btn-default" 
+                                                                                data-bind="text: 'Cancel',
+                                                                                           click: function(){child.state('READ');},
+                                                                                           clickBubble: false"></button>
                                                                         <button class="btn btn-xs btn-success" 
                                                                                 data-bind="text: 'Set',
                                                                                            click: $root.setGrade,

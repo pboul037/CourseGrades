@@ -2,6 +2,7 @@ function Session(id, title, courses)
 {
     this.id = id;
     this.title = ko.observable(title);
+    this.avg = ko.observable(null);
     this.courses = ko.observableArray(courses == null ? [] : courses);
 }
 
@@ -45,14 +46,17 @@ function Info(id, title, name, email, phone, office)
 
 var sessionsData = [
     new Session(0, 'Fall 2015', 
-               [new Course(0, 'SEG3525', 99,
+               [new Course(0, 'SEG3525', null,
                           [new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0, null),
                            new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3, null),
                            new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0, null)]), 
-                new Course(1, 'SEG3505', null)]),
+                new Course(1, 'SEG3505', null,
+                          [new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0, null),
+                           new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3, null),
+                           new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0, null)])]), 
     new Session(1, 'Summer 2015', 
-               [new Course(0, 'CSI2101', 78), 
-                new Course(1, 'ADM1500', 97)])
+               [new Course(0, 'CSI2101', null), 
+                new Course(1, 'ADM1500', null)])
 ];
 
 var infoData = [

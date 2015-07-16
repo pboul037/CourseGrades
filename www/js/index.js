@@ -85,11 +85,41 @@ function createViewModel() {
                 });
                 if(numberOfComputedGrades > 0){
                     course.grade(((computedGrade)/sumOfComputedWeights).toFixed(0));
+                    vm.computeSessionAvg();
                 }else{
                     course.grade(null);
                 }
             }else{
                 course.grade(null);
+            }
+        }
+  }
+  
+  vm.computeSessionAvg = function() {
+        var session = vm.appState.activeSession();
+        if( session != null){
+            var computedGrade = null;
+            // TODO: add credits as sessions weights
+            //var sumOfComputedWeights = 0;
+            var numberOfComputedGrades = 0;
+            if(session.courses() != null){
+                session.courses().forEach(function(course){
+                    if(course.grade() != null){
+                        if(computedGrade == null)
+                            computedGrade = 0;
+
+                        computedGrade += (parseInt(course.grade())); //*course.weight());
+                        //sumOfComputedWeights += syllItem.weight();
+                        numberOfComputedGrades++;
+                    }
+                });
+                if(numberOfComputedGrades > 0){
+                    session.avg(((computedGrade)/numberOfComputedGrades).toFixed(0));
+                }else{
+                    session.avg(null);
+                }
+            }else{
+                session.avg(null);
             }
         }
   }
@@ -224,6 +254,8 @@ function createViewModel() {
   }
   
   vm.editGrade = function(syllabusItem){
+    if(vm.coursePageState.activeSyllabusItem() != null)
+        vm.coursePageState.activeSyllabusItem().state('READ');
     syllabusItem.state('EDIT_GRADE');
     vm.coursePageState.activeSyllabusItem(syllabusItem);
   }
