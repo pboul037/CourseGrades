@@ -35,7 +35,7 @@
                 <div class="panel-group" id="accordion" role="tablist">
                     <!-- ko foreach: { data: dataModel.sessions, as: 'session' } -->
                         <div class="panel panel-default">
-                            <div class="panel-heading" role="tab">
+                            <div class="custom-panel-heading panel-heading" role="tab">
                                 <a role="button"
                                     data-bind="click: $root.sessionOnClick.bind(session),
                                                disable: session.creationMode()">
@@ -196,7 +196,7 @@
                                             <div class="panel-group" id="syllabusItemAccordion" role="tablist" aria-multiselectable="true" 
                                                  style="margin-bottom:0px">
                                                 <div class="panel panel-default child-panel">
-                                                    <div class="panel-heading" role="tab">
+                                                    <div class="panel-heading" role="tab" style="background-color: #f8f5f0">
                                                         <a role="button" data-toggle="collapse" data-parent="#syllabusItemAccordion"
                                                             data-bind="attr: {href: '#syllabusItem' + syllabusItem.id}">
                                                             <h4 class="panel-title">

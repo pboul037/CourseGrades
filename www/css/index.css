@@ -20,13 +20,18 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+input {
+    font-size: 14px;
+}
+
 .panel{
-    border-color:#F2F1ED;
-    background-color:#3e3f3a;
+    border-color:1px solid #dfd7ca;
+    background-color:#dfd7ca;
 }
 
 .panel-default>.panel-heading{
     border-color:transparent;
+    background-color:#dfd7ca;
 }
 
 .panel .child-panel{
