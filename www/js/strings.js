@@ -1,4 +1,8 @@
 var strings = {
+    'SETTINGS_PAGE_TITLE': {
+        'en': 'Settings',
+        'fr': 'Réglages'
+    },
     'LANGUAGE': {
         'en': 'Language',
         'fr': 'Langage'

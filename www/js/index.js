@@ -151,6 +151,11 @@ function createViewModel() {
   });
     
   // define view model's functions
+  vm.appCulture.lang.subscribe(function(){
+    if(vm.appState.activePage() == constants.SETTINGS_PAGE_TITLE)
+        vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
+  });
+    
   vm.changeAndNavigateToActiveCourse = function(course){
       if(!course.creationMode()){
         vm.appState.activePageTitle(course.title);
@@ -161,7 +166,7 @@ function createViewModel() {
   
   vm.navigateToSettings = function(){
       vm.appState.activePage(constants.SETTINGS_PAGE_TITLE);
-      vm.appState.activePageTitle(constants.SETTINGS_PAGE_TITLE);
+      vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
       if (vm.appState.activeCourse() != null)
           vm.appState.previousPageTitle(vm.appState.activeCourse().title());
       else
