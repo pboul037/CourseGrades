@@ -34,7 +34,7 @@
             <div data-bind="fadeVisible: appState.activePage() == 'Sessions'">
                 <div class="panel-group" id="accordion" role="tablist">
                     <!-- ko foreach: { data: dataModel.sessions, as: 'session' } -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default drop-shadow" style="margin-bottom: 10px;">
                             <div class="custom-panel-heading panel-heading" role="tab">
                                 <a role="button"
                                     data-bind="click: $root.sessionOnClick.bind(session),
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     <!-- /ko -->
-                    <div class="panel panel-default" data-bind="visible: $root.sessionPageState.showCreateNewSession()">
+                    <div class="panel panel-default drop-shadow" data-bind="visible: $root.sessionPageState.showCreateNewSession()">
                         <div class="panel-heading" role="tab" style="padding: 0">
                             <button class="btn btn-primary" style="width: 100%; border-radius: 2px 2px 2px 2px"
                                     data-bind="click: $root.addNewSession">
@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                          <div class="panel panel-default">
+                          <div class="panel panel-default drop-shadow">
                             <div class="panel-heading" role="tab" id="headingTwo">
                               <h4 class="panel-title">
                                   <span data-bind="text: $root.appCulture.strings()
@@ -286,7 +286,7 @@
                 <div class="panel-group" id="accordion" role="tablist">
                     <!-- ko foreach: { data: coursePageState.info, as: 'info' } -->
                     <!-- ko if: info.id == -1 -->
-                          <div class="panel panel-default">
+                          <div class="panel panel-default drop-shadow" style="margin-bottom: 10px;">
                             <div class="panel-heading" role="tab">
                                 <a role="button"
                                     data-bind="click: $root.infoOnClick.bind(info),
@@ -348,7 +348,7 @@
                         </div>
                                   <!-- /ko -->
                                   <!-- ko if: info.id != -1 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default drop-shadow" style="margin-bottom: 10px;">
                             <div class="panel-heading" role="tab">
                                 <a role="button"
                                     data-bind="click: $root.infoOnClick.bind(info),
@@ -438,7 +438,7 @@
                         </div>
                                 <!-- /ko -->
                     <!-- /ko -->
-                    <div class="panel panel-default" data-bind="visible: $root.coursePageState.showCreateNewInfo()">
+                    <div class="panel panel-default" data-bind="visible: $root.coursePageState.showCreateNewInfo()" style="margin-bottom: 10px;">
                         <div class="panel-heading" role="tab" style="padding: 0">
                             <button class="btn btn-primary" style="width: 100%; border-radius: 2px 2px 2px 2px"
                                     data-bind="click: $root.addNewInfo">

@@ -20,6 +20,11 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+.drop-shadow {
+    -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
+}
+
 .avg-metric-title {
     font-size: 14px;
     color: #98978b;
@@ -35,6 +40,10 @@
 input {
     font-size: 14px;
     color: #98978b;
+}
+
+h4 {
+    font-weight:bolder;
 }
 
 h4 > span > input:focus{
@@ -64,21 +73,8 @@ button {
 button > span {
     color: #F2F1ED;
 }
-.panel{
-    border-color:1px solid #dfd7ca;
-    background-color:#dfd7ca;
-}
-
-.panel-default>.panel-heading{
-    border-color:transparent;
-    background-color:#dfd7ca;
-}
 
 .panel .child-panel{
-    border:none;
-}
-
-.btn-primary{
     border:none;
 }
 
