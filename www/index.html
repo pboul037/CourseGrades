@@ -261,9 +261,8 @@
 						<div class="tab-pane" id="tab_below_2">
                 <div class="panel-group" id="accordion" role="tablist">
                     <!-- ko foreach: { data: coursePageState.info, as: 'info' } -->
-
-
-                        <div class="panel panel-default">
+                    <!-- ko if: info.id == -1 -->
+                          <div class="panel panel-default">
                             <div class="panel-heading" role="tab">
                                 <a role="button"
                                     data-bind="click: $root.infoOnClick.bind(info),
@@ -304,7 +303,6 @@
                             </div>
                             <div class="panel-collapse collapse" role="tabpanel"
                                  data-bind="attr: {id: 'info' + info.id, 'aria-expanded': $root.coursePageState.activeInfo() != null && $root.coursePageState.activeInfo().id == info.id ? 'true' : 'false'}" >
-                                  <!-- ko if: info.id == -1 -->
                                   <ul class="list-group">
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row" style="margin-left:20px; margin-bottom:10px; margin-top:10px">
@@ -322,9 +320,53 @@
                                       attr:{placeholder: $root.appCulture.strings() .getString('ADD_A_COURSE_DESCRIPTION', $root.appCulture.lang())}">
                                     </li>
                                   </ul>
+                             </div> 
+                        </div>
                                   <!-- /ko -->
                                   <!-- ko if: info.id != -1 -->
-
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <a role="button"
+                                    data-bind="click: $root.infoOnClick.bind(info),
+                                               disable: info.creationMode()">
+                                    <h4 class="panel-title">
+                                        <span class="margin">
+                                            <input type="text" class="form-input" placeholder="Enter a title..."
+                                                   data-bind="value: info.title,
+                                                              hasFocus: info.creationMode(),
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_A_TITLE', $root.appCulture.lang())}
+                                                              ">
+                                            <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
+                                                  data-bind="visible: ($root.coursePageState.activeInfo() == null ||
+                                                             $root.coursePageState.activeInfo().id != info.id) &&
+                                                                !info.creationMode()">
+                                            </span>
+                                            <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
+                                                  data-bind="visible: ($root.coursePageState.activeInfo() != null &&
+                                                             $root.coursePageState.activeInfo().id == info.id) &&
+                                                                !info.creationMode()">
+                                            </span> 
+                                            <span class="pull-right glyphicon glyphicon-envelope" style="margin-right: 10px"aria-hidden="true"></span>
+                                            <span class="pull-right glyphicon glyphicon-earphone" style="margin-right: 10px" aria-hidden="true"></span>
+                                        </span> 
+                                    </h4> 
+                                </a>
+                                <button class="btn btn-xs btn-default" 
+                                        data-bind="visible: info.creationMode(),
+                                                   click: $root.cancelAddNewInfo.bind(info),
+                                                   text: $root.appCulture.strings()
+                                                    .getString('CANCEL', $root.appCulture.lang())"></button>
+                                <button class="btn btn-xs btn-success" 
+                                        data-bind="visible: info.creationMode(),
+                                                   text: $root.appCulture.strings()
+                                                    .getString('CREATE', $root.appCulture.lang()),
+                                                   disable: info.title().length < 1,
+                                                   click: $root.createInfo.bind(info),
+                                                   clickBubble: false"></button>
+                            </div>
+                            <div class="panel-collapse collapse" role="tabpanel"
+                                 data-bind="attr: {id: 'info' + info.id, 'aria-expanded': $root.coursePageState.activeInfo() != null && $root.coursePageState.activeInfo().id == info.id ? 'true' : 'false'}" >
                                  <ul class="list-group">
 
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
@@ -368,9 +410,9 @@
                                                             </div>
                                     </li>
                                 </ul> 
-                                <!-- /ko -->
-                            </div> 
+                             </div> 
                         </div>
+                                <!-- /ko -->
                     <!-- /ko -->
                     <div class="panel panel-default" data-bind="visible: $root.coursePageState.showCreateNewInfo()">
                         <div class="panel-heading" role="tab" style="padding: 0">
