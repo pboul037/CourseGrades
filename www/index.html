@@ -39,7 +39,7 @@
                                 <a role="button"
                                     data-bind="click: $root.sessionOnClick.bind(session),
                                                disable: session.creationMode()">
-                                    <h4 class="panel-title">
+                                    <h4 class="panel-title" style="font-size:18px;">
                                         <span class="margin">
                                             <input type="text" class="form-input" placeholder="Enter the session's title..."
                                                    data-bind="value: session.title,
@@ -82,7 +82,7 @@
                                                          $root.appState.activeSession().id == session.id ? 'true' : 'false'}" >
                                  <ul class="list-group">
                                      <!-- ko foreach: { data: $data.courses, as: 'course' } -->
-                                        <li class="list-group-item" 
+                                        <li class="custom-list-group-item list-group-item" 
                                             data-bind="click: $root.changeAndNavigateToActiveCourse.bind(course)" 
                                           style="cursor:pointer">
                                             <div class="row">
@@ -123,7 +123,7 @@
                                                                                 visible: !course.creationMode()"></span>
                                         </li>
                                      <!-- /ko -->
-                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" 
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
                                         data-bind="visible: session.showCreateNewCourse()">
                                         <button class="btn btn-primary" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                                 data-bind="click: $root.addNewCourse">
@@ -186,10 +186,10 @@
                             </div>
                             <ul class="list-group">
                                 <!-- ko if: appState.activeCourse().syllabusItems().length < 1 -->
-                                    <li class="list-group-item">This course has no item yet.</li>
+                                    <li class="custom-list-group-item list-group-item">This course has no item yet.</li>
                                 <!-- /ko -->
                                 <!-- ko foreach: {data: appState.activeCourse().syllabusItems, as: 'syllabusItem'} -->
-                                    <li class="list-group-item" data-bind="style: {padding: syllabusItem.isParent ? 
+                                    <li class="custom-list-group-item list-group-item" data-bind="style: {padding: syllabusItem.isParent ? 
                                                                            '0px 0px' : '10px 15px 10px 15px'}">
                                         <!-- ko if: !syllabusItem.isParent -->
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"
@@ -239,7 +239,7 @@
                                                          data-bind="attr: {id: 'syllabusItem' + syllabusItem.id}">
                                                          <ul class="list-group">
                                                              <!-- ko foreach: { data: syllabusItem.children, as: 'child' } -->
-                                                                <li class="list-group-item">
+                                                                <li class="custom-list-group-item list-group-item">
                                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"
                                                                         data-bind="click: $root.editSyllabusItem.bind(child),
                                                                                     clickBubble: false"></span>
@@ -273,7 +273,7 @@
                                         <!-- /ko -->
                                     </li>
                                 <!-- /ko -->
-                                <li class="list-group-item" style="padding:0" style="cursor:pointer" 
+                                <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
                                     data-bind="visible: coursePageState.showCreateNewSyllabusItem">
                                     <button class="btn btn-primary" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                             data-bind="click: $root.addNewSyllabusItem">
@@ -294,7 +294,7 @@
                                 <a role="button"
                                     data-bind="click: $root.infoOnClick.bind(info),
                                                disable: info.creationMode()">
-                                    <h4 class="panel-title">
+                                    <h4 class="panel-title" style="font-size:18px;">
                                         <span class="margin">
                                             <input type="text" class="form-input" placeholder="Enter a title..."
                                                    data-bind="value: info.title,
@@ -331,7 +331,7 @@
                             <div class="panel-collapse collapse" role="tabpanel"
                                  data-bind="attr: {id: 'info' + info.id, 'aria-expanded': $root.coursePageState.activeInfo() != null && $root.coursePageState.activeInfo().id == info.id ? 'true' : 'false'}" >
                                   <ul class="list-group">
-                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row" style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('COURSE_WEBSITE', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the course website..."
@@ -341,7 +341,7 @@
                                                               attr:{placeholder: $root.appCulture.strings() .getString('ENTER_COURSE_WEBSITE', $root.appCulture.lang())}">
                                                             </div>
                                     </li>
-                                    <li class="list-group-item">
+                                    <li class="custom-list-group-item list-group-item">
                                       <input type="text" class="form-input" placeholder="Add a course description..." 
                                       data-bind="value: info.name, hasFocus: info.creationMode(), valueUpdate:'afterkeydown',
                                       attr:{placeholder: $root.appCulture.strings() .getString('ADD_A_COURSE_DESCRIPTION', $root.appCulture.lang())}">
@@ -356,7 +356,7 @@
                                 <a role="button"
                                     data-bind="click: $root.infoOnClick.bind(info),
                                                disable: info.creationMode()">
-                                    <h4 class="panel-title">
+                                    <h4 class="panel-title" style="font-size:18px;">
                                         <span class="margin">
                                             <input type="text" class="form-input" placeholder="Enter a title..."
                                                    data-bind="value: info.title,
@@ -396,7 +396,7 @@
                                  data-bind="attr: {id: 'info' + info.id, 'aria-expanded': $root.coursePageState.activeInfo() != null && $root.coursePageState.activeInfo().id == info.id ? 'true' : 'false'}" >
                                  <ul class="list-group">
 
-                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('NAME', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's name..."
@@ -406,7 +406,7 @@
                                                               attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_NAME', $root.appCulture.lang())}">
                                                               </div>
                                     </li>
-                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('EMAIL', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's email..."
@@ -416,7 +416,7 @@
                                                               attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_EMAIL', $root.appCulture.lang())}">
                                                               </div>
                                     </li>
-                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('PHONE', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's phone number..."
@@ -426,7 +426,7 @@
                                                               attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_PHONE', $root.appCulture.lang())}">
                                                               </div>
                                     </li>
-                                    <li class="list-group-item" style="padding:0" style="cursor:pointer" >
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('OFFICE', $root.appCulture.lang()) + ' : '"></span>
                                       <input type="text" class="form-input" placeholder="Enter the person's office..."

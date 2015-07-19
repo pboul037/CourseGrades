@@ -20,6 +20,10 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+.custom-list-group-item {
+    padding: 10px 10px;
+}
+
 .custom-form-control {
     padding: 5px 5px;
     height: 34px;
