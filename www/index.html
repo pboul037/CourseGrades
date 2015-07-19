@@ -573,10 +573,7 @@
                                         <input id="dueDateInput" type="number" style="width:200px;"
                                                class="custom-form-control form-control" placeholder="15"
                                                data-bind="value: coursePageState.activeSyllabusItem().dueDate,
-                                                          click: function(){datePicker.show({
-                                                                    date: new Date(),
-                                                                    mode: 'date'
-                                                                }, $root.onSyllabusItemDueDateSelectedSuccess, $root.onSyllabusItemDueDateSelectedError);}">
+                                                          click: $root.showDatePicker">
                                     </div>
                                 </div>
                             </div>
