@@ -37,14 +37,6 @@
     border:none;
 }
 
-/* custom inclusion of right, left and below tabs */
-
-.tabs-below > .nav-tabs,
-.tabs-right > .nav-tabs,
-.tabs-left > .nav-tabs {
-  border-bottom: 0;
-}
-
 .tab-content > .tab-pane,
 .pill-content > .pill-pane {
   display: none;
@@ -53,39 +45,6 @@
 .tab-content > .active,
 .pill-content > .active {
   display: block;
-}
-
-.tabs-below > .nav-tabs > li {
-  margin-top: -2px;
-  margin-bottom: 0;
-}
-
-.tabs-below > .nav-tabs > li .active{
-    background:solid;
-        background-color:red;
-    }
-
-.tabs-below > .nav-tabs > li > a {
-  -webkit-border-radius: 0 0 4px 4px;
-     -moz-border-radius: 0 0 4px 4px;
-          border-radius: 0 0 4px 4px;
-}
-
-.tabs-below > .nav-tabs > li > a:hover,
-.tabs-below > .nav-tabs > li > a:focus {
-  border-top-color: #ddd;
-  border-bottom-color: transparent;
-}
-
-.tabs-below > .nav-tabs > .active > a,
-.tabs-below > .nav-tabs > .active > a:hover,
-.tabs-below > .nav-tabs > .active > a:focus {
-  border-color: transparent #ddd #ddd #ddd;
-}
-
-.nav-tabs>li>.active>a
-{
-    background-color:#F2F1ED;
 }
 
 /* Text Input */
@@ -113,13 +72,9 @@ input[type=number]::-webkit-outer-spin-button {
     right: 0;
 }
 
-.nav-tabs > li, .nav-pills > li {
-    float:none;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-     zoom:1; /* hasLayout ie7 trigger */
-}
 
 .nav-tabs, .nav-pills {
     text-align:center;
 }
+
+.brand { margin-left: auto; margin-right: auto; }
