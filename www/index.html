@@ -44,7 +44,9 @@
                                             <input type="text" class="form-input" placeholder="Enter the session's title..."
                                                    data-bind="value: session.title,
                                                               hasFocus: session.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr: {placeholder: $root.appCulture.strings()
+                                                                        .getString('ENTER_SESSION_TITLE_PLACEHOLDER', $root.appCulture.lang())}">
                                             <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
                                                   data-bind="visible: ($root.appState.activeSession() == null ||
                                                              $root.appState.activeSession().id != session.id) &&
@@ -61,6 +63,12 @@
                                         </span>
                                     </h4>
                                 </a>
+                                <button class="btn btn-xs btn-default" 
+                                        data-bind="visible: session.creationMode(),
+                                                   click: $root.cancelAddNewSession.bind(session),
+                                                   text: $root.appCulture.strings()
+                                                    .getString('CANCEL', 
+                                                   $root.appCulture.lang())"></button>
                                 <button class="btn btn-xs btn-success" 
                                         data-bind="visible: session.creationMode(),
                                                    text: $root.appCulture.strings()
@@ -68,12 +76,6 @@
                                                    disable: session.title().length < 1,
                                                    click: $root.createSession.bind(session),
                                                    clickBubble: false"></button>
-                                <button class="btn btn-xs btn-danger" 
-                                        data-bind="visible: session.creationMode(),
-                                                   click: $root.cancelAddNewSession.bind(session),
-                                                   text: $root.appCulture.strings()
-                                                    .getString('CANCEL', 
-                                                   $root.appCulture.lang())"></button>
                             </div>
                             <div class="panel-collapse collapse" role="tabpanel"
                                  data-bind="attr: {id: 'session' + session.id, 'aria-expanded': $root.appState.activeSession() != null &&
@@ -93,13 +95,12 @@
                                                               valueUpdate:'afterkeydown'"/>
                                             </div>
                                             <div class="row" style="text-align:center">
-                                                <button class="btn btn-xs btn-success" 
-                                                        data-bind="visible: course.creationMode(),
+                                                <button class="btn btn-xs btn-default" 
+                                                        data-bind="visible: course.creationMode(), 
+                                                                   click: $root.cancelAddNewCourse.bind(course),
                                                                    text: $root.appCulture.strings()
-                                                           .getString('CREATE', $root.appCulture.lang()),
-                                                                   disable: course.title().length < 1,
-                                                                   click: $root.createCourse.bind(course),
-                                                                   clickBubble: false"></button>
+                                                                    .getString('CANCEL', 
+                                                                   $root.appCulture.lang())"></button>
                                                 <button class="btn btn-xs btn-success" 
                                                         data-bind="visible: course.creationMode(),
                                                                    text: $root.appCulture.strings()
@@ -108,12 +109,13 @@
                                                                    disable: course.title().length < 1,
                                                                    click: $root.addAnotherCourse.bind(course),
                                                                    clickBubble: false"></button>
-                                                <button class="btn btn-xs btn-danger" 
-                                                        data-bind="visible: course.creationMode(), 
-                                                                   click: $root.cancelAddNewCourse.bind(course),
+                                                <button class="btn btn-xs btn-success" 
+                                                        data-bind="visible: course.creationMode(),
                                                                    text: $root.appCulture.strings()
-                                                                    .getString('CANCEL', 
-                                                                   $root.appCulture.lang())"></button>
+                                                           .getString('CREATE', $root.appCulture.lang()),
+                                                                   disable: course.title().length < 1,
+                                                                   click: $root.createCourse.bind(course),
+                                                                   clickBubble: false"></button>
                                             </div>
                                             <span data-bind="text: course.title, visible: !course.creationMode()"></span>
                                             <span class="pull-right" data-bind="text: course.grade() != null ? 
@@ -174,11 +176,13 @@
                                                                             click: $root.editGrade.bind(syllabusItem)"></span>
                                         <span class="pull-right" data-bind="visible: syllabusItem.state() == 'EDIT_GRADE'">
                                             <button class="btn btn-xs btn-default" 
-                                                    data-bind="text: 'Cancel',
+                                                    data-bind="text: $root.appCulture.strings()
+                                                                    .getString('CANCEL', $root.appCulture.lang()),
                                                                click: function(){syllabusItem.state('READ');},
                                                                clickBubble: false"></button>
                                             <button class="btn btn-xs btn-success" 
-                                                    data-bind="text: 'Set',
+                                                    data-bind="text: $root.appCulture.strings()
+                                                                .getString('OK', $root.appCulture.lang()),
                                                                click: $root.setGrade,
                                                                clickBubble: false"></button>
                                             <input  style="width:35px" data-bind="
@@ -217,12 +221,14 @@
                                                                             text: child.gradePercent() == null ?
                                                                                 '-- %' : child.gradePercent() + '%',
                                                                             click: $root.editGrade.bind(child)"></span>
-                                                                    <span class="pull-right" data-bind="visible: child.state() == 'EDIT_GRADE'">                                                                                   <button class="btn btn-xs btn-default" 
-                                                                                data-bind="text: 'Cancel',
+                                                                    <span class="pull-right" data-bind="visible: child.state() == 'EDIT_GRADE'">                                                                                                                    <button class="btn btn-xs btn-default" 
+                                                                                data-bind="text: $root.appCulture.strings()
+                                                                                                .getString('CANCEL', $root.appCulture.lang()),
                                                                                            click: function(){child.state('READ');},
                                                                                            clickBubble: false"></button>
                                                                         <button class="btn btn-xs btn-success" 
-                                                                                data-bind="text: 'Set',
+                                                                                data-bind="text: $root.appCulture.strings()
+                                                                                                .getString('OK', $root.appCulture.lang()),
                                                                                            click: $root.setGrade,
                                                                                            clickBubble: false"></button>
                                                                         <input  style="width:35px" 
@@ -281,6 +287,11 @@
                                         </span> 
                                     </h4> 
                                 </a>
+                                <button class="btn btn-xs btn-default" 
+                                        data-bind="visible: info.creationMode(),
+                                                   click: $root.cancelAddNewInfo.bind(info),
+                                                   text: $root.appCulture.strings()
+                                                    .getString('CANCEL', $root.appCulture.lang())"></button>
                                 <button class="btn btn-xs btn-success" 
                                         data-bind="visible: info.creationMode(),
                                                    text: $root.appCulture.strings()
@@ -288,11 +299,6 @@
                                                    disable: info.title().length < 1,
                                                    click: $root.createInfo.bind(info),
                                                    clickBubble: false"></button>
-                                <button class="btn btn-xs btn-danger" 
-                                        data-bind="visible: info.creationMode(),
-                                                   click: $root.cancelAddNewInfo.bind(info),
-                                                   text: $root.appCulture.strings()
-                                                    .getString('CANCEL', $root.appCulture.lang())"></button>
                             </div>
                             <div class="panel-collapse collapse" role="tabpanel"
                                  data-bind="attr: {id: 'info' + info.id, 'aria-expanded': $root.coursePageState.activeInfo() != null && $root.coursePageState.activeInfo().id == info.id ? 'true' : 'false'}" >
@@ -443,7 +449,7 @@
                                     <input type="text" class="form-control pull-right" id="itemTitleInput"
                                            data-bind="value: coursePageState.activeSyllabusItem().title,
                                                       attr:{placeholder: $root.appCulture.strings()
-                                                        .getString('ENTER__SYLLABUS_ITEM_TITLE_PLACEHOLDER', $root.appCulture.lang())}">
+                                                        .getString('ENTER_SYLLABUS_ITEM_TITLE_PLACEHOLDER', $root.appCulture.lang())}">
                                 </div>
                             </div>
                         </div>
@@ -479,7 +485,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" data-bind="visible: !coursePageState.activeSyllabusItem().parent == null">
+                        <div class="row" data-bind="visible: !coursePageState.activeSyllabusItem().parent == null || coursePageState.activeSyllabusItem().state() == 'CREATION'">
                             <div class="form-group col-xs-12">
                                 <div class="col-xs-3">
                                     <label for="itemNumberInput" style="padding:0px" ><span class="pull-left" data-bind="text: $root.appCulture.strings()
@@ -489,12 +495,12 @@
                                     <div class="input-group">
                                         <span class="input-group-btn" data-bind="click: function(){
                                                                                  if(coursePageState.activeSyllabusItem().numItems() > 1)coursePageState.activeSyllabusItem().numItems(coursePageState.activeSyllabusItem().numItems() - 1);}">
-                                            <span class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></span>
+                                            <span class="btn btn-primary"><span class="glyphicon glyphicon-minus"></span></span>
                                         </span>
                                         <input id="itemNumberInput" type="number" class="form-control" style="width:45px; text-align:center"
                                                data-bind="value: coursePageState.activeSyllabusItem().numItems">
                                         <span class="input-group-btn" data-bind="click: function(){coursePageState.activeSyllabusItem().numItems(coursePageState.activeSyllabusItem().numItems() + 1);}">
-                                            <span class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></span>
+                                            <span class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></span>
                                         </span>
                                     </div>
                                 </div>
@@ -509,16 +515,16 @@
                                                .getString('OK', $root.appCulture.lang()),
                                    click: function(){$root.setGrade(); $('#editSyllabusItemModal').modal('hide');},
                                    visible: $root.coursePageState.activeSyllabusItem().state() == 'EDIT'"></button>
+                <button type="button" class="btn btn-xs btn-default" 
+                        data-bind="text: $root.appCulture.strings()
+                                               .getString('CANCEL', $root.appCulture.lang()),
+                                   click: $root.cancelCreateSyllabusItem,
+                                   visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
                 <button type="button" class="btn btn-xs btn-success" 
                         data-bind="text: $root.appCulture.strings()
                                                .getString('CREATE', $root.appCulture.lang()),
                                    click: $root.createSyllabusItem,
                                    visible: $root.coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
-                <button type="button" class="btn btn-xs btn-danger" 
-                        data-bind="text: $root.appCulture.strings()
-                                               .getString('CANCEL', $root.appCulture.lang()),
-                                   click: $root.cancelCreateSyllabusItem,
-                                   visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
             </div>
             </div>
 

@@ -1,4 +1,8 @@
 var strings = {
+    'ENTER_SESSION_TITLE_PLACEHOLDER': {
+        'en': "Enter the session's title...",
+        'fr': "Entrez le nom de la session..."
+    },
     'SETTINGS_PAGE_TITLE': {
         'en': 'Settings',
         'fr': 'Réglages'
@@ -31,7 +35,7 @@ var strings = {
         'en': 'Weight',
         'fr': 'Poids'
     },
-    'ENTER__SYLLABUS_ITEM_TITLE_PLACEHOLDER': {
+    'ENTER_SYLLABUS_ITEM_TITLE_PLACEHOLDER': {
         'en': "Enter item's title",
         'fr': "Entrez le titre de l'élément"
     },
@@ -77,7 +81,7 @@ var strings = {
     },
     'CREATE_AND_ADD_ANOTHER': {
         'en': 'Create & Add Another',
-        'fr': 'Créer et en ajouter un autre'
+        'fr': 'Créer et ajouter'
     },
     'DESCRIPTION': {
         'en': 'Description',
