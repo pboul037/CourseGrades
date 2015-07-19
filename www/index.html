@@ -22,6 +22,11 @@
                     </a>
                 </div>
                 <p class="navbar-brand" style="float:none; margin-top:auto; margin-bottom:auto; text-align:center; padding:10px 10px" data-bind="text: appState.activePageTitle()"></p>
+                <div style="position:absolute; right:15px; top:13px;">
+                    <a style="cursor:pointer;" data-bind="visible: $root.appState.activePage() != 'Settings', click: $root.navigateToSettings" >
+                        <span style="color:white" class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
             </div><!-- /.container-fluid -->
         </nav>
         
@@ -368,6 +373,28 @@
 					</div>
 
 				</div>
+            </div>
+            <div data-bind="fadeVisible: appState.activePage() == 'Settings'">
+                <div class="row">
+                    <form class="form-inline">
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-3">
+                                    <label for="languageInput" style="padding-top:12px" ><span class="pull-left" data-bind="text: $root.appCulture.strings()
+                                               .getString('LANGUAGE', $root.appCulture.lang())"></span></label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div id="languageInput" class="btn-group" data-toggle="buttons">
+                                        <label class="btn" data-bind="css: {'btn-primary': $root.appCulture.lang() == 'en', 'btn-default': $root.appCulture.lang() != 'en'}">
+                                            <input type="radio" name="options" id="option1" value="en" data-bind="bsChecked: $root.appCulture.lang">English</label>
+                                        <label class="btn" data-bind="css: {'btn-primary': $root.appCulture.lang() == 'fr', 'btn-default': $root.appCulture.lang() != 'fr'}">
+                                            <input type="radio" name="options" id="option2" value="fr" data-bind="bsChecked: $root.appCulture.lang">Français</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div><!-- /.container -->
         

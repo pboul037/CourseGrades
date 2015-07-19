@@ -1,4 +1,8 @@
 var strings = {
+    'LANGUAGE': {
+        'en': 'Language',
+        'fr': 'Langage'
+    },
     'EDIT_SYLLABUS_ITEM_MODAL_TITLE': {
         'en': 'Edit a Syllabus Item',
         'fr': 'Modifier un élément de cours'

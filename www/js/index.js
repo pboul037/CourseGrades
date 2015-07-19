@@ -1,6 +1,7 @@
 var constants = {
     'SESSIONS_PAGE_TITLE': 'Sessions',
-    'COURSE_PAGE_TITLE': 'Course'
+    'COURSE_PAGE_TITLE': 'Course',
+    'SETTINGS_PAGE_TITLE': 'Settings'
 };
 
 var deviceReadyDeferred = new $.Deferred();
@@ -158,6 +159,15 @@ function createViewModel() {
       }
   }
   
+  vm.navigateToSettings = function(){
+      vm.appState.activePage(constants.SETTINGS_PAGE_TITLE);
+      vm.appState.activePageTitle(constants.SETTINGS_PAGE_TITLE);
+      if (vm.appState.activeCourse() != null)
+          vm.appState.previousPageTitle(vm.appState.activeCourse().title());
+      else
+          vm.appState.previousPageTitle(constants.SESSIONS_PAGE_TITLE);
+  }
+  
   vm.navigateBack = function(){
     switch(vm.appState.activePage()){
         case constants.COURSE_PAGE_TITLE:
@@ -165,6 +175,18 @@ function createViewModel() {
             vm.appState.activePage(constants.SESSIONS_PAGE_TITLE);
             vm.appState.activeCourse(null);
             break;
+        case constants.SETTINGS_PAGE_TITLE:
+            if(vm.appState.previousPageTitle() == constants.SESSIONS_PAGE_TITLE)
+            {
+                vm.appState.activePageTitle(constants.SESSIONS_PAGE_TITLE);
+                vm.appState.activePage(constants.SESSIONS_PAGE_TITLE);
+            }
+            else
+            {
+                vm.appState.activePageTitle(vm.appState.previousPageTitle());
+                vm.appState.activePage(constants.COURSE_PAGE_TITLE);
+                vm.appState.previousPageTitle(constants.SESSIONS_PAGE_TITLE);
+            }
     }
   }
   
@@ -401,3 +423,25 @@ ko.bindingHandlers.fadeVisible = {
         ko.unwrap(value) ? $(element).fadeIn() : $(element).hide();
     }
 };
+
+ko.bindingHandlers.bsChecked = {
+    init: function (element, valueAccessor, allBindingsAccessor,
+    viewModel, bindingContext) {
+        var value = valueAccessor();
+        var newValueAccessor = function () {
+            return {
+                change: function () {
+                    value(element.value);
+                }
+            }
+        };
+        ko.bindingHandlers.event.init(element, newValueAccessor,
+        allBindingsAccessor, viewModel, bindingContext);
+    },
+    update: function (element, valueAccessor, allBindingsAccessor,
+    viewModel, bindingContext) {
+        if ($(element).val() == ko.unwrap(valueAccessor())) {
+            $(element).closest('.btn').button('toggle');
+        }
+    }
+}
