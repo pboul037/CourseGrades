@@ -20,6 +20,18 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+.avg-metric-title {
+    font-size: 14px;
+    color: #98978b;
+    text-transform: uppercase;
+}
+
+.avg-metric-text {
+    font-size: 16px;
+    color: #98978b;
+    font-weight:bold;
+}
+
 input {
     font-size: 14px;
     color: #98978b;

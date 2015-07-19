@@ -130,6 +130,7 @@ function createViewModel() {
     session.showCreateNewCourse = ko.observable(true);
     session.courses().forEach(function(course){
         course.creationMode = ko.observable(false);
+        course.state = ko.observable('READ');
         
         course.syllabusItems().forEach(function(syllItem){
             syllItem.gradePercent.subscribe(vm.computeCourseAvg);

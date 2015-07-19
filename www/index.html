@@ -10,7 +10,7 @@
         <title>Course Grades</title>
     </head>
     <body style="background-color:#F2F1ED">
-        <nav class="navbar navbar-default" style="min-height:42px; height:42px">
+        <nav class="navbar navbar-default" style="min-height:42px; height:42px; margin-bottom:10px;">
             <div class="container-fluid" style="text-align:center">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div style="position:absolute; padding-top:11px">
@@ -152,6 +152,31 @@
                 <div class="tabbable tabs-below"  style="min-height:100%; background-color:transparent">
 					<div class="tab-content" style="background-color:transparent">
 						<div class="tab-pane active" id="tab_below_1">
+                            <div class="row">
+                                <div class="col-xs-6" style="text-align:right; padding-bottom:5px">
+                                    <div style="text-align:center">
+                                        <span class="avg-metric-title" data-bind="text: $root.appCulture.strings()
+                                                                                    .getString('AVERAGE', $root.appCulture.lang())"></span><br>
+                                        <span class="avg-metric-text" data-bind="text: (appState.activeCourse().grade() == null ? '--' : appState.activeCourse().grade())  + ' %'"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6" style="text-align:left; padding-bottom:5px">
+                                    <div style="text-align:center">
+                                        <span class="avg-metric-title"data-bind="text: $root.appCulture.strings()
+                                                                                    .getString('GOAL', $root.appCulture.lang())"></span><br>
+                                        <span class="avg-metric-text" data-bind="visible: appState.activeCourse().state() != 'EDIT_GRADE_GOAL',
+                                                                                 text: (appState.activeCourse().gradeGoal() == null ? '--' : appState.activeCourse().gradeGoal())  + ' %',
+                                                                                 click: function(){appState.activeCourse().state('EDIT_GRADE_GOAL')}"></span>
+                                        <input class="form-control" style="height: 24px; width: 40px; padding: 5px 5px;"
+                                                data-bind="visible: appState.activeCourse().state() == 'EDIT_GRADE_GOAL',
+                                                           value: appState.activeCourse().gradeGoal, 
+                                                           valueUpdate: 'afterkeydown',
+                                                           hasFocus: appState.activeCourse().state() == 'EDIT_GRADE_GOAL',
+                                                           event: { blur: function(){appState.activeCourse().state('READ');}},
+                                                           style: { 'display': (appState.activeCourse().state() == 'EDIT_GRADE_GOAL' ? 'inline-block' : 'none')}" />
+                                    </div>
+                                </div>
+                            </div>
                           <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="headingTwo">
                               <h4 class="panel-title">
@@ -185,9 +210,8 @@
                                                                 .getString('OK', $root.appCulture.lang()),
                                                                click: $root.setGrade,
                                                                clickBubble: false"></button>
-                                            <input  style="width:35px" data-bind="
-                                                                                value: syllabusItem.gradeNumerator,
-                                                                                hasFocus: syllabusItem.state() == 'EDIT_GRADE'"></input>
+                                            <input style="width:35px" data-bind="value: syllabusItem.gradeNumerator,
+                                                                                 hasFocus: syllabusItem.state() == 'EDIT_GRADE'"></input>
                                             <span>/</span>
                                             <input style="width:35px" data-bind="value: syllabusItem.gradeDenominator"></input>
                                         </span>

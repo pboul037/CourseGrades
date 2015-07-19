@@ -1,4 +1,12 @@
 var strings = {
+    'GOAL': {
+        'en': "Goal",
+        'fr': "But"
+    },
+    'AVERAGE': {
+        'en': "Average",
+        'fr': "Moyenne"
+    },
     'ENTER_SESSION_TITLE_PLACEHOLDER': {
         'en': "Enter the session's title...",
         'fr': "Entrez le nom de la session..."

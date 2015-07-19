@@ -10,6 +10,7 @@ function Course(id, title, grade, syllabusItems){
     this.id = id;
     this.title = ko.observable(title);
     this.grade = ko.observable(grade);
+    this.gradeGoal = ko.observable(80);
     this.syllabusItems = ko.observableArray(syllabusItems != null ? syllabusItems : []);
 }
 
