@@ -111,6 +111,34 @@ var strings = {
         'en': 'Add new contact',
         'fr': 'Ajouter un nouveau contact'
     },
+    'ENTER_COURSE_WEBSITE': {
+        'en': 'Enter the course website...',
+        'fr': 'Entrer le site web du cours...'
+    },
+    'ADD_A_COURSE_DESCRIPTION': {
+        'en': 'Add a course description...',
+        'fr': 'Ajouter une description au cours...'
+    },
+    'ENTER_PERSON_NAME': {
+        'en': 'Enter the person\'s name...',
+        'fr': 'Insérez le nom du contact'
+    },
+    'ENTER_PERSON_EMAIL': {
+        'en': 'Enter the person\'s email...',
+        'fr': 'Insérez le mail du contact'
+    },
+    'ENTER_PERSON_PHONE': {
+        'en': 'Enter the person\'s phone number...',
+        'fr': 'Insérez le numéro de téléphone du contact'
+    },
+    'ENTER_PERSON_OFFICE': {
+        'en': 'Enter the person\'s office...',
+        'fr': 'Insérez le bureau du contact'
+    },
+    'ENTER_A_TITLE': {
+        'en': 'Enter a title...',
+        'fr': 'Insérez un titre'
+    },
     getString: function(string, lang){
         return this[string][lang];
     }

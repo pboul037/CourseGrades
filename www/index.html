@@ -270,10 +270,12 @@
                                                disable: info.creationMode()">
                                     <h4 class="panel-title">
                                         <span class="margin">
-                                            <input type="text" class="form-input" placeholder="Enter the person's title..."
+                                            <input type="text" class="form-input" placeholder="Enter a title..."
                                                    data-bind="value: info.title,
                                                               hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_A_TITLE', $root.appCulture.lang())}
+                                                              ">
                                             <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
                                                   data-bind="visible: ($root.coursePageState.activeInfo() == null ||
                                                              $root.coursePageState.activeInfo().id != info.id) &&
@@ -310,12 +312,14 @@
                                       <input type="text" class="form-input" placeholder="Enter the course website..."
                                                    data-bind="value: info.email,
                                                               hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_COURSE_WEBSITE', $root.appCulture.lang())}">
                                                             </div>
                                     </li>
                                     <li class="list-group-item">
                                       <input type="text" class="form-input" placeholder="Add a course description..." 
-                                      data-bind="value: info.name, hasFocus: info.creationMode(), valueUpdate:'afterkeydown'">
+                                      data-bind="value: info.name, hasFocus: info.creationMode(), valueUpdate:'afterkeydown',
+                                      attr:{placeholder: $root.appCulture.strings() .getString('ADD_A_COURSE_DESCRIPTION', $root.appCulture.lang())}">
                                     </li>
                                   </ul>
                                   <!-- /ko -->
@@ -329,7 +333,8 @@
                                       <input type="text" class="form-input" placeholder="Enter the person's name..."
                                                    data-bind="value: info.name,
                                                               hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_NAME', $root.appCulture.lang())}">
                                                               </div>
                                     </li>
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
@@ -338,7 +343,8 @@
                                       <input type="text" class="form-input" placeholder="Enter the person's email..."
                                                    data-bind="value: info.email,
                                                               hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_EMAIL', $root.appCulture.lang())}">
                                                               </div>
                                     </li>
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
@@ -347,7 +353,8 @@
                                       <input type="text" class="form-input" placeholder="Enter the person's phone number..."
                                                    data-bind="value: info.phone,
                                                               hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_PHONE', $root.appCulture.lang())}">
                                                               </div>
                                     </li>
                                     <li class="list-group-item" style="padding:0" style="cursor:pointer" >
@@ -356,7 +363,8 @@
                                       <input type="text" class="form-input" placeholder="Enter the person's office..."
                                                    data-bind="value: info.office,
                                                               hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown'">
+                                                              valueUpdate:'afterkeydown',
+                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_PERSON_OFFICE', $root.appCulture.lang())}">
                                                             </div>
                                     </li>
                                 </ul> 
