@@ -24,6 +24,13 @@ input {
     font-size: 14px;
 }
 
+li > span {
+    color: #98978b;
+}
+
+button > span {
+    color: #F2F1ED;
+}
 .panel{
     border-color:1px solid #dfd7ca;
     background-color:#dfd7ca;
