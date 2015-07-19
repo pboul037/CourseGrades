@@ -1,4 +1,8 @@
 var strings = {
+    'DUE_DATE': {
+        'en': "Due Date",
+        'fr': "Date de remise"
+    },
     'GOAL': {
         'en': "Goal",
         'fr': "But"

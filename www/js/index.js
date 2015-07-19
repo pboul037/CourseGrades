@@ -414,6 +414,14 @@ function createViewModel() {
     vm.appState.activeSession().showCreateNewCourse(true);
   }
   
+  vm.onSyllabusItemDueDateSelectedSuccess = function(){
+    console.log('selected due date with success');
+  }
+  
+  vm.onSyllabusItemDueDateSelectedError = function(){
+    console.log('selected due date with error');
+  }
+  
   return vm;
 }
 
