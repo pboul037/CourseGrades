@@ -1,4 +1,12 @@
 var strings = {
+    'CREATE_SYLLABUS_ITEM_PAGE_TITLE': {
+        'en': "Create a Syllabus Item",
+        'fr': "Créer un élément de cours"
+    },
+    'EDIT_SYLLABUS_ITEM_PAGE_TITLE': {
+        'en': "Edit Syllabus Item",
+        'fr': "Modifier un élément"
+    },
     'DUE_DATE': {
         'en': "Due Date",
         'fr': "Date de remise"

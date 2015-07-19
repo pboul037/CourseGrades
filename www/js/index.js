@@ -1,7 +1,8 @@
 var constants = {
-    'SESSIONS_PAGE_TITLE': 'Sessions',
-    'COURSE_PAGE_TITLE': 'Course',
-    'SETTINGS_PAGE_TITLE': 'Settings'
+    'SESSIONS_PAGE': 'Sessions',
+    'COURSE_PAGE': 'Course',
+    'SETTINGS_PAGE': 'Settings',
+    'EDIT_SYLLABUS_ITEM': 'EDIT_SYLLABUS_ITEM'
 };
 
 var deviceReadyDeferred = new $.Deferred();
@@ -39,9 +40,10 @@ function createViewModel() {
         strings: ko.observable(strings),
     },
     appState: {
-        activePage: ko.observable(constants.SESSIONS_PAGE_TITLE),
-        activePageTitle: ko.observable(constants.SESSIONS_PAGE_TITLE),
-        previousPageTitle: ko.observable(constants.SESSIONS_PAGE_TITLE),
+        activePage: ko.observable(constants.SESSIONS_PAGE),
+        activePageTitle: ko.observable(constants.SESSIONS_PAGE),
+        previousPage: ko.observable(constants.SESSIONS_PAGE),
+        previousPageTitle: ko.observable(constants.SESSIONS_PAGE),
         activeSession: ko.observable(null),
         activeCourse: ko.observable(null)
     },
@@ -153,46 +155,76 @@ function createViewModel() {
     
   // define view model's functions
   vm.appCulture.lang.subscribe(function(){
-    if(vm.appState.activePage() == constants.SETTINGS_PAGE_TITLE)
+    if(vm.appState.activePage() == constants.SETTINGS_PAGE){
         vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
+        if(vm.appState.previousPage(constants.EDIT_SYLLABUS_ITEM))
+           vm.appState.previousPageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+    }else if(vm.appState.activePage() == constants.EDIT_SYLLABUS_ITEM){
+        vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+    }
+  });
+    
+  // re-initialize the datepicker plugin when page is made visible
+  vm.appState.activePage.subscribe(function(activePage){
+    if(activePage == constants.EDIT_SYLLABUS_ITEM)
+        $('.dueDateInput').pickadate();
   });
     
   vm.changeAndNavigateToActiveCourse = function(course){
       if(!course.creationMode()){
         vm.appState.activePageTitle(course.title);
         vm.appState.activeCourse(course);
-        vm.appState.activePage(constants.COURSE_PAGE_TITLE); 
+        vm.appState.activePage(constants.COURSE_PAGE); 
       }
   }
   
   vm.navigateToSettings = function(){
-      vm.appState.activePage(constants.SETTINGS_PAGE_TITLE);
-      vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
-      if (vm.appState.activeCourse() != null)
-          vm.appState.previousPageTitle(vm.appState.activeCourse().title());
-      else
-          vm.appState.previousPageTitle(constants.SESSIONS_PAGE_TITLE);
+        vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
+        if (vm.appState.activeCourse() != null && vm.appState.activePage() == constants.COURSE_PAGE){
+            vm.appState.previousPageTitle(vm.appState.activeCourse().title());
+            vm.appState.previousPage(constants.COURSE_PAGE);
+        }else if (vm.appState.activePage() == constants.SESSIONS_PAGE){
+            vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
+            vm.appState.previousPage(constants.SESSIONS_PAGE);
+        }else if (vm.appState.activePage() == constants.EDIT_SYLLABUS_ITEM){
+            vm.appState.previousPageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+            vm.appState.previousPage(constants.EDIT_SYLLABUS_ITEM); 
+        }
+        vm.appState.activePage(constants.SETTINGS_PAGE);
   }
   
   vm.navigateBack = function(){
     switch(vm.appState.activePage()){
-        case constants.COURSE_PAGE_TITLE:
-            vm.appState.activePageTitle(constants.SESSIONS_PAGE_TITLE);
-            vm.appState.activePage(constants.SESSIONS_PAGE_TITLE);
+        case constants.COURSE_PAGE:
+            vm.appState.activePageTitle(constants.SESSIONS_PAGE);
+            vm.appState.activePage(constants.SESSIONS_PAGE);
             vm.appState.activeCourse(null);
             break;
-        case constants.SETTINGS_PAGE_TITLE:
-            if(vm.appState.previousPageTitle() == constants.SESSIONS_PAGE_TITLE)
+        case constants.SETTINGS_PAGE:
+            if(vm.appState.previousPageTitle() == constants.SESSIONS_PAGE)
             {
-                vm.appState.activePageTitle(constants.SESSIONS_PAGE_TITLE);
-                vm.appState.activePage(constants.SESSIONS_PAGE_TITLE);
+                vm.appState.activePageTitle(constants.SESSIONS_PAGE);
+                vm.appState.activePage(constants.SESSIONS_PAGE);
             }
-            else
+            else if(vm.appState.previousPageTitle() == vm.appState.activeCourse().title())
             {
                 vm.appState.activePageTitle(vm.appState.previousPageTitle());
-                vm.appState.activePage(constants.COURSE_PAGE_TITLE);
-                vm.appState.previousPageTitle(constants.SESSIONS_PAGE_TITLE);
+                vm.appState.activePage(constants.COURSE_PAGE);
+                vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
+                vm.appState.previousPage(constants.SESSIONS_PAGE);
+            }else if(vm.appState.previousPage() == constants.EDIT_SYLLABUS_ITEM){
+                vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+                vm.appState.activePage(constants.COURSE_PAGE);
+                vm.appState.previousPageTitle(vm.appState.activeCourse().title());
+                vm.appState.previousPage(constants.COURSE_PAGE);
             }
+            break;
+        case constants.EDIT_SYLLABUS_ITEM:
+            vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
+            vm.appState.previousPage(constants.SESSIONS_PAGE);
+            vm.appState.activePageTitle(vm.appState.activeCourse().title());
+            vm.appState.activePage(constants.COURSE_PAGE);
+            break;
     }
   }
   
@@ -278,7 +310,10 @@ function createViewModel() {
   vm.addNewSyllabusItem = function(){
     var lastSyllabusItemIndex = vm.appState.activeCourse().syllabusItems().length + 1;
     vm.coursePageState.activeSyllabusItem(new SyllabusItem(lastSyllabusItemIndex, "", "CREATION", false, 5, "", 1, [], null)); 
-    $('#editSyllabusItemModal').modal('show');
+    vm.appState.previousPageTitle(vm.appState.activeCourse().title());
+    vm.appState.previousPage(constants.COURSE_PAGE);
+    vm.appState.activePageTitle(vm.appCulture.strings().getString('CREATE_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+    vm.appState.activePage(constants.EDIT_SYLLABUS_ITEM);
   }
   
   vm.editGrade = function(syllabusItem){
@@ -291,7 +326,10 @@ function createViewModel() {
   vm.editSyllabusItem = function(syllabusItem){
     syllabusItem.state('EDIT');
     vm.coursePageState.activeSyllabusItem(syllabusItem);
-    $('#editSyllabusItemModal').modal('show');
+    vm.appState.previousPageTitle(vm.appState.activeCourse().title());
+    vm.appState.previousPage(constants.COURSE_PAGE);
+    vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+    vm.appState.activePage(constants.EDIT_SYLLABUS_ITEM);
   }
   
   function computeGradePercentFromChildren(parent){
@@ -333,6 +371,12 @@ function createViewModel() {
     vm.coursePageState.activeSyllabusItem().state('READ');
     vm.coursePageState.activeSyllabusItem(null);
   }
+  
+  vm.doneEditingSyllabusItem = function(){
+    vm.setGrade();
+    vm.appState.activePageTitle(vm.appState.activeCourse().title());
+    vm.appState.activePage(constants.COURSE_PAGE);
+  }
 
   vm.addNewInfo = function(){
     var dfd = new jQuery.Deferred();
@@ -358,12 +402,14 @@ function createViewModel() {
       var si = vm.coursePageState.activeSyllabusItem();
       var itemToAdd = new SyllabusItem(si.id, si.title(), "READ", si.numItems() > 1, si.weight(), "", si.numItems(), [], null);
       vm.appState.activeCourse().syllabusItems.push(itemToAdd);
-      $('#editSyllabusItemModal').modal('hide');
+      vm.appState.activePageTitle(vm.appState.activeCourse().title())
+      vm.appState.activePage(constants.COURSE_PAGE);
   }
   
   vm.cancelCreateSyllabusItem = function(){
       vm.coursePageState.activeSyllabusItem(null);
-      $('#editSyllabusItemModal').modal('hide');
+      vm.appState.activePageTitle(vm.appState.activeCourse().title());
+      vm.appState.activePage(constants.COURSE_PAGE);
   }
 
   vm.createInfo = function(info){
@@ -412,17 +458,6 @@ function createViewModel() {
   vm.cancelAddNewCourse = function(course){
     vm.appState.activeSession().courses.remove(course);
     vm.appState.activeSession().showCreateNewCourse(true);
-  }
-  
-  vm.showDatePicker = function() {
-      var options = {
-      date: new Date(),
-      mode: 'date'
-    };
-
-    datePicker.show(options, function(date){
-      alert("date result " + date);  
-    });
   }
   
   return vm;

@@ -7,6 +7,10 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="js/bootstrap-3.3.4/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.css" />
+        <link rel="stylesheet" type='text/css' href="js/datepicker/themes/default.date.css" />
+        <link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.time.css" />
+        
         <title>Course Grades</title>
     </head>
     <body style="background-color:#F2F1ED">
@@ -479,42 +483,8 @@
                     </form>
                 </div>
             </div>
-        </div><!-- /.container -->
-        
-        <footer data-bind="fadeVisible: appState.activePage() == 'Course'">
-             <nav class="navbar navbar-default navbar-fixed-bottom" style="min-height:40px" >
-                    <ul class="nav navbar-nav" style="text-align:center; margin:0px;">
-                        <li class="course-tab-link active" style="display:inline-block">
-                            <a href="#tab_below_1" data-toggle="tab">
-                                <span data-bind="text: $root.appCulture.strings()
-                                   .getString('GRADES_TAB_TITLE', $root.appCulture.lang())"></span>
-                            </a>
-                        </li>
-                        <li class="course-tab-link" style="display:inline-block; border: 1px">
-                            <a href="#tab_below_2" data-toggle="tab">
-                                <span data-bind="text: $root.appCulture.strings()
-                                   .getString('INFO_TAB_TITLE', $root.appCulture.lang())"></span>
-                            </a>
-                        </li>
-                    </ul>
-             </nav>
-        </footer>
-        
-        <div id="editSyllabusItemModal" class="modal fade" role="dialog" data-bind="if: coursePageState.activeSyllabusItem() != null">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content" style="background-color:#F2F1ED">
-              <div class="modal-header" style="border-bottom: 1px solid #F2F1ED">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
-                                                   .getString('ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
-                                                       visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></h4>
-                      <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
-                                   .getString('EDIT_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
-                                       visible: coursePageState.activeSyllabusItem().state() == 'EDIT'"></h4>
-              </div>
-              <div class="modal-body">
-                <div class="row">
+            <div data-bind="if: coursePageState.activeSyllabusItem() != null, fadeVisible: appState.activePage() == 'EDIT_SYLLABUS_ITEM'">
+               <div style="margin-top: 40px;">
                     <form class="form-inline">
                         <div class="row">
                             <div class="form-group col-xs-12">
@@ -562,67 +532,106 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row"  data-bind="visible: !coursePageState.activeSyllabusItem().isParent">
+                        <div class="row" data-bind="visible: !coursePageState.activeSyllabusItem().parent == null 
+                                                    || coursePageState.activeSyllabusItem().state() == 'CREATION'">
                             <div class="form-group col-xs-12">
                                 <div class="col-xs-3">
-                                    <label for="itemWeightInput" style="padding:0px"><span class="pull-left" data-bind="text: $root.appCulture.strings()
-                                               .getString('DUE_DATE', $root.appCulture.lang())"></span></label>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="input-group">
-                                        <input id="dueDateInput" type="number" style="width:200px;"
-                                               class="custom-form-control form-control" placeholder="15"
-                                               data-bind="value: coursePageState.activeSyllabusItem().dueDate,
-                                                          click: $root.showDatePicker">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" data-bind="visible: !coursePageState.activeSyllabusItem().parent == null || coursePageState.activeSyllabusItem().state() == 'CREATION'">
-                            <div class="form-group col-xs-12">
-                                <div class="col-xs-3">
-                                    <label for="itemNumberInput" style="padding:0px" ><span class="pull-left" data-bind="text: $root.appCulture.strings()
+                                    <label for="itemNumberInput" style="padding:0px" ><span class="pull-left" 
+                                            data-bind="text: $root.appCulture.strings()
                                                .getString('NUM_OF_SYLLABUS_ITEMS', $root.appCulture.lang())"></span></label>
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="input-group">
-                                        <span class="input-group-btn" data-bind="click: function(){
-                                                                                 if(coursePageState.activeSyllabusItem().numItems() > 1)coursePageState.activeSyllabusItem().numItems(coursePageState.activeSyllabusItem().numItems() - 1);}">
-                                            <span class="btn btn-primary" style="padding: 5px 15px 5px 15px"><span class="glyphicon glyphicon-minus"></span></span>
+                                        <span class="input-group-btn" 
+                                              data-bind="click: function(){if(coursePageState.activeSyllabusItem().numItems() > 1)                                                                          coursePageState.activeSyllabusItem()
+                                                         .numItems(coursePageState.activeSyllabusItem().numItems() - 1);}">
+                                            <span class="btn btn-primary" style="padding: 5px 15px 5px 15px">
+                                                <span class="glyphicon glyphicon-minus"></span>
+                                            </span>
                                         </span>
-                                        <input id="itemNumberInput" type="number" class="custom-form-control form-control" style="width:45px; text-align:center"
+                                        <input id="itemNumberInput" type="number" class="custom-form-control form-control" 
+                                               style="width:45px; text-align:center"
                                                data-bind="value: coursePageState.activeSyllabusItem().numItems">
-                                        <span class="input-group-btn" data-bind="click: function(){coursePageState.activeSyllabusItem().numItems(coursePageState.activeSyllabusItem().numItems() + 1);}">
-                                            <span class="btn btn-primary" style="padding: 5px 15px 5px 15px"><span class="glyphicon glyphicon-plus"></span></span>
+                                        <span class="input-group-btn" data-bind="click: function(){coursePageState.activeSyllabusItem()
+                                                                                 .numItems(coursePageState.activeSyllabusItem().numItems() + 1);}">
+                                            <span class="btn btn-primary" style="padding: 5px 15px 5px 15px">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </span>
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"  data-bind="fadeVisible: coursePageState.activeSyllabusItem().numItems() < 2">
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-3">
+                                    <label for="itemWeightInput" style="padding:0px">
+                                        <span class="pull-left" data-bind="text: $root.appCulture.strings()
+                                               .getString('DUE_DATE', $root.appCulture.lang())"></span>
+                                    </label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <input class="custom-form-control form-control dueDateInput" 
+                                           style="width: 150px; text-align:center; background-color: white"
+                                           data-bind="value: coursePageState.activeSyllabusItem().dueDate">
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="modal-footer" style="border-top: 1px solid #F2F1ED">
-                <button type="button" class="btn btn-xs btn-success" 
+        </div><!-- /.container -->
+        
+        <footer data-bind="fadeVisible: appState.activePage() == 'Course' || appState.activePage() == 'EDIT_SYLLABUS_ITEM'">
+             <nav class="navbar navbar-default navbar-fixed-bottom" style="min-height:40px">
+                <ul class="nav navbar-nav" style="text-align:center; margin:0px;" data-bind="fadeVisible: appState.activePage() == 'Course'">
+                    <li class="course-tab-link active" style="display:inline-block">
+                        <a href="#tab_below_1" data-toggle="tab">
+                            <span data-bind="text: $root.appCulture.strings()
+                               .getString('GRADES_TAB_TITLE', $root.appCulture.lang())"></span>
+                        </a>
+                    </li>
+                    <li class="course-tab-link" style="display:inline-block; border: 1px">
+                        <a href="#tab_below_2" data-toggle="tab">
+                            <span data-bind="text: $root.appCulture.strings()
+                               .getString('INFO_TAB_TITLE', $root.appCulture.lang())"></span>
+                        </a>
+                    </li>
+                </ul>
+                 <div data-bind="if: coursePageState.activeSyllabusItem() != null, fadeVisible: appState.activePage() == 'EDIT_SYLLABUS_ITEM'"
+                      style="text-align:center; padding: 10px;">
+                    <button type="button" class="btn btn-success" 
                         data-bind="text: $root.appCulture.strings()
                                                .getString('OK', $root.appCulture.lang()),
-                                   click: function(){$root.setGrade(); $('#editSyllabusItemModal').modal('hide');},
+                                   click: $root.doneEditingSyllabusItem,
                                    visible: $root.coursePageState.activeSyllabusItem().state() == 'EDIT'"></button>
-                <button type="button" class="btn btn-xs btn-default" 
-                        data-bind="text: $root.appCulture.strings()
-                                               .getString('CANCEL', $root.appCulture.lang()),
-                                   click: $root.cancelCreateSyllabusItem,
-                                   visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
-                <button type="button" class="btn btn-xs btn-success" 
-                        data-bind="text: $root.appCulture.strings()
-                                               .getString('CREATE', $root.appCulture.lang()),
-                                   click: $root.createSyllabusItem,
-                                   visible: $root.coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
-            </div>
-            </div>
-
-          </div>
-        </div>
+                    <button type="button" class="btn btn-danger" 
+                            data-bind="text: $root.appCulture.strings()
+                                                   .getString('CANCEL', $root.appCulture.lang()),
+                                       click: $root.cancelCreateSyllabusItem,
+                                       visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
+                    <button type="button" class="btn btn-success" 
+                            data-bind="text: $root.appCulture.strings()
+                                                   .getString('CREATE', $root.appCulture.lang()),
+                                       click: $root.createSyllabusItem,
+                                       visible: $root.coursePageState.activeSyllabusItem().state() == 'CREATION'"></button>
+                 </div>
+             </nav>
+        </footer>
+        
+        <!-- <div id="editSyllabusItemModal" class="modal fade" data-bind="if: coursePageState.activeSyllabusItem() != null">
+          <div class="modal-dialog">
+            <!-- Modal content--
+            <div class="modal-content" style="background-color:#F2F1ED">
+              <div class="modal-header" style="border-bottom: 1px solid #F2F1ED">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
+                                                   .getString('ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
+                                                       visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></h4>
+                      <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
+                                   .getString('EDIT_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
+                                       visible: coursePageState.activeSyllabusItem().state() == 'EDIT'"></h4>
+              </div> 
         
         <!-- <div id="deviceready" class="blink">
             <p class="event listening">App in development...</p>
@@ -634,6 +643,8 @@
         <script type="text/javascript" src="js/knockout/knockout-3.3.0.js"></script>
         <script type="text/javascript" src="js/strings.js"></script>
         <script type="text/javascript" src="js/dataModel.js"></script>
+        <script type="text/javascript" src="js/datepicker/picker.js"></script>
+        <script type="text/javascript" src="js/datepicker/picker.date.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
