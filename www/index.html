@@ -199,7 +199,7 @@
                                                     <div class="panel-heading" role="tab" style="background-color: #f8f5f0">
                                                         <a role="button" data-toggle="collapse" data-parent="#syllabusItemAccordion"
                                                             data-bind="attr: {href: '#syllabusItem' + syllabusItem.id}">
-                                                            <h4 class="panel-title">
+                                                            <h4 class="panel-title" style="font-size:14px">
                                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"
                                                                     data-bind="click: $root.editSyllabusItem.bind(syllabusItem)"></span>
                                                                 <span data-bind="text: syllabusItem.title() + ''"></span>
@@ -426,8 +426,8 @@
         <div id="editSyllabusItemModal" class="modal fade" role="dialog" data-bind="if: coursePageState.activeSyllabusItem() != null">
           <div class="modal-dialog">
             <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
+            <div class="modal-content" style="background-color:#F2F1ED">
+              <div class="modal-header" style="border-bottom: 1px solid #F2F1ED">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
                                                    .getString('ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
@@ -509,7 +509,7 @@
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="border-top: 1px solid #F2F1ED">
                 <button type="button" class="btn btn-xs btn-success" 
                         data-bind="text: $root.appCulture.strings()
                                                .getString('OK', $root.appCulture.lang()),

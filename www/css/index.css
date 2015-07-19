@@ -22,10 +22,31 @@
 
 input {
     font-size: 14px;
+    color: #98978b;
+}
+
+h4 > span > input:focus{
+    background-color: #F2F1ED;
+}
+
+input:focus{
+    background-color: white;
 }
 
 li > span {
     color: #98978b;
+}
+
+li > div > span {
+    color: #98978b;
+}
+
+li, label, h4 {
+    color: #98978b;
+}
+
+button {
+    color: #F2F1ED;
 }
 
 button > span {
