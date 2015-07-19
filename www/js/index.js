@@ -157,7 +157,7 @@ function createViewModel() {
   vm.appCulture.lang.subscribe(function(){
     if(vm.appState.activePage() == constants.SETTINGS_PAGE){
         vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
-        if(vm.appState.previousPage(constants.EDIT_SYLLABUS_ITEM))
+        if(vm.appState.previousPage() == constants.EDIT_SYLLABUS_ITEM)
            vm.appState.previousPageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
     }else if(vm.appState.activePage() == constants.EDIT_SYLLABUS_ITEM){
         vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
@@ -214,7 +214,7 @@ function createViewModel() {
                 vm.appState.previousPage(constants.SESSIONS_PAGE);
             }else if(vm.appState.previousPage() == constants.EDIT_SYLLABUS_ITEM){
                 vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
-                vm.appState.activePage(constants.COURSE_PAGE);
+                vm.appState.activePage(constants.EDIT_SYLLABUS_ITEM);
                 vm.appState.previousPageTitle(vm.appState.activeCourse().title());
                 vm.appState.previousPage(constants.COURSE_PAGE);
             }
