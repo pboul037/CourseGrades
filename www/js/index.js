@@ -35,6 +35,10 @@ function createViewModel() {
     
   // define core view model    
   var vm = {
+    appSettings: {
+      notifyMeNumDaysBeforeDueDate: ko.observable(2),
+      notifyMeNumDaysAfterDueDate: ko.observable(14)
+    },
     appCulture: {
         lang: ko.observable('en'),
         strings: ko.observable(strings),

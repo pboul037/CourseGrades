@@ -1,4 +1,32 @@
 var strings = {
+    'MARKING_REMINDER': {
+        'en': "Marking Reminder",
+        'fr': "Rappel de correction"
+    },
+    'DUE_DATE_REMINDER': {
+        'en': "Due Date Reminder",
+        'fr': "Rappel de date de remise"
+    },
+    'AFTER_DUE_DATE_IF_NOT_GRADED': {
+        'en': "after any due date if it hasn't been graded yet",
+        'fr': "après toutes les remise si ce n'a pas encore été noté"
+    },
+    'BEFORE_DUE_DATE': {
+        'en': "before any due date",
+        'fr': "avant toutes les remises"
+    },
+    'NOTIFY_ME': {
+        'en': "Notify me",
+        'fr': "M'avertir"
+    },
+    'GENERAL': {
+        'en': "General",
+        'fr': "Général"
+    },
+    'DEFAULT_NOTIFICATION': {
+        'en': "Default Notification",
+        'fr': "Notification par défaut"
+    },
     'CREATE_SYLLABUS_ITEM_PAGE_TITLE': {
         'en': "Create a Syllabus Item",
         'fr': "Créer un élément de cours"
