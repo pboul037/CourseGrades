@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.css" />
         <link rel="stylesheet" type='text/css' href="js/datepicker/themes/default.date.css" />
         <link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.time.css" />
+        <link rel="stylesheet" type="text/css" href="js/bootstrap-switch/css/bootstrap-switch.css" />
         
         <title>Course Grades</title>
     </head>
@@ -488,10 +489,15 @@
                                 </div>
                                 <div class="col-xs-9">
                                     <div id="languageInput" class="btn-group" data-toggle="buttons">
-                                        <label class="btn" data-bind="css: {'btn-primary': $root.appCulture.lang() == 'en', 'btn-default': $root.appCulture.lang() != 'en'}">
-                                            <input type="radio" name="options" id="option1" value="en" data-bind="bsChecked: $root.appCulture.lang">English</label>
-                                        <label class="btn" data-bind="css: {'btn-primary': $root.appCulture.lang() == 'fr', 'btn-default': $root.appCulture.lang() != 'fr'}">
-                                            <input type="radio" name="options" id="option2" value="fr" data-bind="bsChecked: $root.appCulture.lang">Français</label>
+                                        <label class="btn" 
+                                                    data-bind="css: {'btn-primary': $root.appCulture.lang() == 'en', 
+                                                                      'btn-default': $root.appCulture.lang() != 'en'}">
+                                            <input type="radio" name="options" id="option1" value="en"
+                                                   data-bind="bsChecked: $root.appCulture.lang">English</label>
+                                        <label class="btn" data-bind="css: {'btn-primary': $root.appCulture.lang() == 'fr', 
+                                                                      'btn-default': $root.appCulture.lang() != 'fr'}">
+                                            <input type="radio" name="options" id="option2" value="fr" 
+                                                   data-bind="bsChecked: $root.appCulture.lang">Français</label>
                                     </div>
                                 </div>
                             </div>
@@ -499,12 +505,15 @@
                                 <h4 data-bind="text: $root.appCulture.strings()
                                                .getString('DEFAULT_NOTIFICATION', $root.appCulture.lang())"></h4>
                             </div>
-                            <div class="form-group col-xs-12">
+                            <div class="form-group col-xs-12" style="padding: 0px 30px">
                                 <div class="panel panel-default">
-                                  <div class="panel-heading">
-                                    <h3 class="panel-title"
+                                  <div class="panel-heading" style="padding:5px 10px 15px 10px">
+                                    <span class="panel-title"
                                         data-bind="text: $root.appCulture.strings()
-                                               .getString('DUE_DATE_REMINDER', $root.appCulture.lang())"></h3>
+                                               .getString('DUE_DATE_REMINDER', $root.appCulture.lang())"></span>
+                                      <span class="pull-right">
+                                          <input class="bootstrap-switch" type="checkbox" checked>
+                                      </span>
                                   </div>
                                   <div class="panel-body">
                                      <div class="col-xs-12" style="text-align:center">
@@ -514,26 +523,29 @@
                                         </span>
                                         <input class="custom-form-control form-control" type="number" 
                                                style="width:30px; text-align:center; display:inline-block;" 
-                                               data-bind="value: $root.appSettings.notifyMeNumDaysBeforeDueDate"/>
-                                        <select style="height:34px;">
-                                            <option>weeks</option>
-                                            <option>days</option>
+                                               data-bind="value: $root.appSettings.notifyMeNumBeforeDueDate"/>
+                                        <select style="height:34px;" 
+                                                data-bind="value: $root.appSettings.notifyMeNumBeforeDueDateUnit, 
+                                                           options: $root.appSettings.notificationTimeUnitsDropdownOptions">
                                         </select>
                                     </div>
                                     <div class="col-xs-12" style="text-align:center">
                                         <span style="padding-top:5px;"
                                              data-bind="text: $root.appCulture.strings()
-                                                       .getString('AFTER_DUE_DATE_IF_NOT_GRADED', $root.appCulture.lang())"></span>
+                                                       .getString('BEFORE_DUE_DATE', $root.appCulture.lang())"></span>
                                     </div>
                                   </div>
                                 </div>
                             </div>
-                            <div class="form-group col-xs-12">
+                            <div class="col-xs-12" style="padding: 0px 30px">
                                 <div class="panel panel-default">
-                                  <div class="panel-heading">
-                                    <h3 class="panel-title"
+                                  <div class="panel-heading" style="padding:5px 10px 15px 10px">
+                                    <span class="panel-title"
                                         data-bind="text: $root.appCulture.strings()
-                                               .getString('MARKING_REMINDER', $root.appCulture.lang())"></h3>
+                                               .getString('MARKING_REMINDER', $root.appCulture.lang())"></span>
+                                    <span class="pull-right">
+                                          <input class="bootstrap-switch" type="checkbox" checked>
+                                    </span>
                                   </div>
                                   <div class="panel-body">
                                      <div class="col-xs-12" style="text-align:center">
@@ -541,12 +553,12 @@
                                              data-bind="text: $root.appCulture.strings()
                                                        .getString('NOTIFY_ME', $root.appCulture.lang())">
                                         </span>
-                                        <input class="custom-form-control form-control" type="number" 
+                                       <input class="custom-form-control form-control" type="number" 
                                                style="width:30px; text-align:center; display:inline-block;" 
-                                               data-bind="value: $root.appSettings.notifyMeNumDaysAfterDueDate"/>
-                                        <select style="height:34px;">
-                                            <option>weeks</option>
-                                            <option>days</option>
+                                               data-bind="value: $root.appSettings.notifyMeNumBeforeDueDate"/>
+                                        <select style="height:34px;" 
+                                                data-bind="value: $root.appSettings.notifyMeNumAfterDueDateUnit, 
+                                                           options: $root.appSettings.notificationTimeUnitsDropdownOptions">
                                         </select>
                                     </div>
                                     <div class="col-xs-12" style="text-align:center">
@@ -714,6 +726,7 @@
         <script type="text/javascript" src="js/datepicker/picker.js"></script>
         <script type="text/javascript" src="js/datepicker/picker.date.js"></script>
         <script type="text/javascript" src="js/datepicker/picker.time.js"></script>
+        <script type="text/javascript" src="js/bootstrap-switch/js/bootstrap-switch.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

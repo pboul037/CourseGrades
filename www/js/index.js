@@ -10,6 +10,7 @@ var jQueryReadyDeferred = new $.Deferred();
 
 $(function(){
     jQueryReadyDeferred.resolve();
+    $(".bootstrap-switch").bootstrapSwitch();
 });
 
 $.when(deviceReadyDeferred, jQueryReadyDeferred).then(initialize);
@@ -36,8 +37,13 @@ function createViewModel() {
   // define core view model    
   var vm = {
     appSettings: {
-      notifyMeNumDaysBeforeDueDate: ko.observable(2),
-      notifyMeNumDaysAfterDueDate: ko.observable(14)
+      notifyMeNumBeforeDueDate: ko.observable(2),
+      notifyMeNumBeforeDueDateUnit: ko.observable('day(s)'),    
+        
+      notifyMeNumAfterDueDate: ko.observable(2),
+      notifyMeNumAfterDueDate: ko.observable('week(s)'),    
+        
+      notificationTimeUnitsDropdownOptions: ko.observableArray([])
     },
     appCulture: {
         lang: ko.observable('en'),
@@ -68,6 +74,10 @@ function createViewModel() {
         showCreateNewInfo: ko.observable(true)
     }
   }
+  
+  // initialize app settings
+  vm.appSettings.notificationTimeUnitsDropdownOptions(vm.appCulture.strings()
+              .getString('NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS', vm.appCulture.lang()));
   
   vm.computeCourseAvg = function(){
         var course = vm.appState.activeCourse();
@@ -166,6 +176,8 @@ function createViewModel() {
     }else if(vm.appState.activePage() == constants.EDIT_SYLLABUS_ITEM){
         vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
     }
+  vm.appSettings.notificationTimeUnitsDropdownOptions(vm.appCulture.strings()
+          .getString('NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS', vm.appCulture.lang()));
   });
     
   // re-initialize the datepicker plugin when page is made visible

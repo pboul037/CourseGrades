@@ -8,7 +8,7 @@ var strings = {
         'fr': "Rappel de date de remise"
     },
     'AFTER_DUE_DATE_IF_NOT_GRADED': {
-        'en': "after due date if it hasn't been graded yet",
+        'en': "after any due date if it hasn't been graded",
         'fr': "après la remise si ce n'a pas encore été noté"
     },
     'BEFORE_DUE_DATE': {
@@ -186,6 +186,10 @@ var strings = {
     'ENTER_A_TITLE': {
         'en': 'Enter a title...',
         'fr': 'Insérez un titre'
+    },
+    'NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS': {
+        'en': ['day(s)', 'week(s)'],
+        'fr': ['jour(s)', 'semaine(s)']
     },
     getString: function(string, lang){
         return this[string][lang];
