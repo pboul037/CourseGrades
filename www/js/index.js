@@ -79,6 +79,34 @@ function createViewModel() {
   vm.appSettings.notificationTimeUnitsDropdownOptions(vm.appCulture.strings()
               .getString('NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS', vm.appCulture.lang()));
   
+  // add state attributes to coursePageState's elements
+  vm.coursePageState.info().forEach(function(info){
+    info.showCreateNewCourse = ko.observable(true);
+  });
+    
+  vm.coursePageState.info().forEach(function(info){
+      info.creationMode = ko.observable(false);
+  });
+    
+  // define view model's functions
+  vm.toggleSessionState = function (session){
+    if (session.state() == 'READ'){
+        session.state('EDIT');
+        session.showDeleteSession(true);
+        session.showCreateNewCourse(false);
+    } else { 
+        session.state('READ');
+        session.showDeleteSession(false);
+        session.showCreateNewCourse(true);
+    }
+  }
+
+  vm.deleteSession = function(){
+    var sessionToDelete = vm.appState.activeSession();
+    vm.appState.activeSession(null);
+    vm.dataModel.sessions.remove(sessionToDelete);  
+  }
+  
   vm.computeCourseAvg = function(){
         var course = vm.appState.activeCourse();
         if( course != null){
@@ -140,10 +168,23 @@ function createViewModel() {
             }
         }
   }
+    
+  vm.appCulture.lang.subscribe(function(lang){
+    if(vm.appState.activePage() == constants.SETTINGS_PAGE){
+        vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
+        if(vm.appState.previousPage() == constants.EDIT_SYLLABUS_ITEM)
+           vm.appState.previousPageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+    }else if(vm.appState.activePage() == constants.EDIT_SYLLABUS_ITEM){
+        vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
+    }
+  vm.appSettings.notificationTimeUnitsDropdownOptions(vm.appCulture.strings()
+          .getString('NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS', vm.appCulture.lang()));
+  });
   
   // add state attributes to data model's elements
   vm.dataModel.sessions().forEach(function(session){
     session.showCreateNewCourse = ko.observable(true);
+    session.showDeleteSession = ko.observable(false);
     session.courses().forEach(function(course){
         course.creationMode = ko.observable(false);
         course.state = ko.observable('READ');
@@ -155,29 +196,8 @@ function createViewModel() {
   });
     
   vm.dataModel.sessions().forEach(function(session){
+      session.state = ko.observable('READ');
       session.creationMode = ko.observable(false);
-  });
-
-  // add state attributes to coursePageState's elements
-  vm.coursePageState.info().forEach(function(info){
-    info.showCreateNewCourse = ko.observable(true);
-  });
-    
-  vm.coursePageState.info().forEach(function(info){
-      info.creationMode = ko.observable(false);
-  });
-    
-  // define view model's functions
-  vm.appCulture.lang.subscribe(function(lang){
-    if(vm.appState.activePage() == constants.SETTINGS_PAGE){
-        vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
-        if(vm.appState.previousPage() == constants.EDIT_SYLLABUS_ITEM)
-           vm.appState.previousPageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
-    }else if(vm.appState.activePage() == constants.EDIT_SYLLABUS_ITEM){
-        vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
-    }
-  vm.appSettings.notificationTimeUnitsDropdownOptions(vm.appCulture.strings()
-          .getString('NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS', vm.appCulture.lang()));
   });
     
   // re-initialize the datepicker plugin when page is made visible
@@ -366,6 +386,8 @@ function createViewModel() {
     var sessionToAdd = new Session(s.id + 1, "", []); // next available session id 
     sessionToAdd.showCreateNewCourse = ko.observable(true);
     sessionToAdd.creationMode = ko.observable(true);
+    sessionToAdd.state = ko.observable('EDIT');
+    sessionToAdd.showDeleteSession = ko.observable(false);
     vm.dataModel.sessions.push(sessionToAdd); 
     vm.appState.activeSession(sessionToAdd);
     return dfd.resolve();
@@ -457,6 +479,7 @@ function createViewModel() {
   
   vm.createSession = function(session){
       session.creationMode(false);
+      session.state('READ');
       vm.sessionPageState.showCreateNewSession(true);
       vm.appState.activeSession(session);
       $('#session' + session.id).addClass('in');
@@ -466,7 +489,14 @@ function createViewModel() {
       var si = vm.coursePageState.activeSyllabusItem();
       var itemToAdd = new SyllabusItem(si.id, si.title(), "READ", si.numItems() > 1, si.weight(), "", si.numItems(), [], null);
       vm.appState.activeCourse().syllabusItems.push(itemToAdd);
-      vm.appState.activePageTitle(vm.appState.activeCourse().title())
+      
+      vm.appState.activeCourse().syllabusItems().forEach(function(syllItem){
+           syllItem.gradePercent.subscribe(vm.computeCourseAvg);
+      });
+      
+      vm.appState.previousPage(constants.SESSIONS_PAGE);
+      vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
+      vm.appState.activePageTitle(vm.appState.activeCourse().title());
       vm.appState.activePage(constants.COURSE_PAGE);
   }
   
@@ -504,12 +534,14 @@ function createViewModel() {
         indexOfNewCourse = c[c.length -1].id + 1;
     var courseToAdd = new Course(indexOfNewCourse, "", null)
     courseToAdd.creationMode = ko.observable(true);
+    courseToAdd.state = ko.observable('READ');
     vm.appState.activeSession().courses.push(courseToAdd); // next available course id for this session
     return dfd.resolve();
   }
   
   vm.createCourse = function(course){
       course.creationMode(false);
+      vm.appState.activeSession().showCreateNewCourse(true);
       vm.changeAndNavigateToActiveCourse(course);
   }
   

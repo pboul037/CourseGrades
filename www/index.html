@@ -45,27 +45,40 @@
                                     data-bind="click: $root.sessionOnClick.bind(session),
                                                disable: session.creationMode()">
                                     <h4 class="panel-title" style="font-size:18px;">
-                                        <span class="margin">
-                                            <input type="text" class="form-input" placeholder="Enter the session's title..."
-                                                   data-bind="value: session.title,
-                                                              hasFocus: session.creationMode(),
-                                                              valueUpdate:'afterkeydown',
-                                                              attr: {placeholder: $root.appCulture.strings()
-                                                                        .getString('ENTER_SESSION_TITLE_PLACEHOLDER', $root.appCulture.lang())}">
-                                            <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
-                                                  data-bind="visible: ($root.appState.activeSession() == null ||
-                                                             $root.appState.activeSession().id != session.id) &&
-                                                                !session.creationMode()">
-                                            </span>
-                                            <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
-                                                  data-bind="visible: ($root.appState.activeSession() != null &&
-                                                             $root.appState.activeSession().id == session.id) &&
-                                                                !session.creationMode()">
-                                            </span>
-                                            <span class="pull-right" style="padding-right:10px" data-bind="text: session.avg() == null ?
-                                                                                 '-- %' : session.avg() + '%'"></span>
-              
-                                        </span>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"
+                                                        data-bind="click: $root.toggleSessionState.bind(session)"></span>
+                                                <span data-bind="visible: session.state() == 'READ',
+                                                                  text: session.title()"></span>
+                                                <input type="text" class="custom-form-control form-control" 
+                                                       style="display:inline-block"
+                                                       data-bind="visible: session.state() == 'EDIT',
+                                                                  value: session.title,
+                                                                  hasFocus: session.creationMode() || session.state() == 'EDIT',
+                                                                  valueUpdate:'afterkeydown',
+                                                                  attr: {placeholder: $root.appCulture.strings()
+                                                                            .getString('ENTER_SESSION_TITLE_PLACEHOLDER',
+                                                                            $root.appCulture.lang())},
+                                                                  clickBubble:false">
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
+                                                      data-bind="visible: ($root.appState.activeSession() == null ||
+                                                                 $root.appState.activeSession().id != session.id) &&
+                                                                    !session.creationMode()">
+                                                </span>
+                                                <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
+                                                      data-bind="visible: ($root.appState.activeSession() != null &&
+                                                                 $root.appState.activeSession().id == session.id) &&
+                                                                    !session.creationMode()">
+                                                </span>
+                                                <span class="pull-right" style="padding-right:10px" 
+                                                      data-bind="visible: !session.creationMode(),
+                                                                 text: session.avg() == null ?
+                                                                                     '-- %' : session.avg() + '%'"></span>
+                                            </div>
+                                        </div>
                                     </h4>
                                 </a>
                                 <button class="btn btn-xs btn-default" 
@@ -91,13 +104,23 @@
                                             data-bind="click: $root.changeAndNavigateToActiveCourse.bind(course)" 
                                           style="cursor:pointer">
                                             <div class="row">
-                                                <input style="margin-left:10px; margin-bottom:10px" type="text" class="form-input"
-                                                   data-bind="value: course.title, visible: course.creationMode(), 
-                                                              hasFocus: course.creationMode(),
-                                                              attr: {placeholder: $root.appCulture.strings()
-                                                                    .getString('ENTER_COURSE_TITLE_PLACEHOLDER',
-                                                                        $root.appCulture.lang())},
-                                                              valueUpdate:'afterkeydown'"/>
+                                                <div class="col-xs-10">
+                                                    <input style="margin-left:10px; margin-bottom:10px" 
+                                                           type="text" class="custom-form-control form-control"
+                                                       data-bind="value: course.title, visible: course.creationMode(), 
+                                                                  hasFocus: course.creationMode(),
+                                                                  attr: {placeholder: $root.appCulture.strings()
+                                                                        .getString('ENTER_COURSE_TITLE_PLACEHOLDER',
+                                                                            $root.appCulture.lang())},
+                                                                  valueUpdate:'afterkeydown'"/>
+                                                    <span data-bind="text: course.title, visible: !course.creationMode()"></span>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <span class="pull-right" 
+                                                          data-bind="text: course.grade() != null ? 
+                                                                    course.grade() + '%' : '-- %',
+                                                                    visible: !course.creationMode()"></span>
+                                                </div>
                                             </div>
                                             <div class="row" style="text-align:center">
                                                 <button class="btn btn-xs btn-default" 
@@ -122,10 +145,6 @@
                                                                    click: $root.createCourse.bind(course),
                                                                    clickBubble: false"></button>
                                             </div>
-                                            <span data-bind="text: course.title, visible: !course.creationMode()"></span>
-                                            <span class="pull-right" data-bind="text: course.grade() != null ? 
-                                                                                course.grade() + '%' : '-- %',
-                                                                                visible: !course.creationMode()"></span>
                                         </li>
                                      <!-- /ko -->
                                     <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
@@ -135,6 +154,15 @@
                                           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                                           <span data-bind="text: $root.appCulture.strings()
                                                            .getString('ADD_NEW_COURSE', $root.appCulture.lang())"></span>
+                                        </button>
+                                    </li>
+                                    <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
+                                        data-bind="visible: session.showDeleteSession()">
+                                        <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                                data-bind="click: $root.deleteSession">
+                                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                                          <span data-bind="text: $root.appCulture.strings()
+                                                           .getString('DELETE_SESSION', $root.appCulture.lang())"></span>
                                         </button>
                                     </li>
                                 </ul>
@@ -216,14 +244,17 @@
                                                                 .getString('OK', $root.appCulture.lang()),
                                                                click: $root.setGrade,
                                                                clickBubble: false"></button>
-                                            <input style="width:35px" data-bind="value: syllabusItem.gradeNumerator,
-                                                                                 hasFocus: syllabusItem.state() == 'EDIT_GRADE'"></input>
+                                            <input style="width:35px" type="number" 
+                                                   data-bind="value: syllabusItem.gradeNumerator,
+                                                                hasFocus: syllabusItem.state() == 'EDIT_GRADE'"></input>
                                             <span>/</span>
-                                            <input style="width:35px" data-bind="value: syllabusItem.gradeDenominator"></input>
+                                            <input style="width:35px" type="number" 
+                                                   data-bind="value: syllabusItem.gradeDenominator"></input>
                                         </span>
                                         <!-- /ko -->
                                         <!-- ko if: syllabusItem.isParent -->
-                                            <div class="panel-group" id="syllabusItemAccordion" role="tablist" aria-multiselectable="true" 
+                                            <div class="panel-group" id="syllabusItemAccordion" 
+                                                 role="tablist" aria-multiselectable="true" 
                                                  style="margin-bottom:0px">
                                                 <div class="panel panel-default child-panel">
                                                     <div class="panel-heading" role="tab" style="background-color: #f8f5f0">
@@ -263,11 +294,13 @@
                                                                                                 .getString('OK', $root.appCulture.lang()),
                                                                                            click: $root.setGrade,
                                                                                            clickBubble: false"></button>
-                                                                        <input  style="width:35px" 
+                                                                        <input  style="width:35px" type="number"
                                                                                data-bind="value: child.gradeNumerator,
                                                                                           hasFocus: child.state() == 'EDIT_GRADE'"></input>
                                                                         <span>/</span>
-                                                                        <input style="width:35px" data-bind="value: child.gradeDenominator"></input>
+                                                                        <input style="width:35px" 
+                                                                                type="number"
+                                                                               data-bind="value: child.gradeDenominator"></input>
                                                                     </span>
                                                                 </li>
                                                              <!-- /ko -->
@@ -300,24 +333,28 @@
                                     data-bind="click: $root.infoOnClick.bind(info),
                                                disable: info.creationMode()">
                                     <h4 class="panel-title" style="font-size:18px;">
-                                        <span class="margin">
-                                            <input type="text" class="form-input" placeholder="Enter a title..."
-                                                   data-bind="value: info.title,
-                                                              hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown',
-                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_A_TITLE', $root.appCulture.lang())}
-                                                              ">
-                                            <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
-                                                  data-bind="visible: ($root.coursePageState.activeInfo() == null ||
-                                                             $root.coursePageState.activeInfo().id != info.id) &&
-                                                                !info.creationMode()">
-                                            </span>
-                                            <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
-                                                  data-bind="visible: ($root.coursePageState.activeInfo() != null &&
-                                                             $root.coursePageState.activeInfo().id == info.id) &&
-                                                                !info.creationMode()">
-                                            </span> 
-                                        </span> 
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <input type="text" class="custom-form-control form-control" placeholder="Enter a title..."
+                                                       data-bind="value: info.title,
+                                                                  hasFocus: info.creationMode(),
+                                                                  valueUpdate:'afterkeydown',
+                                                                  attr:{placeholder: $root.appCulture.strings() 
+                                                                  .getString('ENTER_A_TITLE', $root.appCulture.lang())}">
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
+                                                      data-bind="visible: ($root.coursePageState.activeInfo() == null ||
+                                                                 $root.coursePageState.activeInfo().id != info.id) &&
+                                                                    !info.creationMode()">
+                                                </span>
+                                                <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
+                                                      data-bind="visible: ($root.coursePageState.activeInfo() != null &&
+                                                                 $root.coursePageState.activeInfo().id == info.id) &&
+                                                                    !info.creationMode()">
+                                                </span> 
+                                            </div>
+                                        </div>
                                     </h4> 
                                 </a>
                                 <button class="btn btn-xs btn-default" 
@@ -339,7 +376,7 @@
                                     <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row" style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('COURSE_WEBSITE', $root.appCulture.lang()) + ' : '"></span>
-                                      <input type="text" class="form-input" placeholder="Enter the course website..."
+                                      <input type="text" class="custom-form-control form-control" placeholder="Enter the course website..."
                                                    data-bind="value: info.email,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown',
@@ -347,7 +384,7 @@
                                                             </div>
                                     </li>
                                     <li class="custom-list-group-item list-group-item">
-                                      <input type="text" class="form-input" placeholder="Add a course description..." 
+                                      <input type="text" class="custom-form-control form-control" placeholder="Add a course description..." 
                                       data-bind="value: info.name, hasFocus: info.creationMode(), valueUpdate:'afterkeydown',
                                       attr:{placeholder: $root.appCulture.strings() .getString('ADD_A_COURSE_DESCRIPTION', $root.appCulture.lang())}">
                                     </li>
@@ -362,37 +399,40 @@
                                     data-bind="click: $root.infoOnClick.bind(info),
                                                disable: info.creationMode()">
                                     <h4 class="panel-title" style="font-size:18px;">
-                                        <span class="margin">
-                                            <input type="text" class="form-input" placeholder="Enter a title..."
-                                                   data-bind="value: info.title,
-                                                              hasFocus: info.creationMode(),
-                                                              valueUpdate:'afterkeydown',
-                                                              attr:{placeholder: $root.appCulture.strings() .getString('ENTER_A_TITLE', $root.appCulture.lang())}
-                                                              ">
-                                            <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
-                                                  data-bind="visible: ($root.coursePageState.activeInfo() == null ||
-                                                             $root.coursePageState.activeInfo().id != info.id) &&
-                                                                !info.creationMode()">
-                                            </span>
-                                            <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
-                                                  data-bind="visible: ($root.coursePageState.activeInfo() != null &&
-                                                             $root.coursePageState.activeInfo().id == info.id) &&
-                                                                !info.creationMode()">
-                                            </span>
-
-                                            <a data-bind="visible: info.email() != null && info.email().length > 1,
-                                                          attr: {href: 'mailto:' + info.email()},
-                                                          clickBubble: false">
-                                                <span class="pull-right glyphicon glyphicon-envelope" 
-                                                      style="margin-right: 10px"aria-hidden="true"></span>
-                                            </a>
-                                            <a data-bind="visible: info.phone() != null && info.phone().length > 1,
-                                                          attr: {href: 'tel:' + info.phone()},
-                                                          clickBubble: false">
-                                                <span class="pull-right glyphicon glyphicon-earphone" 
-                                                      style="margin-right: 10px"aria-hidden="true"></span>
-                                            </a>                                
-                                        </span> 
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <input type="text" class="custom-form-control form-control" placeholder="Enter a title..."
+                                                       data-bind="value: info.title,
+                                                                  hasFocus: info.creationMode(),
+                                                                  valueUpdate:'afterkeydown',
+                                                                  attr:{placeholder: $root.appCulture.strings()
+                                                                  .getString('ENTER_A_TITLE', $root.appCulture.lang())}">
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
+                                                      data-bind="visible: ($root.coursePageState.activeInfo() == null ||
+                                                                 $root.coursePageState.activeInfo().id != info.id) &&
+                                                                    !info.creationMode()">
+                                                </span>
+                                                <span class="pull-right glyphicon glyphicon-minus-sign" aria-hidden="true"
+                                                      data-bind="visible: ($root.coursePageState.activeInfo() != null &&
+                                                                 $root.coursePageState.activeInfo().id == info.id) &&
+                                                                    !info.creationMode()">
+                                                </span>
+                                                <a data-bind="visible: info.email() != null && info.email().length > 1,
+                                                              attr: {href: 'mailto:' + info.email()},
+                                                              clickBubble: false">
+                                                    <span class="pull-right glyphicon glyphicon-envelope" 
+                                                          style="margin-right: 10px"aria-hidden="true"></span>
+                                                </a>
+                                                <a data-bind="visible: info.phone() != null && info.phone().length > 1,
+                                                              attr: {href: 'tel:' + info.phone()},
+                                                              clickBubble: false">
+                                                    <span class="pull-right glyphicon glyphicon-earphone" 
+                                                          style="margin-right: 10px"aria-hidden="true"></span>
+                                                </a>   
+                                            </div>
+                                        </div>
                                     </h4> 
                                 </a>
                                 <button class="btn btn-xs btn-default" 
@@ -415,7 +455,7 @@
                                     <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('NAME', $root.appCulture.lang()) + ' : '"></span>
-                                      <input type="text" class="form-input" placeholder="Enter the person's name..."
+                                      <input type="text" class="custom-form-control form-control" placeholder="Enter the person's name..."
                                                    data-bind="value: info.name,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown',
@@ -425,7 +465,7 @@
                                     <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('EMAIL', $root.appCulture.lang()) + ' : '"></span>
-                                      <input type="text" class="form-input" placeholder="Enter the person's email..."
+                                      <input type="text" class="custom-form-control form-control" placeholder="Enter the person's email..."
                                                    data-bind="value: info.email,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown',
@@ -435,7 +475,7 @@
                                     <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('PHONE', $root.appCulture.lang()) + ' : '"></span>
-                                      <input type="text" class="form-input" placeholder="Enter the person's phone number..."
+                                      <input type="text" class="custom-form-control form-control" placeholder="Enter the person's phone number..."
                                                    data-bind="value: info.phone,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown',
@@ -445,7 +485,7 @@
                                     <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                       <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
                                       <span data-bind="text: $root.appCulture.strings() .getString('OFFICE', $root.appCulture.lang()) + ' : '"></span>
-                                      <input type="text" class="form-input" placeholder="Enter the person's office..."
+                                      <input type="text" class="custom-form-control form-control" placeholder="Enter the person's office..."
                                                    data-bind="value: info.office,
                                                               hasFocus: info.creationMode(),
                                                               valueUpdate:'afterkeydown',
@@ -598,10 +638,12 @@
                                         text: $root.appCulture.strings().getString('GRADE', $root.appCulture.lang())"></span></label>
                                 </div>
                                 <div class="col-xs-9">
-                                    <input id="itemGradeInput" style="display: inline-block; width:50px" class="custom-form-control form-control"
+                                    <input id="itemGradeInput" type="number" style="display: inline-block; width:50px" 
+                                           class="custom-form-control form-control"
                                            data-bind="value: coursePageState.activeSyllabusItem().gradeNumerator"></input>
                                     <span>/</span>
-                                    <input style="display:inline-block; width:50px" class="custom-form-control form-control" 
+                                    <input style="display:inline-block; width:50px" type="number" 
+                                           class="custom-form-control form-control" 
                                            data-bind="value: coursePageState.activeSyllabusItem().gradeDenominator"></input>
                                 </div>
                             </div>

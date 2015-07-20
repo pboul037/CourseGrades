@@ -1,4 +1,8 @@
 var strings = {
+    'DELETE_SESSION': {
+        'en': "Delete Session",
+        'fr': "Supprimer cette session"
+    },
     'MARKING_REMINDER': {
         'en': "Marking Reminder",
         'fr': "Rappel de correction"
