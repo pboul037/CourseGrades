@@ -33,7 +33,7 @@ var strings = {
     },
     'CREATE_SYLLABUS_ITEM_PAGE_TITLE': {
         'en': "Create a Syllabus Item",
-        'fr': "Créer un élément de cours"
+        'fr': "Créer un élément"
     },
     'EDIT_SYLLABUS_ITEM_PAGE_TITLE': {
         'en': "Edit Syllabus Item",

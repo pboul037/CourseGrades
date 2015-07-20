@@ -90,10 +90,12 @@ function createViewModel() {
     
   // define view model's functions
   vm.toggleSessionState = function (session){
+    vm.appState.activeSession(session);
     if (session.state() == 'READ'){
         session.state('EDIT');
         session.showDeleteSession(true);
         session.showCreateNewCourse(false);
+        $('#session' + session.id).addClass('in');
     } else { 
         session.state('READ');
         session.showDeleteSession(false);
