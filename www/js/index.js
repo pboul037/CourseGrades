@@ -462,6 +462,8 @@ function createViewModel() {
   
   vm.doneEditingSyllabusItem = function(){
     vm.setGrade();
+    vm.appState.previousPage(constants.SESSIONS_PAGE);
+    vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
     vm.appState.activePageTitle(vm.appState.activeCourse().title());
     vm.appState.activePage(constants.COURSE_PAGE);
   }
