@@ -377,9 +377,20 @@
                                                   data-bind="visible: ($root.coursePageState.activeInfo() != null &&
                                                              $root.coursePageState.activeInfo().id == info.id) &&
                                                                 !info.creationMode()">
-                                            </span> 
-                                            <span class="pull-right glyphicon glyphicon-envelope" style="margin-right: 10px"aria-hidden="true"></span>
-                                            <span class="pull-right glyphicon glyphicon-earphone" style="margin-right: 10px" aria-hidden="true"></span>
+                                            </span>
+
+                                            <a data-bind="visible: info.email() != null && info.email().length > 1,
+                                                          attr: {href: 'mailto:' + info.email()},
+                                                          clickBubble: false">
+                                                <span class="pull-right glyphicon glyphicon-envelope" 
+                                                      style="margin-right: 10px"aria-hidden="true"></span>
+                                            </a>
+                                            <a data-bind="visible: info.phone() != null && info.phone().length > 1,
+                                                          attr: {href: 'tel:' + info.phone()},
+                                                          clickBubble: false">
+                                                <span class="pull-right glyphicon glyphicon-earphone" 
+                                                      style="margin-right: 10px"aria-hidden="true"></span>
+                                            </a>                                
                                         </span> 
                                     </h4> 
                                 </a>

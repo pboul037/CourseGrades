@@ -8,8 +8,8 @@ var strings = {
         'fr': "Rappel de date de remise"
     },
     'AFTER_DUE_DATE_IF_NOT_GRADED': {
-        'en': "after any due date if it hasn't been graded yet",
-        'fr': "après toutes les remise si ce n'a pas encore été noté"
+        'en': "after due date if it hasn't been graded yet",
+        'fr': "après la remise si ce n'a pas encore été noté"
     },
     'BEFORE_DUE_DATE': {
         'en': "before any due date",
