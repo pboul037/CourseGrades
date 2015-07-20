@@ -21,7 +21,8 @@ function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, chi
     this.weight = ko.observable(weight);
     this.computedGradesWeight = ko.observable(0);
     this.numItems = ko.observable(numItems);
-    this.dueDate = ko.observable(new Date().toDateString());
+    this.dueDate = ko.observable('15-Sep-2015');
+    this.dueDateTime = ko.observable('08:00 AM');
     this.isParent = isParent;
     this.parent = parent;
     this.children = ko.observableArray(isParent ? [] : null);

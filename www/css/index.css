@@ -20,6 +20,18 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+.picker__button--close{
+    color: black;
+}
+
+.picker__button--clear{
+    color: black;
+}
+
+.picker__button--today{
+    color: black;
+}
+
 .custom-list-group-item {
     padding-top: 10px;
     padding-bottom: 10px;

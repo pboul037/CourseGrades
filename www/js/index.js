@@ -154,7 +154,7 @@ function createViewModel() {
   });
     
   // define view model's functions
-  vm.appCulture.lang.subscribe(function(){
+  vm.appCulture.lang.subscribe(function(lang){
     if(vm.appState.activePage() == constants.SETTINGS_PAGE){
         vm.appState.activePageTitle(vm.appCulture.strings().getString('SETTINGS_PAGE_TITLE', vm.appCulture.lang()));
         if(vm.appState.previousPage() == constants.EDIT_SYLLABUS_ITEM)
@@ -166,8 +166,56 @@ function createViewModel() {
     
   // re-initialize the datepicker plugin when page is made visible
   vm.appState.activePage.subscribe(function(activePage){
-    if(activePage == constants.EDIT_SYLLABUS_ITEM)
-        $('.dueDateInput').pickadate();
+    if(activePage == constants.EDIT_SYLLABUS_ITEM){
+        
+        // internalisation of the date picker
+        if(vm.appCulture.lang() == 'en'){
+            jQuery.extend( jQuery.fn.pickadate.defaults, {
+                monthsFull: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+                monthsShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+                weekdaysFull: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+                weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
+                today: 'Today',
+                clear: 'Clear',
+                close: 'Close',
+                format: 'd mmmm, yyyy',
+                formatSubmit: 'yyyy/mm/dd',
+                labelMonthNext: 'Next month',
+                labelMonthPrev: 'Previous month',
+                labelMonthSelect: 'Select a month',
+                labelYearSelect: 'Select a year',
+            });
+
+            jQuery.extend( jQuery.fn.pickatime.defaults, {
+                clear: 'Clear'
+            });
+
+        }else if(vm.appCulture.lang() == 'fr'){
+            jQuery.extend({}, jQuery.fn.pickadate.defaults, {
+                monthsFull: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+                monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+                weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+                weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+                today: 'Aujourd\'hui',
+                clear: 'Effacer',
+                close: 'Fermer',
+                firstDay: 1,
+                format: 'dd mmmm yyyy',
+                formatSubmit: 'yyyy/mm/dd',
+                labelMonthNext:"Mois suivant",
+                labelMonthPrev:"Mois précédent",
+                labelMonthSelect:"Sélectionner un mois",
+                labelYearSelect:"Sélectionner une année"
+            });
+
+            jQuery.extend({}, jQuery.fn.pickatime.defaults, {
+                clear: 'Effacer'
+            });
+        }
+        
+        $('.dueDateInput').pickadate({format: 'dd-mmm-yyyy'});
+        $('.dueDateTimeInput').pickatime();
+    }
   });
     
   vm.changeAndNavigateToActiveCourse = function(course){

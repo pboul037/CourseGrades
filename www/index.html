@@ -462,12 +462,13 @@
 				</div>
             </div>
             <div data-bind="fadeVisible: appState.activePage() == 'Settings'">
-                <div class="row">
+                <div class="row" style="padding-top:30px">
                     <form class="form-inline">
                         <div class="row">
                             <div class="form-group col-xs-12">
                                 <div class="col-xs-3">
-                                    <label for="languageInput" style="padding-top:12px" ><span class="pull-left" data-bind="text: $root.appCulture.strings()
+                                    <label for="languageInput" style="padding-top:12px" >
+                                        <span class="pull-left" data-bind="text: $root.appCulture.strings()
                                                .getString('LANGUAGE', $root.appCulture.lang())"></span></label>
                                 </div>
                                 <div class="col-xs-9">
@@ -570,10 +571,15 @@
                                                .getString('DUE_DATE', $root.appCulture.lang())"></span>
                                     </label>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-5">
                                     <input class="custom-form-control form-control dueDateInput" 
-                                           style="width: 150px; text-align:center; background-color: white"
+                                           style="width: 120px; text-align:center; background-color: white"
                                            data-bind="value: coursePageState.activeSyllabusItem().dueDate">
+                                </div>
+                                <div class="col-xs-3">
+                                    <input class="custom-form-control form-control dueDateTimeInput" 
+                                           style="width: 80px; text-align:center; background-color: white"
+                                           data-bind="value: coursePageState.activeSyllabusItem().dueDateTime">
                                 </div>
                             </div>
                         </div>
@@ -618,21 +624,6 @@
                  </div>
              </nav>
         </footer>
-        
-        <!-- <div id="editSyllabusItemModal" class="modal fade" data-bind="if: coursePageState.activeSyllabusItem() != null">
-          <div class="modal-dialog">
-            <!-- Modal content--
-            <div class="modal-content" style="background-color:#F2F1ED">
-              <div class="modal-header" style="border-bottom: 1px solid #F2F1ED">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
-                                                   .getString('ADD_NEW_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
-                                                       visible: coursePageState.activeSyllabusItem().state() == 'CREATION'"></h4>
-                      <h4 class="modal-title" data-bind="text: $root.appCulture.strings()
-                                   .getString('EDIT_SYLLABUS_ITEM_MODAL_TITLE', $root.appCulture.lang()),
-                                       visible: coursePageState.activeSyllabusItem().state() == 'EDIT'"></h4>
-              </div> 
-        
         <!-- <div id="deviceready" class="blink">
             <p class="event listening">App in development...</p>
             <h2 class="event received">Hello World!!!</h2>
@@ -645,6 +636,7 @@
         <script type="text/javascript" src="js/dataModel.js"></script>
         <script type="text/javascript" src="js/datepicker/picker.js"></script>
         <script type="text/javascript" src="js/datepicker/picker.date.js"></script>
+        <script type="text/javascript" src="js/datepicker/picker.time.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
