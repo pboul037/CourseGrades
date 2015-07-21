@@ -123,6 +123,26 @@ vm.toggleInfoState = function (info){
     vm.appState.activeCourse().infos.remove(infoToDelete);  
   }
   
+  vm.deleteSyllabusItem = function(){
+            
+    var syllItem = vm.coursePageState.activeSyllabusItem();
+    vm.coursePageState.activeSyllabusItem(null); 
+      
+    vm.appState.previousPage(constants.SESSIONS_PAGE);
+    vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
+    vm.appState.activePageTitle(vm.appState.activeCourse().title());
+    vm.appState.activePage(constants.COURSE_PAGE);
+      
+    if( syllItem.parent != null ){
+        var parent = syllItem.parent;
+        parent.children.remove(syllItem);
+        vm.computeGradePercentFromChildren(parent);
+    }else {
+        vm.appState.activeCourse().syllabusItems.remove(syllItem);
+    }
+    vm.computeCourseAvg();
+  }
+  
   vm.computeCourseAvg = function(){
         var course = vm.appState.activeCourse();
         if( course != null){

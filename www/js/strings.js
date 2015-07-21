@@ -1,4 +1,8 @@
 var strings = {
+    'DELETE_SYLLABUS_ITEM': {
+        'en': "Delete Syllabus Item",
+        'fr': "Supprimer l'élément"
+    },
     'DELETE_CONTACT': {
         'en': "Delete Contact",
         'fr': "Supprimer ce contact"

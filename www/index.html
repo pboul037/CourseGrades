@@ -169,7 +169,7 @@
                                         data-bind="visible: session.showDeleteSession()">
                                         <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                                 data-bind="click: $root.deleteSession">
-                                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
                                           <span data-bind="text: $root.appCulture.strings()
                                                            .getString('DELETE_SESSION', $root.appCulture.lang())"></span>
                                         </button>
@@ -251,7 +251,7 @@
                                             <button class="btn btn-xs btn-success" 
                                                     data-bind="text: $root.appCulture.strings()
                                                                 .getString('OK', $root.appCulture.lang()),
-                                                               click: $root.doneWithEditingSylllabusItem,
+                                                               click: $root.setGrade,
                                                                clickBubble: false"></button>
                                             <input style="width:35px" type="number" 
                                                    data-bind="value: syllabusItem.gradeNumerator,
@@ -417,7 +417,7 @@
                                                     data-bind="visible: info.showDeleteInfo()">
                                                     <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                                             data-bind="click: $root.deleteInfo">
-                                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
                                                       <span data-bind="text: $root.appCulture.strings()
                                                                        .getString('DELETE_CONTACT', $root.appCulture.lang())"></span>
                                                     </button>
@@ -771,6 +771,16 @@
                                            style="width: 80px; text-align:center; background-color: white"
                                            data-bind="value: coursePageState.activeSyllabusItem().dueDateTime">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12" style="text-align:center">
+                                <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                        data-bind="click: $root.deleteSyllabusItem">
+                                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+                                  <span data-bind="text: $root.appCulture.strings()
+                                                   .getString('DELETE_SYLLABUS_ITEM', $root.appCulture.lang())"></span>
+                                </button>
                             </div>
                         </div>
                     </form>
