@@ -1,4 +1,8 @@
 var strings = {
+    'DELETE_CONTACT': {
+        'en': "Delete Contact",
+        'fr': "Supprimer ce contact"
+    },
     'DELETE_SESSION': {
         'en': "Delete Session",
         'fr': "Supprimer cette session"

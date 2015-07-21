@@ -406,6 +406,15 @@
                                                   attr:{placeholder: $root.appCulture.strings()
                                                              .getString('ADD_A_COURSE_DESCRIPTION', $root.appCulture.lang())}">
                                                 </li>
+                                                <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
+                                                    data-bind="visible: info.showDeleteInfo()">
+                                                    <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                                            data-bind="click: $root.deleteInfo">
+                                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                                                      <span data-bind="text: $root.appCulture.strings()
+                                                                       .getString('DELETE_CONTACT', $root.appCulture.lang())"></span>
+                                                    </button>
+                                                </li>
                                               </ul>
                                          </div> 
                                     </div>
