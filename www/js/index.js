@@ -82,7 +82,6 @@ function createViewModel() {
   vm.toggleSessionState = function (session){
     if(vm.appState.activeSession() != null)
         vm.appState.activeSession().state('READ');
-    vm.appState.activeSession(session);
     if (session.state() == 'READ'){
         session.state('EDIT');
         session.showDeleteSession(true);
@@ -93,6 +92,7 @@ function createViewModel() {
         session.showDeleteSession(false);
         session.showCreateNewCourse(true);
     }
+    vm.appState.activeSession(session);
   }
   
 vm.toggleInfoState = function (info){

@@ -62,8 +62,7 @@
                                                                   valueUpdate:'afterkeydown',
                                                                   attr: {placeholder: $root.appCulture.strings()
                                                                             .getString('ENTER_SESSION_TITLE_PLACEHOLDER',
-                                                                            $root.appCulture.lang())},
-                                                                  clickBubble:false">
+                                                                            $root.appCulture.lang())}">
                                             </div>
                                             <div class="col-xs-5">
                                                 <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
@@ -107,7 +106,7 @@
                                             data-bind="click: $root.changeAndNavigateToActiveCourse.bind(course)" 
                                           style="cursor:pointer">
                                             <div class="row">
-                                                <div class="col-xs-10">
+                                                <div class="col-xs-8">
                                                     <!-- ko if: $root.appState.activeSession()!= null -->
                                                     <button class="btn btn-sm btn-danger" style="margin-right:5px"
                                                             data-bind="fadeVisible: $root.appState.activeSession().state() == 'EDIT',
@@ -120,19 +119,18 @@
                                                            type="text" class="custom-form-control form-control"
                                                        data-bind="value: course.title, visible: course.creationMode(), 
                                                                   hasFocus: course.creationMode(),
-                                                                  event: {blur: $root.cancelAddNewCourse.bind(course)},
                                                                   attr: {placeholder: $root.appCulture.strings()
                                                                         .getString('ENTER_COURSE_TITLE_PLACEHOLDER',
                                                                             $root.appCulture.lang())},
                                                                   valueUpdate:'afterkeydown'"/>
                                                     <span data-bind="text: course.title, visible: !course.creationMode()"></span>
                                                 </div>
-                                                <div class="col-xs-2">
+                     
                                                     <span class="pull-right" 
                                                           data-bind="text: course.grade() != null ? 
                                                                     course.grade() + '%' : '-- %',
                                                                     visible: !course.creationMode()"></span>
-                                                </div>
+                                          
                                             </div>
                                             <div class="row" style="text-align:center">
                                                 <button class="btn btn-xs btn-default" 
