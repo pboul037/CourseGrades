@@ -107,6 +107,13 @@
                                           style="cursor:pointer">
                                             <div class="row">
                                                 <div class="col-xs-10">
+                                                    <!-- ko if: $root.appState.activeSession()!= null -->
+                                                    <button class="btn btn-sm btn-danger" style="margin-right:5px"
+                                                            data-bind="fadeVisible: $root.appState.activeSession().state() == 'EDIT',
+                                                                       click: $root.deleteCourse.bind(course)">
+                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                    </button>
+                                                    <!-- /ko -->
                                                     <input style="margin-left:10px; margin-bottom:10px" 
                                                            type="text" class="custom-form-control form-control"
                                                        data-bind="value: course.title, visible: course.creationMode(), 

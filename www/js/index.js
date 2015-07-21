@@ -113,6 +113,10 @@ vm.toggleInfoState = function (info){
     vm.dataModel.sessions.remove(sessionToDelete);  
   }
   
+  vm.deleteCourse = function(course){
+      vm.appState.activeSession().courses.remove(course);
+  }
+  
   vm.deleteInfo = function(){
     var infoToDelete = vm.coursePageState.activeInfo();
     vm.coursePageState.activeInfo(null);
