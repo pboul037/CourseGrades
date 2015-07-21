@@ -12,6 +12,8 @@
         <link rel="stylesheet" type='text/css' href="js/datepicker/themes/default.date.css" />
         <link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.time.css" />
         <link rel="stylesheet" type="text/css" href="js/bootstrap-switch/css/bootstrap-switch.css" />
+        <link rel="stylesheet" type="text/css" href="js/alertify/alertify.bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="js/alertify/alertify.core.css">
         
         <title>Course Grades</title>
     </head>
@@ -263,9 +265,9 @@
                                         <!-- ko if: syllabusItem.isParent -->
                                             <div class="panel-group" id="syllabusItemAccordion" 
                                                  role="tablist" aria-multiselectable="true" 
-                                                 style="margin-bottom:0px">
+                                                 style="margin-bottom:0px;">
                                                 <div class="panel panel-default child-panel">
-                                                    <div class="panel-heading" role="tab" style="background-color: #f8f5f0">
+                                                    <div class="panel-heading" role="tab" style="background-color:white">
                                                         <a role="button" data-toggle="collapse" data-parent="#syllabusItemAccordion"
                                                             data-bind="attr: {href: '#syllabusItem' + syllabusItem.id}">
                                                             <h4 class="panel-title" style="font-size:14px">
@@ -415,15 +417,6 @@
                                                   attr:{placeholder: $root.appCulture.strings()
                                                              .getString('ADD_A_COURSE_DESCRIPTION', $root.appCulture.lang())}">
                                                 </li>
-                                                <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
-                                                    data-bind="visible: info.showDeleteInfo()">
-                                                    <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
-                                                            data-bind="click: $root.deleteInfo">
-                                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
-                                                      <span data-bind="text: $root.appCulture.strings()
-                                                                       .getString('DELETE_CONTACT', $root.appCulture.lang())"></span>
-                                                    </button>
-                                                </li>
                                               </ul>
                                          </div> 
                                     </div>
@@ -551,6 +544,15 @@
                                                                           attr:{placeholder: $root.appCulture
                                                                           .strings() .getString('ENTER_PERSON_OFFICE',$root.appCulture.lang())}">
                                                                         </div>
+                                                </li>
+                                                <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
+                                                    data-bind="visible: info.showDeleteInfo()">
+                                                    <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
+                                                            data-bind="click: $root.deleteInfo">
+                                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+                                                      <span data-bind="text: $root.appCulture.strings()
+                                                                       .getString('DELETE_CONTACT', $root.appCulture.lang())"></span>
+                                                    </button>
                                                 </li>
                                             </ul> 
                                          </div> 
@@ -870,6 +872,7 @@
         <script type="text/javascript" src="js/datepicker/picker.date.js"></script>
         <script type="text/javascript" src="js/datepicker/picker.time.js"></script>
         <script type="text/javascript" src="js/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+        <script type="text/javascript" src="js/alertify/alertify.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

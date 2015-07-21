@@ -1,4 +1,24 @@
 var strings = {
+    'WILL_NOT_BE_ABLE_TO_RECOVER_DATA': {
+        'en': "You will not be able to recover any of its data after it's deletion.",
+        'fr': "Vous ne serez pas en mesure de récupérer aucune de ses donnée après sa suppression."
+    },
+    'DELETE_SYLLABUS_ITEM_CONFIRM_PROMPT': {
+        'en': "Are you sure you want to delete this syllabus item?",
+        'fr': "Vous êtes certain de vouloir supprimer cet élément de cours?"
+    },
+    'DELETE_CONTACT_CONFIRM_PROMPT': {
+        'en': "Are you sure you want to delete this contact?",
+        'fr': "Vous êtes certain de vouloir supprimer ce contact?"
+    },
+    'DELETE_COURSE_CONFIRM_PROMPT': {
+        'en': "Are you sure you want to delete this course?",
+        'fr': "Vous êtes certain de vouloir supprimer ce cours?"
+    },
+    'DELETE_SESSION_CONFIRM_PROMPT': {
+        'en': "Are you sure you want to delete this session?",
+        'fr': "Vous êtes certain de vouloir supprimer cette session?"
+    },
     'NOTIFY_ME_AFTER_DUE_DATE': {
         'en': "Notify me after due date when not graded",
         'fr': "M'avertir après la date de remise si pas encore noté"

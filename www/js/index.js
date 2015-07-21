@@ -112,39 +112,70 @@ vm.toggleInfoState = function (info){
   }
 
   vm.deleteSession = function(){
-    var sessionToDelete = vm.appState.activeSession();
-    vm.appState.activeSession(null);
-    vm.dataModel.sessions.remove(sessionToDelete);  
+      alertify.confirm("<b>"  
+                       + vm.appCulture.strings().getString('DELETE_SESSION_CONFIRM_PROMPT', vm.appCulture.lang()) 
+                       + "</b><br><small>"
+                       + vm.appCulture.strings().getString('WILL_NOT_BE_ABLE_TO_RECOVER_DATA', vm.appCulture.lang()) 
+                       + "</small>",             function (e) {
+            if (e) {
+                    var sessionToDelete = vm.appState.activeSession();
+                    vm.appState.activeSession(null);
+                    vm.dataModel.sessions.remove(sessionToDelete);  
+            }
+        });
   }
   
   vm.deleteCourse = function(course){
-      vm.appState.activeSession().courses.remove(course);
+            alertify.confirm("<b>"  
+                       + vm.appCulture.strings().getString('DELETE_COURSE_CONFIRM_PROMPT', vm.appCulture.lang()) 
+                       + "</b><br><small>"
+                       + vm.appCulture.strings().getString('WILL_NOT_BE_ABLE_TO_RECOVER_DATA', vm.appCulture.lang()) 
+                       + "</small>",             function (e) {
+            if (e) {
+                vm.appState.activeSession().courses.remove(course);
+            }
+        });
   }
   
   vm.deleteInfo = function(){
-    var infoToDelete = vm.coursePageState.activeInfo();
-    vm.coursePageState.activeInfo(null);
-    vm.appState.activeCourse().infos.remove(infoToDelete);  
+        alertify.confirm("<b>"  
+                   + vm.appCulture.strings().getString('DELETE_CONTACT_CONFIRM_PROMPT', vm.appCulture.lang()) 
+                   + "</b><br><small>"
+                   + vm.appCulture.strings().getString('WILL_NOT_BE_ABLE_TO_RECOVER_DATA', vm.appCulture.lang()) 
+                   + "</small>",             function (e) {
+            if (e) {
+                var infoToDelete = vm.coursePageState.activeInfo();
+                vm.coursePageState.activeInfo(null);
+                vm.appState.activeCourse().infos.remove(infoToDelete);  
+            }
+        });
   }
   
   vm.deleteSyllabusItem = function(){
-            
-    var syllItem = vm.coursePageState.activeSyllabusItem();
-    vm.coursePageState.activeSyllabusItem(null); 
-      
-    vm.appState.previousPage(constants.SESSIONS_PAGE);
-    vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
-    vm.appState.activePageTitle(vm.appState.activeCourse().title());
-    vm.appState.activePage(constants.COURSE_PAGE);
-      
-    if( syllItem.parent != null ){
-        var parent = syllItem.parent;
-        parent.children.remove(syllItem);
-        vm.computeGradePercentFromChildren(parent);
-    }else {
-        vm.appState.activeCourse().syllabusItems.remove(syllItem);
-    }
-    vm.computeCourseAvg();
+      alertify.confirm("<b>"  
+           + vm.appCulture.strings().getString('DELETE_SYLLABUS_ITEM_CONFIRM_PROMPT', vm.appCulture.lang()) 
+           + "</b><br><small>"
+           + vm.appCulture.strings().getString('WILL_NOT_BE_ABLE_TO_RECOVER_DATA', vm.appCulture.lang()) 
+           + "</small>",             function (e) {
+            if (e) {
+                var syllItem = vm.coursePageState.activeSyllabusItem();
+                vm.coursePageState.activeSyllabusItem(null); 
+
+                vm.appState.previousPage(constants.SESSIONS_PAGE);
+                vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
+                vm.appState.activePageTitle(vm.appState.activeCourse().title());
+                vm.appState.activePage(constants.COURSE_PAGE);
+
+                if( syllItem.parent != null ){
+                    var parent = syllItem.parent;
+                    parent.children.remove(syllItem);
+                    vm.computeGradePercentFromChildren(parent);
+                }else {
+                    vm.appState.activeCourse().syllabusItems.remove(syllItem);
+                }
+                vm.computeCourseAvg();
+            }
+        });
   }
   
   vm.computeCourseAvg = function(){
