@@ -327,7 +327,7 @@
 						</div>
 						<div class="tab-pane" id="tab_below_2">
                             <div class="panel-group" id="accordion" role="tablist">
-                                <!-- ko foreach: { data: coursePageState.info, as: 'info' } -->
+                                <!-- ko foreach: {if: appState.activeCourse() != null, data: appState.activeCourse().infos, as: 'info' } -->
                                 <!-- ko if: info.id == -1 -->
                                       <div class="panel panel-default drop-shadow" style="margin-bottom: 10px;">
                                         <div class="panel-heading" role="tab">

@@ -6,12 +6,13 @@ function Session(id, title, courses)
     this.courses = ko.observableArray(courses == null ? [] : courses);
 }
 
-function Course(id, title, grade, syllabusItems){
+function Course(id, title, grade, syllabusItems, infos){
     this.id = id;
     this.title = ko.observable(title);
     this.grade = ko.observable(grade);
     this.gradeGoal = ko.observable(80);
     this.syllabusItems = ko.observableArray(syllabusItems != null ? syllabusItems : []);
+    this.infos = ko.observableArray(infos == null ? [] : infos);
 }
 
 function SyllabusItem(id, title, state, isParent, weight, dueDate, numItems, children, parent){
@@ -44,26 +45,25 @@ function Info(id, title, name, email, phone, office)
     this.email = ko.observable(email);
     this.phone = ko.observable(phone);
     this.office = ko.observable(office);
-
 }
 
-var sessionsData = [
-    new Session(0, 'Fall 2015', 
-               [new Course(0, 'SEG3525', null,
-                          [new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0, null),
-                           new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3, null),
-                           new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0, null)]), 
-                new Course(1, 'SEG3505', null,
-                          [new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0, null),
-                           new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3, null),
-                           new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0, null)])]), 
-    new Session(1, 'Summer 2015', 
-               [new Course(0, 'CSI2101', null), 
-                new Course(1, 'ADM1500', null)])
-];
-
-var infoData = [
+var fakeInfosData = [
     new Info (-1, 'Description', '', '', '', '', ''),
     new Info(0, 'Teacher', 'John Smith', 'jsmith@yahoo.ca', '555-666-7777', 'SITE2065'),
     new Info(1, 'TA', 'Mary Jones', 'mjones@hotmail.com', '321-444-1234', '')
+];
+
+var fakeSyllabusItemsData = [
+    new SyllabusItem(1, 'Mid-Term', 'NotSubmitted', false, 30, null, 0, null),
+    new SyllabusItem(0, 'Labs', 'NotSubmitted', true, 30, null, 3, null),
+    new SyllabusItem(1, 'Final Exam', 'NotSubmitted', false, 40, null, 0, null)
+];
+
+var sessionsData = [
+    new Session(0, 'Fall 2015', 
+               [new Course(0, 'SEG3525', null, fakeSyllabusItemsData, fakeInfosData), 
+                new Course(1, 'SEG3505', null, fakeSyllabusItemsData, fakeInfosData)]), 
+    new Session(1, 'Summer 2015', 
+               [new Course(0, 'CSI2101', null), 
+                new Course(1, 'ADM1500', null)])
 ];

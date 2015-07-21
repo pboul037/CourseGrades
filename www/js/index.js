@@ -70,7 +70,6 @@ function createViewModel() {
         
         // info tab
         activeInfo: ko.observable(null),
-        info: ko.observableArray(infoData),
         showCreateNewInfo: ko.observable(true)
     }
   }
@@ -78,15 +77,6 @@ function createViewModel() {
   // initialize app settings
   vm.appSettings.notificationTimeUnitsDropdownOptions(vm.appCulture.strings()
               .getString('NOTIFICATION_TIME_UNITS_DROPDOWN_OPTIONS', vm.appCulture.lang()));
-  
-  // add state attributes to coursePageState's elements
-  vm.coursePageState.info().forEach(function(info){
-    info.showCreateNewCourse = ko.observable(true);
-  });
-    
-  vm.coursePageState.info().forEach(function(info){
-      info.creationMode = ko.observable(false);
-  });
     
   // define view model's functions
   vm.toggleSessionState = function (session){
@@ -193,6 +183,10 @@ function createViewModel() {
         
         course.syllabusItems().forEach(function(syllItem){
             syllItem.gradePercent.subscribe(vm.computeCourseAvg);
+        });
+        
+        course.infos().forEach(function(info){
+            info.creationMode = ko.observable(false);
         });
     });
   });
@@ -375,7 +369,7 @@ function createViewModel() {
       vm.coursePageState.activeInfo(info);
       
     if(incompleteNewSessionToRemove != null){
-        vm.coursePageState.info.remove(incompleteNewSessionToRemove);
+        vm.appState.activeCourse().infos.remove(incompleteNewSessionToRemove);
         vm.coursePageState.showCreateNewInfo(true);
     }
   }
@@ -472,11 +466,11 @@ function createViewModel() {
     var dfd = new jQuery.Deferred();
     $('.panel-collapse').slideUp('fast'); // collapse open info if any
     vm.coursePageState.showCreateNewInfo(false);
-    var s = vm.coursePageState.info()[vm.coursePageState.info().length -1];
+    var s = vm.appState.activeCourse().infos()[vm.appState.activeCourse().infos().length -1];
     var infoToAdd = new Info(s.id + 1, '', '', '', '', ''); // next available info id 
     infoToAdd.showCreateNewInfo = ko.observable(true);
     infoToAdd.creationMode = ko.observable(true);
-    vm.coursePageState.info.push(infoToAdd); 
+    vm.appState.activeCourse().infos.push(infoToAdd); 
     vm.coursePageState.activeInfo(infoToAdd);
     return dfd.resolve();
   }
@@ -524,8 +518,8 @@ function createViewModel() {
   }
 
   vm.cancelAddNewInfo = function(info){
-    vm.coursePageState.activeInfo(vm.coursePageState.info()[0]); // first session on the list active after cancel
-    vm.coursePageState.info.remove(info);
+    vm.coursePageState.activeInfo(vm.appState.activeCourse().infos()[0]); // first session on the list active after cancel
+    vm.appState.activeCourse().infos.remove(info);
     vm.coursePageState.showCreateNewInfo(true);
   }
   
