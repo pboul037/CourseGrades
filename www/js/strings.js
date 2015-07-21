@@ -1,4 +1,12 @@
 var strings = {
+    'NOTIFY_ME_AFTER_DUE_DATE': {
+        'en': "Notify me after due date when not graded",
+        'fr': "M'avertir après la date de remise si pas encore noté"
+    },
+    'NOTIFY_ME_BEFORE_DUE_DATE': {
+        'en': "Notify me before its due date",
+        'fr': "M'avertir avant sa date de remise"
+    },
     'DELETE_SYLLABUS_ITEM': {
         'en': "Delete Syllabus Item",
         'fr': "Supprimer l'élément"

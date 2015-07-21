@@ -462,6 +462,8 @@ vm.toggleInfoState = function (info){
     vm.appState.previousPage(constants.COURSE_PAGE);
     vm.appState.activePageTitle(vm.appCulture.strings().getString('EDIT_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
     vm.appState.activePage(constants.EDIT_SYLLABUS_ITEM);
+    $("#beforeDueDateSwitch").bootstrapSwitch();
+    $("#afterDueDateSwitch").bootstrapSwitch();
   }
   
   function computeGradePercentFromChildren(parent){

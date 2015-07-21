@@ -54,7 +54,6 @@
                                                 <span data-bind="visible: session.state() == 'READ',
                                                                   text: session.title()"></span>
                                                 <input type="text" class="custom-form-control form-control" 
-                                                       style="display:inline-block"
                                                        data-bind="visible: session.state() == 'EDIT',
                                                                   value: session.title,
                                                                   hasFocus: session.creationMode() || session.state() == 'EDIT',
@@ -394,17 +393,20 @@
                                               <ul class="list-group">
                                                 <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
                                                   <div class="row" style="margin-left:20px; margin-bottom:10px; margin-top:10px">
-                                                  <span data-bind="text: $root.appCulture.strings()
-                                                                   .getString('COURSE_WEBSITE', $root.appCulture.lang()) + ' : '"></span>
-                                                  <input type="text" class="custom-form-control form-control" 
-                                                         placeholder="Enter the course website..."
-                                                               data-bind="value: info.email,
-                                                                          hasFocus: info.creationMode(),
-                                                                          valueUpdate:'afterkeydown',
-                                                                          attr:{placeholder: $root.appCulture
-                                                                                .strings() .getString('ENTER_COURSE_WEBSITE',
-                                                                                    $root.appCulture.lang())}">
-                                                                        </div>
+                                                    <div class="col-sm-4">
+                                                      <span data-bind="text: $root.appCulture.strings()
+                                                                       .getString('COURSE_WEBSITE', $root.appCulture.lang()) + ' : '"></span>
+                                                    <div class="col-sm-8">
+                                                      <input type="text" class="custom-form-control form-control" 
+                                                             placeholder="Enter the course website..."
+                                                                   data-bind="value: info.email,
+                                                                              hasFocus: info.creationMode(),
+                                                                              valueUpdate:'afterkeydown',
+                                                                              attr:{placeholder: $root.appCulture
+                                                                                    .strings() .getString('ENTER_COURSE_WEBSITE',
+                                                                                        $root.appCulture.lang())}">
+                                                    </div>
+                                                  </div>
                                                 </li>
                                                 <li class="custom-list-group-item list-group-item">
                                                   <input type="text" class="custom-form-control form-control" 
@@ -773,7 +775,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" data-bind="fadeVisible: coursePageState.activeSyllabusItem().numItems() < 2">
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-8">
+                                    <label for="beforeDueDateSwitch" style="padding:0px">
+                                        <span class="pull-left" data-bind="text: $root.appCulture.strings()
+                                               .getString('NOTIFY_ME_BEFORE_DUE_DATE', $root.appCulture.lang())"></span>
+                                    </label>
+                                </div>
+                                <div class="col-xs-4">
+                                      <span class="pull-right">
+                                          <input id="beforeDueDateSwitch" class="bootstrap-switch" type="checkbox" checked>
+                                      </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-bind="fadeVisible: coursePageState.activeSyllabusItem().numItems() < 2">
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-8">
+                                    <label for="beforeDueDateSwitch" style="padding:0px">
+                                        <span class="pull-left" data-bind="text: $root.appCulture.strings()
+                                               .getString('NOTIFY_ME_AFTER_DUE_DATE', $root.appCulture.lang())"></span>
+                                    </label>
+                                </div>
+                                <div class="col-xs-4">
+                                      <span class="pull-right">
+                                          <input id="afterDueDateSwitch" class="bootstrap-switch" type="checkbox" checked>
+                                      </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-bind="visible: coursePageState.activeSyllabusItem().state() != 'CREATION'">
                             <div class="form-group col-xs-12" style="text-align:center">
                                 <button class="btn btn-danger" style="width: 100%; border-radius: 0px 0px 2px 2px"
                                         data-bind="click: $root.deleteSyllabusItem">
