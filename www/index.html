@@ -119,6 +119,7 @@
                                                            type="text" class="custom-form-control form-control"
                                                        data-bind="value: course.title, visible: course.creationMode(), 
                                                                   hasFocus: course.creationMode(),
+                                                                  event: {blur: $root.cancelAddNewCourse.bind(course)},
                                                                   attr: {placeholder: $root.appCulture.strings()
                                                                         .getString('ENTER_COURSE_TITLE_PLACEHOLDER',
                                                                             $root.appCulture.lang())},
@@ -494,56 +495,73 @@
                                              <ul class="list-group">
 
                                                 <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
-                                                  <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
-                                                  <span data-bind="text: $root.appCulture.strings()
+                                                  <div class="row"  style="margin: 5px 5px">
+                                                      <div class="col-xs-3">
+                                                        <span data-bind="text: $root.appCulture.strings()
                                                                    .getString('NAME', $root.appCulture.lang()) + ' : '"></span>
-                                                  <input type="text" class="custom-form-control form-control" 
-                                                         placeholder="Enter the person's name..."
+                                                      </div>
+                                                      <div class="col-xs-9">
+                                                        <input type="text" class="custom-form-control form-control" 
+                                                                placeholder="Enter the person's name..."
                                                                data-bind="value: info.name,
                                                                           hasFocus: info.creationMode(),
                                                                           valueUpdate:'afterkeydown',
                                                                           attr:{placeholder: $root.appCulture
                                                                           .strings() .getString('ENTER_PERSON_NAME', $root.appCulture.lang())}">
-                                                                          </div>
+                                                      </div>
+                                                  </div>
                                                 </li>
                                                 <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
-                                                  <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
-                                                  <span data-bind="text: $root.appCulture.strings() 
-                                                                   .getString('EMAIL', $root.appCulture.lang()) + ' : '"></span>
-                                                  <input type="text" class="custom-form-control form-control" 
-                                                         placeholder="Enter the person's email..."
-                                                               data-bind="value: info.email,
-                                                                          hasFocus: info.creationMode(),
-                                                                          valueUpdate:'afterkeydown',
-                                                                          attr:{placeholder: $root.appCulture
-                                                                          .strings() .getString('ENTER_PERSON_EMAIL', $root.appCulture.lang())}">
-                                                                          </div>
+                                                    <div class="row"  style="margin: 5px 5px">
+                                                      <div class="col-xs-3">
+                                                          <span data-bind="text: $root.appCulture.strings() 
+                                                                           .getString('EMAIL', $root.appCulture.lang()) + ' : '"></span>
+                                                      </div>
+                                                      <div class="col-xs-9">
+                                                          <input type="text" class="custom-form-control form-control" 
+                                                                 placeholder="Enter the person's email..."
+                                                                       data-bind="value: info.email,
+                                                                                  hasFocus: info.creationMode(),
+                                                                                  valueUpdate:'afterkeydown',
+                                                                                  attr:{placeholder: $root.appCulture
+                                                                                  .strings()
+                                                                                  .getString('ENTER_PERSON_EMAIL', $root.appCulture.lang())}">
+                                                      </div>
+                                                    </div>
                                                 </li>
                                                 <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
-                                                  <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
-                                                  <span data-bind="text: $root.appCulture.strings()
-                                                                   .getString('PHONE', $root.appCulture.lang()) + ' : '"></span>
-                                                  <input type="text" class="custom-form-control form-control" 
-                                                         placeholder="Enter the person's phone number..."
-                                                               data-bind="value: info.phone,
-                                                                          hasFocus: info.creationMode(),
-                                                                          valueUpdate:'afterkeydown',
-                                                                          attr:{placeholder: $root.appCulture.strings() 
-                                                                          .getString('ENTER_PERSON_PHONE', $root.appCulture.lang())}">
-                                                                          </div>
+                                                    <div class="row"  style="margin: 5px 5px">
+                                                      <div class="col-xs-3">
+                                                          <span data-bind="text: $root.appCulture.strings()
+                                                                           .getString('PHONE', $root.appCulture.lang()) + ' : '"></span>
+                                                        </div>
+                                                      <div class="col-xs-9">
+                                                          <input type="text" class="custom-form-control form-control" 
+                                                                 placeholder="Enter the person's phone number..."
+                                                                       data-bind="value: info.phone,
+                                                                                  hasFocus: info.creationMode(),
+                                                                                  valueUpdate:'afterkeydown',
+                                                                                  attr:{placeholder: $root.appCulture.strings() 
+                                                                                  .getString('ENTER_PERSON_PHONE', $root.appCulture.lang())}">
+                                                      </div>
+                                                    </div>
                                                 </li>
                                                 <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" >
-                                                  <div class="row"  style="margin-left:20px; margin-bottom:10px; margin-top:10px">
-                                                  <span data-bind="text: $root.appCulture.strings()
-                                                                   .getString('OFFICE', $root.appCulture.lang()) + ' : '"></span>
-                                                  <input type="text" class="custom-form-control form-control" 
+                                                    <div class="row"  style="margin: 5px 5px">
+                                                      <div class="col-xs-3">
+                                                          <span data-bind="text: $root.appCulture.strings()
+                                                                           .getString('OFFICE', $root.appCulture.lang()) + ' : '"></span>
+                                                      </div>
+                                                      <div class="col-xs-9">
+                                                        <input type="text" class="custom-form-control form-control" 
                                                          placeholder="Enter the person's office..."
                                                                data-bind="value: info.office,
                                                                           hasFocus: info.creationMode(),
                                                                           valueUpdate:'afterkeydown',
                                                                           attr:{placeholder: $root.appCulture
                                                                           .strings() .getString('ENTER_PERSON_OFFICE',$root.appCulture.lang())}">
-                                                                        </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="custom-list-group-item list-group-item" style="padding:0" style="cursor:pointer" 
                                                     data-bind="visible: info.showDeleteInfo()">

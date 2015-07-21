@@ -457,6 +457,8 @@ vm.toggleInfoState = function (info){
   
   vm.addNewSession = function(){
     var dfd = new jQuery.Deferred();
+    if(vm.appState.activeSession() != null)
+        vm.appState.activeSession().state('READ');
     $('.panel-collapse').slideUp('fast'); // collapse open session if any
     vm.sessionPageState.showCreateNewSession(false);
     var s = vm.dataModel.sessions()[vm.dataModel.sessions().length -1];
@@ -556,6 +558,8 @@ vm.toggleInfoState = function (info){
     var infoToAdd = new Info(s.id + 1, '', '', '', '', ''); // next available info id 
     infoToAdd.showCreateNewInfo = ko.observable(true);
     infoToAdd.creationMode = ko.observable(true);
+    infoToAdd.state = ko.observable('READ');
+    infoToAdd.showDeleteInfo = ko.observable(false);
     vm.appState.activeCourse().infos.push(infoToAdd); 
     vm.coursePageState.activeInfo(infoToAdd);
     return dfd.resolve();
