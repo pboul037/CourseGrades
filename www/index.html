@@ -58,7 +58,7 @@
                                                 <input type="text" class="custom-form-control form-control" 
                                                        data-bind="visible: session.state() == 'EDIT',
                                                                   value: session.title,
-                                                                  hasFocus: session.creationMode() || session.state() == 'EDIT',
+                                                                  hasFocus: session.creationMode(),
                                                                   valueUpdate:'afterkeydown',
                                                                   attr: {placeholder: $root.appCulture.strings()
                                                                             .getString('ENTER_SESSION_TITLE_PLACEHOLDER',
@@ -354,7 +354,7 @@
                                                                    style="display:inline-block"
                                                                    data-bind="visible: info.state() == 'EDIT',
                                                                               value: info.title,
-                                                                              hasFocus: info.creationMode() || info.state() == 'EDIT',
+                                                                              hasFocus: info.creationMode(),
                                                                               valueUpdate:'afterkeydown',
                                                                               attr: {placeholder: $root.appCulture.strings()
                                                                                         .getString('ENTER_A_TITLE',
@@ -439,7 +439,7 @@
                                                                    style="display:inline-block; color: #98978b"
                                                                    data-bind="visible: info.state() == 'EDIT',
                                                                               value: info.title,
-                                                                              hasFocus: info.creationMode() || info.state() == 'EDIT',
+                                                                              hasFocus: info.creationMode(),
                                                                               valueUpdate:'afterkeydown',
                                                                               attr: {placeholder: $root.appCulture.strings()
                                                                                         .getString('ENTER_A_TITLE',
