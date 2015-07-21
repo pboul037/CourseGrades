@@ -431,6 +431,11 @@ vm.toggleInfoState = function (info){
 
   //Note for time economym every variable kept as 'session' is in fact 'info'
   vm.infoOnClick = function(info, elem){
+    if(vm.coursePageState.activeInfo() != null){
+        vm.coursePageState.activeInfo().state('READ');
+        vm.coursePageState.activeInfo().showDeleteInfo(false);
+        vm.coursePageState.showCreateNewInfo(true);
+    } 
       
     var collapsiblePanel = $(elem.target).parents('.panel-heading').next('.panel-collapse');
     var currentId = $(collapsiblePanel).attr('id');
@@ -557,13 +562,18 @@ vm.toggleInfoState = function (info){
 
   vm.addNewInfo = function(){
     var dfd = new jQuery.Deferred();
+    
+      if(vm.coursePageState.activeInfo() != null){
+        vm.coursePageState.activeInfo().state('READ');
+      }
+    
     $('.panel-collapse').slideUp('fast'); // collapse open info if any
     vm.coursePageState.showCreateNewInfo(false);
     var s = vm.appState.activeCourse().infos()[vm.appState.activeCourse().infos().length -1];
     var infoToAdd = new Info(s.id + 1, '', '', '', '', ''); // next available info id 
     infoToAdd.showCreateNewInfo = ko.observable(true);
     infoToAdd.creationMode = ko.observable(true);
-    infoToAdd.state = ko.observable('READ');
+    infoToAdd.state = ko.observable('EDIT');
     infoToAdd.showDeleteInfo = ko.observable(false);
     vm.appState.activeCourse().infos.push(infoToAdd); 
     vm.coursePageState.activeInfo(infoToAdd);
@@ -603,6 +613,7 @@ vm.toggleInfoState = function (info){
       info.creationMode(false);
       vm.coursePageState.showCreateNewInfo(true);
       vm.coursePageState.activeInfo(info);
+      vm.coursePageState.activeInfo().state('READ');
       $('#info' + info.id).addClass('in');
   }
   
