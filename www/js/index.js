@@ -477,6 +477,9 @@ vm.toggleInfoState = function (info){
     vm.appState.previousPage(constants.COURSE_PAGE);
     vm.appState.activePageTitle(vm.appCulture.strings().getString('CREATE_SYLLABUS_ITEM_PAGE_TITLE', vm.appCulture.lang()));
     vm.appState.activePage(constants.EDIT_SYLLABUS_ITEM);
+      
+      $("#beforeDueDateSwitch").bootstrapSwitch();
+      $("#afterDueDateSwitch").bootstrapSwitch();
   }
   
   vm.editGrade = function(syllabusItem){
@@ -577,7 +580,7 @@ vm.toggleInfoState = function (info){
       
       vm.appState.previousPage(constants.SESSIONS_PAGE);
       vm.appState.previousPageTitle(constants.SESSIONS_PAGE);
-      vm.appState.activePageTitle(vm.appState.activeCourse().title());
+      vm.appState.activePageTitle(vm.appState.activeCourse().title());      
       vm.appState.activePage(constants.COURSE_PAGE);
   }
   
