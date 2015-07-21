@@ -92,6 +92,20 @@ function createViewModel() {
         session.showCreateNewCourse(true);
     }
   }
+  
+vm.toggleInfoState = function (info){
+    vm.coursePageState.activeInfo(info);
+    if (info.state() == 'READ'){
+        info.state('EDIT');
+        info.showDeleteInfo(true);
+        vm.coursePageState.showCreateNewInfo(false);
+        $('#info' + info.id).addClass('in');
+    } else { 
+        info.state('READ');
+        info.showDeleteInfo(false);
+        vm.coursePageState.showCreateNewInfo(true);
+    }
+  }
 
   vm.deleteSession = function(){
     var sessionToDelete = vm.appState.activeSession();
@@ -187,6 +201,8 @@ function createViewModel() {
         
         course.infos().forEach(function(info){
             info.creationMode = ko.observable(false);
+            info.state = ko.observable('READ');
+            info.showDeleteInfo = ko.observable(false);
         });
     });
   });

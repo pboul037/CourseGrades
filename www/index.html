@@ -337,13 +337,21 @@
                                                 <h4 class="panel-title" style="font-size:18px;">
                                                     <div class="row">
                                                         <div class="col-xs-7">
+                                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"
+                                                                    data-bind="click: $root.toggleInfoState.bind(info),
+                                                                        clickBubble: false"></span>
+                                                            <span data-bind="visible: info.state() == 'READ',
+                                                                              text: info.title()"></span>
                                                             <input type="text" class="custom-form-control form-control" 
-                                                                   placeholder="Enter a title..."
-                                                                   data-bind="value: info.title,
-                                                                              hasFocus: info.creationMode(),
+                                                                   style="display:inline-block"
+                                                                   data-bind="visible: info.state() == 'EDIT',
+                                                                              value: info.title,
+                                                                              hasFocus: info.creationMode() || info.state() == 'EDIT',
                                                                               valueUpdate:'afterkeydown',
-                                                                              attr:{placeholder: $root.appCulture.strings() 
-                                                                              .getString('ENTER_A_TITLE', $root.appCulture.lang())}">
+                                                                              attr: {placeholder: $root.appCulture.strings()
+                                                                                        .getString('ENTER_A_TITLE',
+                                                                                        $root.appCulture.lang())},
+                                                                              clickBubble:false">
                                                         </div>
                                                         <div class="col-xs-5">
                                                             <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
@@ -411,12 +419,21 @@
                                                 <h4 class="panel-title" style="font-size:18px;">
                                                     <div class="row">
                                                         <div class="col-xs-7">
-                                                            <input type="text" class="custom-form-control form-control" placeholder="Enter a title..."
-                                                                   data-bind="value: info.title,
-                                                                              hasFocus: info.creationMode(),
+                                                            <span class="glyphicon glyphicon-edit" style="color: #98978b" aria-hidden="true"
+                                                                    data-bind="click: $root.toggleInfoState.bind(info),
+                                                                        clickBubble: false"></span>
+                                                            <span style="color: #98978b" data-bind="visible: info.state() == 'READ',
+                                                                              text: info.title()"></span>
+                                                            <input type="text" class="custom-form-control form-control" 
+                                                                   style="display:inline-block; color: #98978b"
+                                                                   data-bind="visible: info.state() == 'EDIT',
+                                                                              value: info.title,
+                                                                              hasFocus: info.creationMode() || info.state() == 'EDIT',
                                                                               valueUpdate:'afterkeydown',
-                                                                              attr:{placeholder: $root.appCulture.strings()
-                                                                              .getString('ENTER_A_TITLE', $root.appCulture.lang())}">
+                                                                              attr: {placeholder: $root.appCulture.strings()
+                                                                                        .getString('ENTER_A_TITLE',
+                                                                                        $root.appCulture.lang())},
+                                                                              clickBubble:false">
                                                         </div>
                                                         <div class="col-xs-5">
                                                             <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
