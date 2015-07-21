@@ -390,7 +390,12 @@ vm.toggleInfoState = function (info){
   }
   
   vm.sessionOnClick = function(session, elem){
-      
+    if(vm.appState.activeSession() != null){
+        vm.appState.activeSession().state('READ');
+        vm.appState.activeSession().showDeleteSession(false);
+        vm.appState.activeSession().showCreateNewCourse(true);
+    }
+        
     var collapsiblePanel = $(elem.target).parents('.panel-heading').next('.panel-collapse');
     var currentId = $(collapsiblePanel).attr('id');
     $('.panel-collapse').not('#' + currentId).slideUp('fast');
