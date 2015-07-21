@@ -169,7 +169,7 @@ vm.toggleInfoState = function (info){
                 if( syllItem.parent != null ){
                     var parent = syllItem.parent;
                     parent.children.remove(syllItem);
-                    vm.computeGradePercentFromChildren(parent);
+                    computeGradePercentFromChildren(parent);
                 }else {
                     vm.appState.activeCourse().syllabusItems.remove(syllItem);
                 }
