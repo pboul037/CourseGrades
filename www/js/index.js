@@ -80,8 +80,11 @@ function createViewModel() {
     
   // define view model's functions
   vm.toggleSessionState = function (session){
-    if(vm.appState.activeSession() != null)
-        vm.appState.activeSession().state('READ');
+    if(vm.appState.activeSession() != null){
+        if(vm.appState.activeSession().id != session.id){
+            vm.appState.activeSession().state('READ');
+        }
+    }
     if (session.state() == 'READ'){
         session.state('EDIT');
         session.showDeleteSession(true);
@@ -96,8 +99,11 @@ function createViewModel() {
   }
   
 vm.toggleInfoState = function (info){
-    if(vm.coursePageState.activeInfo() != null)
-        vm.coursePageState.activeInfo().state('READ');
+    if(vm.coursePageState.activeInfo() != null){
+        if(vm.coursePageState.activeInfo().id != info.id){
+            vm.coursePageState.activeInfo().state('READ');
+        }
+    }
     vm.coursePageState.activeInfo(info);
     if (info.state() == 'READ'){
         info.state('EDIT');
