@@ -62,7 +62,9 @@
                                                                   valueUpdate:'afterkeydown',
                                                                   attr: {placeholder: $root.appCulture.strings()
                                                                             .getString('ENTER_SESSION_TITLE_PLACEHOLDER',
-                                                                            $root.appCulture.lang())}">
+                                                                            $root.appCulture.lang())},
+                                                                  click: function() {return true;},
+                                                                  clickBubble:false">
                                             </div>
                                             <div class="col-xs-5">
                                                 <span class="pull-right glyphicon glyphicon-plus-sign" aria-hidden="true" 
@@ -357,6 +359,7 @@
                                                                               attr: {placeholder: $root.appCulture.strings()
                                                                                         .getString('ENTER_A_TITLE',
                                                                                         $root.appCulture.lang())},
+                                                                              click: function() {return true;},
                                                                               clickBubble:false">
                                                         </div>
                                                         <div class="col-xs-5">
@@ -442,6 +445,7 @@
                                                                               attr: {placeholder: $root.appCulture.strings()
                                                                                         .getString('ENTER_A_TITLE',
                                                                                         $root.appCulture.lang())},
+                                                                              click: function() {return true;},
                                                                               clickBubble:false">
                                                         </div>
                                                         <div class="col-xs-5">

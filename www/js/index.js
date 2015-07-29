@@ -153,6 +153,7 @@ vm.toggleInfoState = function (info){
                 var infoToDelete = vm.coursePageState.activeInfo();
                 vm.coursePageState.activeInfo(null);
                 vm.appState.activeCourse().infos.remove(infoToDelete);  
+                vm.coursePageState.showCreateNewInfo(true);
             }
         });
   }
